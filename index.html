@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arizona Wildcats Basketball — Player Database</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cardinal: #CC0033;
+    --cardinal-dark: #990022;
+    --cardinal-light: #ff1a4d;
+    --navy: #003366;
+    --navy-dark: #001a33;
+    --navy-mid: #00244d;
+    --gold: #FFC72C;
+    --white: #ffffff;
+    --off-white: #f5f5f5;
+    --gray-light: #e8e8e8;
+    --gray-mid: #aaaaaa;
+    --gray-dark: #444444;
+    --text: #1a1a2e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--navy-dark);
+    color: var(--white);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 60%, var(--cardinal-dark) 100%);
+    border-bottom: 3px solid var(--cardinal);
+    padding: 0 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+
+  .header-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 0.75rem 0;
+  }
+
+  .logo-mark {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.8rem;
+    color: var(--cardinal);
+    line-height: 1;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 0 var(--navy-dark);
+  }
+
+  .logo-text {
+    flex: 1;
+  }
+
+  .logo-text h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 3px;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .logo-text p {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gray-mid);
+    margin-top: 2px;
+  }
+
+  nav {
+    display: flex;
+    gap: 0.25rem;
+  }
+
+  nav a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray-mid);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 3px;
+    transition: all 0.2s;
+  }
+
+  nav a:hover, nav a.active {
+    color: var(--white);
+    background: rgba(204,0,51,0.2);
+    color: var(--cardinal-light);
+  }
+
+  nav a.active {
+    color: var(--gold);
+    border-bottom: 2px solid var(--gold);
+    border-radius: 3px 3px 0 0;
+  }
+
+  /* HERO STRIP */
+  .hero-strip {
+    background: var(--cardinal);
+    padding: 1.2rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .stat-chip {
+    text-align: center;
+  }
+
+  .stat-chip .num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem;
+    line-height: 1;
+    color: var(--white);
+  }
+
+  .stat-chip .label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+  }
+
+  /* MAIN CONTENT */
+  main {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  /* FILTERS */
+  .filters-bar {
+    background: var(--navy-mid);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .filter-group label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray-mid);
+  }
+
+  .filter-group input, .filter-group select {
+    background: var(--navy-dark);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 4px;
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.9rem;
+    padding: 0.45rem 0.75rem;
+    outline: none;
+    transition: border-color 0.2s;
+    min-width: 140px;
+  }
+
+  .filter-group input:focus, .filter-group select:focus {
+    border-color: var(--cardinal);
+  }
+
+  .filter-group select option { background: var(--navy-dark); }
+
+  .search-group { flex: 1; min-width: 200px; }
+
+  .search-group input {
+    width: 100%;
+    padding: 0.5rem 0.75rem 0.5rem 2.2rem;
+    font-size: 0.95rem;
+    min-width: unset;
+  }
+
+  .search-wrap {
+    position: relative;
+  }
+
+  .search-wrap svg {
+    position: absolute;
+    left: 0.6rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gray-mid);
+    pointer-events: none;
+  }
+
+  .toggle-filters {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .toggle-btn {
+    background: var(--navy-dark);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 4px;
+    color: var(--gray-mid);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 0.4rem 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .toggle-btn:hover { border-color: var(--cardinal); color: var(--white); }
+
+  .toggle-btn.active {
+    background: var(--cardinal);
+    border-color: var(--cardinal);
+    color: var(--white);
+  }
+
+  .clear-btn {
+    background: transparent;
+    border: 1px solid var(--gray-dark);
+    border-radius: 4px;
+    color: var(--gray-mid);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 0.4rem 0.9rem;
+    cursor: pointer;
+    margin-left: auto;
+    transition: all 0.2s;
+  }
+
+  .clear-btn:hover { color: var(--cardinal); border-color: var(--cardinal); }
+
+  /* RESULTS BAR */
+  .results-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .results-count {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    color: var(--gray-mid);
+  }
+
+  .sort-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    color: var(--gray-mid);
+  }
+
+  .sort-row select {
+    background: var(--navy-mid);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 4px;
+    color: var(--white);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    padding: 0.3rem 0.5rem;
+    outline: none;
+  }
+
+  /* TABLE */
+  .table-wrap {
+    background: var(--navy-mid);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    overflow: hidden;
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 900px;
+  }
+
+  thead {
+    background: var(--navy-dark);
+    border-bottom: 2px solid var(--cardinal);
+  }
+
+  th {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray-mid);
+    padding: 0.85rem 1rem;
+    text-align: left;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.15s;
+  }
+
+  th:hover { color: var(--white); }
+  th.sorted { color: var(--gold); }
+
+  th .sort-arrow { margin-left: 4px; opacity: 0.5; }
+  th.sorted .sort-arrow { opacity: 1; }
+
+  tbody tr {
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    transition: background 0.15s;
+    cursor: pointer;
+  }
+
+  tbody tr:hover { background: rgba(204,0,51,0.08); }
+
+  tbody tr:last-child { border-bottom: none; }
+
+  td {
+    font-size: 0.88rem;
+    padding: 0.75rem 1rem;
+    white-space: nowrap;
+    color: var(--off-white);
+  }
+
+  td.name-cell {
+    font-weight: 600;
+    color: var(--white);
+  }
+
+  td.name-cell .badges {
+    display: inline-flex;
+    gap: 3px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  .badge {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 1px 4px;
+    border-radius: 2px;
+  }
+
+  .badge-nba { background: var(--cardinal); color: var(--white); }
+  .badge-aa { background: var(--gold); color: var(--navy-dark); }
+  .badge-intl { background: var(--navy); color: var(--white); border: 1px solid rgba(255,255,255,0.3); }
+  .badge-mcd { background: #e25822; color: var(--white); }
+
+  td.pos-cell {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+    color: var(--gray-mid);
+  }
+
+  td.year-cell {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.82rem;
+    letter-spacing: 1px;
+    color: var(--gray-mid);
+  }
+
+  /* SUCCESS DOTS */
+  .success-display {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .success-dots {
+    display: flex;
+    gap: 3px;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+  }
+
+  .dot.filled { background: var(--cardinal); }
+  .dot.filled-5 { background: var(--gold); }
+
+  .success-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    color: var(--gray-mid);
+    line-height: 1;
+  }
+
+  .null-val { color: rgba(255,255,255,0.25); font-style: italic; font-size: 0.8rem; }
+
+  /* PPG coloring */
+  .ppg-high { color: #66ff99; }
+  .ppg-mid  { color: #99ccff; }
+  .ppg-low  { color: var(--gray-mid); }
+
+  /* COACH ERA PILL */
+  .era-pill {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 2px 7px;
+    border-radius: 10px;
+    text-transform: uppercase;
+  }
+
+  .era-Snowden { background: rgba(100,100,100,0.3); color: #aaa; }
+  .era-Olson   { background: rgba(204,0,51,0.2); color: #ff6688; }
+  .era-Interim { background: rgba(150,100,0,0.3); color: #ccaa44; }
+  .era-Miller  { background: rgba(0,51,102,0.5); color: #88aaff; }
+  .era-Lloyd   { background: rgba(0,120,60,0.3); color: #44cc88; }
+
+  /* TAGS */
+  .tag-wrap { display: flex; gap: 3px; flex-wrap: wrap; }
+
+  .tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.5px;
+    padding: 1px 5px;
+    border-radius: 3px;
+    text-transform: uppercase;
+  }
+
+  .tag-xin  { background: rgba(0,200,100,0.2); color: #44ffaa; border: 1px solid rgba(0,200,100,0.3); }
+  .tag-xout { background: rgba(255,100,0,0.2); color: #ff9966; border: 1px solid rgba(255,100,0,0.3); }
+  .tag-1done { background: rgba(255,200,0,0.2); color: #ffdd55; border: 1px solid rgba(255,200,0,0.3); }
+
+  /* EMPTY STATE */
+  .empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--gray-mid);
+  }
+
+  .empty-state h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+    margin-bottom: 0.5rem;
+    color: var(--gray-dark);
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    margin-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,0.25);
+  }
+
+  @media (max-width: 768px) {
+    .header-inner { flex-wrap: wrap; gap: 1rem; }
+    nav { flex-wrap: wrap; }
+    .hero-strip { gap: 1.5rem; }
+    main { padding: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo-mark">A</div>
+    <div class="logo-text">
+      <h1>Arizona Wildcats Basketball</h1>
+      <p>Player History Database · 1981–Present</p>
+    </div>
+    <nav>
+      <a href="index.html" class="active">Players</a>
+      <a href="classes.html">Recruiting Classes</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero-strip" id="heroStrip">
+  <div class="stat-chip"><div class="num" id="totalPlayers">—</div><div class="label">Total Players</div></div>
+  <div class="stat-chip"><div class="num" id="nbaCount">—</div><div class="label">NBA Players</div></div>
+  <div class="stat-chip"><div class="num" id="aaCount">—</div><div class="label">All-Americans</div></div>
+  <div class="stat-chip"><div class="num" id="mcdCount">—</div><div class="label">McDonald's AAs</div></div>
+  <div class="stat-chip"><div class="num" id="avgSuccess">—</div><div class="label">Avg Success Score</div></div>
+</div>
+
+<main>
+  <div class="filters-bar">
+    <div class="filter-group search-group">
+      <label>Search</label>
+      <div class="search-wrap">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="text" id="searchInput" placeholder="Player name…">
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <label>Coach Era</label>
+      <select id="filterCoach">
+        <option value="">All Eras</option>
+        <option>Snowden</option>
+        <option>Olson</option>
+        <option>Interim</option>
+        <option>Miller</option>
+        <option>Lloyd</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>Position</label>
+      <select id="filterPos">
+        <option value="">All Positions</option>
+        <option>Point Guard</option>
+        <option>Combo Guard</option>
+        <option>Shooting Guard</option>
+        <option>Wing</option>
+        <option>Small Forward</option>
+        <option>Combo Forward</option>
+        <option>Power Forward</option>
+        <option>Forward/Center</option>
+        <option>Center</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>Min Success</label>
+      <select id="filterSuccess">
+        <option value="">Any</option>
+        <option value="5">5 — Elite</option>
+        <option value="4">4+ — Good</option>
+        <option value="3">3+ — Productive</option>
+        <option value="2">2+</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>Year Range</label>
+      <select id="filterEra">
+        <option value="">All Years</option>
+        <option value="1981-1994">1981–1994</option>
+        <option value="1995-2007">1995–2007</option>
+        <option value="2008-2019">2008–2019</option>
+        <option value="2020-2027">2020–Present</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>Flags</label>
+      <div class="toggle-filters">
+        <button class="toggle-btn" data-flag="nba">NBA</button>
+        <button class="toggle-btn" data-flag="allAmerican">All-American</button>
+        <button class="toggle-btn" data-flag="mcdAA">McD AA</button>
+        <button class="toggle-btn" data-flag="xferIn">Xfer In</button>
+        <button class="toggle-btn" data-flag="xferOut">Xfer Out</button>
+        <button class="toggle-btn" data-flag="oneDone">1&Done</button>
+        <button class="toggle-btn" data-flag="intl">Int'l</button>
+      </div>
+    </div>
+
+    <button class="clear-btn" id="clearBtn">Clear All</button>
+  </div>
+
+  <div class="results-bar">
+    <div class="results-count" id="resultsCount">Showing all players</div>
+    <div class="sort-row">
+      Sort by:
+      <select id="sortSelect">
+        <option value="year-asc">Year (oldest first)</option>
+        <option value="year-desc">Year (newest first)</option>
+        <option value="name-asc">Name A–Z</option>
+        <option value="success-desc">Success ↓</option>
+        <option value="ppg-desc">PPG ↓</option>
+        <option value="pts-desc">Career Pts ↓</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th data-col="name">Player <span class="sort-arrow">↕</span></th>
+          <th data-col="year">Class <span class="sort-arrow">↕</span></th>
+          <th data-col="coach">Era</th>
+          <th data-col="position">Position</th>
+          <th data-col="years">Yrs <span class="sort-arrow">↕</span></th>
+          <th data-col="success">Success <span class="sort-arrow">↕</span></th>
+          <th data-col="ppg">PPG <span class="sort-arrow">↕</span></th>
+          <th data-col="pts">Career Pts <span class="sort-arrow">↕</span></th>
+          <th data-col="g">G <span class="sort-arrow">↕</span></th>
+          <th>Tags</th>
+          <th data-col="grade247">247 Grade <span class="sort-arrow">↕</span></th>
+        </tr>
+      </thead>
+      <tbody id="playerTable"></tbody>
+    </table>
+  </div>
+</main>
+
+<footer>
+  Arizona Wildcats Basketball Database · Built with ❤️ for Wildcat fans · Data compiled by cwillard35
+</footer>
+
+<script>
+let allPlayers = [];
+let filtered = [];
+let activeFlags = new Set();
+let sortCol = 'year';
+let sortDir = 'asc';
+
+const successLabels = {1:'Limited',2:'Reserve',3:'Productive',4:'Starter/Impact',5:'Elite'};
+
+async function init() {
+  const res = await fetch('players.json');
+  allPlayers = await res.json();
+
+  // Stats for hero strip
+  const withSuccess = allPlayers.filter(p => p.success !== null);
+  document.getElementById('totalPlayers').textContent = allPlayers.length;
+  document.getElementById('nbaCount').textContent = allPlayers.filter(p => p.nba).length;
+  document.getElementById('aaCount').textContent = allPlayers.filter(p => p.allAmerican).length;
+  document.getElementById('mcdCount').textContent = allPlayers.filter(p => p.mcdAA).length;
+  const avg = withSuccess.reduce((a,p)=>a+p.success,0)/withSuccess.length;
+  document.getElementById('avgSuccess').textContent = avg.toFixed(2);
+
+  filtered = [...allPlayers];
+  render();
+  bindEvents();
+}
+
+function applyFilters() {
+  const search = document.getElementById('searchInput').value.toLowerCase().trim();
+  const coach = document.getElementById('filterCoach').value;
+  const pos = document.getElementById('filterPos').value;
+  const minSuccess = parseInt(document.getElementById('filterSuccess').value) || 0;
+  const era = document.getElementById('filterEra').value;
+
+  filtered = allPlayers.filter(p => {
+    if (search && !p.name.toLowerCase().includes(search)) return false;
+    if (coach && p.coach !== coach) return false;
+    if (pos && p.position !== pos) return false;
+    if (minSuccess && (p.success === null || p.success < minSuccess)) return false;
+    if (era) {
+      const [y1, y2] = era.split('-').map(Number);
+      if (p.year < y1 || p.year > y2) return false;
+    }
+    for (const flag of activeFlags) {
+      if (!p[flag]) return false;
+    }
+    return true;
+  });
+
+  applySort();
+  render();
+}
+
+function applySort() {
+  const col = sortCol;
+  const dir = sortDir === 'asc' ? 1 : -1;
+  filtered.sort((a, b) => {
+    let av = a[col], bv = b[col];
+    if (av === null || av === undefined) av = dir === 1 ? Infinity : -Infinity;
+    if (bv === null || bv === undefined) bv = dir === 1 ? Infinity : -Infinity;
+    if (typeof av === 'string') return av.localeCompare(bv) * dir;
+    return (av - bv) * dir;
+  });
+}
+
+function successDots(score) {
+  if (score === null) return '<span class="null-val">—</span>';
+  let html = '<div class="success-display"><div class="success-dots">';
+  for (let i = 1; i <= 5; i++) {
+    const cls = i <= score ? (score === 5 ? 'dot filled-5' : 'dot filled') : 'dot';
+    html += `<div class="${cls}" title="${successLabels[score]}"></div>`;
+  }
+  html += `</div><span class="success-num">${score}</span></div>`;
+  return html;
+}
+
+function ppgClass(ppg) {
+  if (ppg === null) return 'null-val';
+  if (ppg >= 14) return 'ppg-high';
+  if (ppg >= 8) return 'ppg-mid';
+  return 'ppg-low';
+}
+
+function render() {
+  const tbody = document.getElementById('playerTable');
+  const count = document.getElementById('resultsCount');
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="11"><div class="empty-state"><h3>No Players Found</h3><p>Try adjusting your filters</p></div></td></tr>`;
+    count.textContent = 'No players found';
+    return;
+  }
+
+  count.textContent = `Showing ${filtered.length} of ${allPlayers.length} players`;
+
+  tbody.innerHTML = filtered.map(p => {
+    const badges = [
+      p.allAmerican ? '<span class="badge badge-aa">AA</span>' : '',
+      p.nba ? '<span class="badge badge-nba">NBA</span>' : '',
+      p.mcdAA ? '<span class="badge badge-mcd">McD</span>' : '',
+      p.intl ? '<span class="badge badge-intl">Int\'l</span>' : '',
+    ].filter(Boolean).join('');
+
+    const tags = [
+      p.xferIn ? '<span class="tag tag-xin">Xfer In</span>' : '',
+      p.xferOut ? '<span class="tag tag-xout">Xfer Out</span>' : '',
+      p.oneDone ? '<span class="tag tag-1done">1&Done</span>' : '',
+    ].filter(Boolean).join('');
+
+    const ppgVal = p.ppg !== null ? `<span class="${ppgClass(p.ppg)}">${p.ppg.toFixed(1)}</span>` : '<span class="null-val">—</span>';
+    const ptsVal = p.pts !== null ? p.pts.toLocaleString() : '<span class="null-val">—</span>';
+    const gVal = p.g !== null ? p.g : '<span class="null-val">—</span>';
+    const yrsVal = p.years !== null ? p.years : '<span class="null-val">—</span>';
+    const gradeVal = p.grade247 !== null ? p.grade247.toFixed(0) : (p.on3 !== null ? `<span style="color:var(--gray-mid)">${p.on3.toFixed(0)}</span>` : '<span class="null-val">—</span>');
+
+    return `<tr>
+      <td class="name-cell">${p.name}${badges ? `<span class="badges">${badges}</span>` : ''}</td>
+      <td class="year-cell">${p.year}</td>
+      <td><span class="era-pill era-${p.coach}">${p.coach}</span></td>
+      <td class="pos-cell">${p.position || '—'}</td>
+      <td style="text-align:center">${yrsVal}</td>
+      <td>${successDots(p.success)}</td>
+      <td style="text-align:right">${ppgVal}</td>
+      <td style="text-align:right">${ptsVal}</td>
+      <td style="text-align:center">${gVal}</td>
+      <td><div class="tag-wrap">${tags || '<span class="null-val">—</span>'}</div></td>
+      <td style="text-align:center">${gradeVal}</td>
+    </tr>`;
+  }).join('');
+}
+
+function bindEvents() {
+  document.getElementById('searchInput').addEventListener('input', applyFilters);
+  document.getElementById('filterCoach').addEventListener('change', applyFilters);
+  document.getElementById('filterPos').addEventListener('change', applyFilters);
+  document.getElementById('filterSuccess').addEventListener('change', applyFilters);
+  document.getElementById('filterEra').addEventListener('change', applyFilters);
+
+  document.querySelectorAll('.toggle-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const flag = btn.dataset.flag;
+      if (activeFlags.has(flag)) {
+        activeFlags.delete(flag);
+        btn.classList.remove('active');
+      } else {
+        activeFlags.add(flag);
+        btn.classList.add('active');
+      }
+      applyFilters();
+    });
+  });
+
+  document.getElementById('clearBtn').addEventListener('click', () => {
+    document.getElementById('searchInput').value = '';
+    document.getElementById('filterCoach').value = '';
+    document.getElementById('filterPos').value = '';
+    document.getElementById('filterSuccess').value = '';
+    document.getElementById('filterEra').value = '';
+    activeFlags.clear();
+    document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+    applyFilters();
+  });
+
+  document.getElementById('sortSelect').addEventListener('change', e => {
+    const [col, dir] = e.target.value.split('-');
+    sortCol = col;
+    sortDir = dir;
+    applySort();
+    render();
+  });
+
+  document.querySelectorAll('th[data-col]').forEach(th => {
+    th.addEventListener('click', () => {
+      const col = th.dataset.col;
+      if (sortCol === col) {
+        sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+      } else {
+        sortCol = col;
+        sortDir = col === 'name' ? 'asc' : 'desc';
+      }
+      document.querySelectorAll('th').forEach(t => t.classList.remove('sorted'));
+      th.classList.add('sorted');
+      applySort();
+      render();
+    });
+  });
+}
+
+init();
+</script>
+</body>
+</html>
