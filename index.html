@@ -807,7 +807,7 @@ function renderCards() {
     return `<div class="player-card">
       <div class="era-stripe stripe-${p.coach}"></div>
       <div class="card-year">${p.year}</div>
-      <div class="card-name">${p.name}</div>
+      <div class="card-name"><a href="player.html?name=${encodeURIComponent(p.name)}" style="color:var(--white);text-decoration:none;">${p.name}</a></div>
       <div class="card-meta">${posShort} · <span class="era-pill era-${p.coach}" style="font-size:0.65rem;padding:1px 5px">${p.coach}</span></div>
       ${p.success !== null ? `<div class="card-success"><div class="success-dots">${dots}</div><span class="success-num">${p.success}</span></div>` : ''}
       <div class="card-stats-row">
@@ -865,7 +865,7 @@ function render() {
     const gradeVal = p.grade247 !== null ? p.grade247.toFixed(0) : (p.on3 !== null ? `<span style="color:var(--gray-mid)">${p.on3.toFixed(0)}</span>` : '<span class="null-val">—</span>');
 
     return `<tr>
-      <td class="name-cell">${p.name}${badges ? `<span class="badges">${badges}</span>` : ''}</td>
+      <td class="name-cell"><a href="player.html?name=${encodeURIComponent(p.name)}" style="color:var(--white);text-decoration:none;">${p.name}</a>${badges ? `<span class="badges">${badges}</span>` : ''}</td>
       <td class="year-cell">${p.year}</td>
       <td><span class="era-pill era-${p.coach}">${p.coach}</span></td>
       <td class="pos-cell">${p.position || '—'}</td>
