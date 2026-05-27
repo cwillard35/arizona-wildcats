@@ -49,69 +49,69 @@
   },
   "by_class": {
     "Freshman": {
-      "n": 158,
-      "g": 27.032,
-      "mp": 16.488,
-      "pts": 6.121,
-      "trb": 2.774,
-      "ast": 1.175,
-      "stl": 0.547,
-      "blk": 0.284,
-      "tov": 1.078,
-      "fg_pct": 0.447,
-      "fg3_pct": 0.332,
-      "ft_pct": 0.662,
+      "n": 166,
+      "g": 27.145,
+      "mp": 16.657,
+      "pts": 6.209,
+      "trb": 2.839,
+      "ast": 1.18,
+      "stl": 0.545,
+      "blk": 0.283,
+      "tov": 1.082,
+      "fg_pct": 0.448,
+      "fg3_pct": 0.333,
+      "ft_pct": 0.664,
       "per": null,
       "ws": null,
       "bpm": null
     },
     "Sophomore": {
-      "n": 121,
-      "g": 28.248,
-      "mp": 20.153,
-      "pts": 7.718,
-      "trb": 3.424,
-      "ast": 1.623,
-      "stl": 0.722,
-      "blk": 0.393,
-      "tov": 1.351,
-      "fg_pct": 0.468,
+      "n": 130,
+      "g": 28.492,
+      "mp": 20.569,
+      "pts": 7.965,
+      "trb": 3.565,
+      "ast": 1.609,
+      "stl": 0.713,
+      "blk": 0.406,
+      "tov": 1.38,
+      "fg_pct": 0.47,
       "fg3_pct": 0.316,
-      "ft_pct": 0.689,
+      "ft_pct": 0.693,
       "per": null,
       "ws": null,
       "bpm": null
     },
     "Junior": {
-      "n": 78,
-      "g": 31.103,
-      "mp": 22.66,
-      "pts": 9.248,
-      "trb": 3.937,
-      "ast": 1.889,
-      "stl": 0.792,
-      "blk": 0.497,
-      "tov": 1.524,
-      "fg_pct": 0.489,
-      "fg3_pct": 0.337,
-      "ft_pct": 0.683,
+      "n": 82,
+      "g": 31.232,
+      "mp": 22.845,
+      "pts": 9.387,
+      "trb": 4.018,
+      "ast": 1.888,
+      "stl": 0.801,
+      "blk": 0.5,
+      "tov": 1.547,
+      "fg_pct": 0.491,
+      "fg3_pct": 0.335,
+      "ft_pct": 0.685,
       "per": null,
       "ws": null,
       "bpm": null
     },
     "Senior": {
-      "n": 60,
-      "g": 29.167,
-      "mp": 22.783,
-      "pts": 9.429,
-      "trb": 3.805,
-      "ast": 1.972,
-      "stl": 0.789,
-      "blk": 0.444,
-      "tov": 1.577,
+      "n": 61,
+      "g": 29.23,
+      "mp": 22.968,
+      "pts": 9.64,
+      "trb": 3.86,
+      "ast": 2.006,
+      "stl": 0.792,
+      "blk": 0.441,
+      "tov": 1.603,
       "fg_pct": 0.454,
-      "fg3_pct": 0.335,
-      "ft_pct": 0.686,
+      "fg3_pct": 0.337,
+      "ft_pct": 0.689,
       "per": null,
       "ws": null,
       "bpm": null
@@ -1271,7 +1271,7 @@
     {
       "name": "Sean Elliott",
       "year": 1986,
-      "class": null,
+      "class": "Freshman",
       "totals": {
         "g": 32.0,
         "gs": 32.0,
@@ -1823,7 +1823,7 @@
     {
       "name": "Sean Elliott",
       "year": 1987,
-      "class": null,
+      "class": "Sophomore",
       "totals": {
         "g": 30.0,
         "gs": 30.0,
@@ -1869,7 +1869,7 @@
     {
       "name": "Tom Tolbert",
       "year": 1987,
-      "class": null,
+      "class": "Freshman",
       "totals": {
         "g": 30.0,
         "gs": 21.0,
@@ -2375,7 +2375,7 @@
     {
       "name": "Sean Elliott",
       "year": 1988,
-      "class": null,
+      "class": "Junior",
       "totals": {
         "g": 38.0,
         "gs": 38.0,
@@ -2421,7 +2421,7 @@
     {
       "name": "Tom Tolbert",
       "year": 1988,
-      "class": null,
+      "class": "Sophomore",
       "totals": {
         "g": 38.0,
         "gs": 38.0,
@@ -2881,7 +2881,7 @@
     {
       "name": "Sean Elliott",
       "year": 1989,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 33.0,
         "gs": 33.0,
@@ -3571,7 +3571,7 @@
     {
       "name": "Bison Dele",
       "year": 1990,
-      "class": null,
+      "class": "Sophomore",
       "totals": {
         "g": 32.0,
         "gs": 27.0,
@@ -3939,7 +3939,7 @@
     {
       "name": "Bison Dele",
       "year": 1991,
-      "class": null,
+      "class": "Junior",
       "totals": {
         "g": 35.0,
         "gs": null,
@@ -6239,7 +6239,7 @@
     {
       "name": "Ben Davis",
       "year": 1995,
-      "class": null,
+      "class": "Freshman",
       "totals": {
         "g": 21.0,
         "gs": 7.0,
@@ -6653,7 +6653,7 @@
     {
       "name": "Ben Davis",
       "year": 1996,
-      "class": null,
+      "class": "Sophomore",
       "totals": {
         "g": 33.0,
         "gs": 33.0,
@@ -7481,7 +7481,7 @@
     {
       "name": "Eugene Edgerson",
       "year": 1997,
-      "class": null,
+      "class": "Freshman",
       "totals": {
         "g": 33.0,
         "gs": 0.0,
@@ -7987,7 +7987,7 @@
     {
       "name": "Eugene Edgerson",
       "year": 1998,
-      "class": null,
+      "class": "Sophomore",
       "totals": {
         "g": 35.0,
         "gs": 3.0,
@@ -8539,7 +8539,7 @@
     {
       "name": "Eugene Edgerson",
       "year": 1999,
-      "class": null,
+      "class": "Junior",
       "totals": {
         "g": 28.0,
         "gs": 4.0,
@@ -15945,7 +15945,7 @@
     {
       "name": "Jesse Perry",
       "year": 2011,
-      "class": null,
+      "class": "Freshman",
       "totals": {
         "g": 38.0,
         "gs": 25.0,
@@ -16497,7 +16497,7 @@
     {
       "name": "Jesse Perry",
       "year": 2012,
-      "class": null,
+      "class": "Sophomore",
       "totals": {
         "g": 35.0,
         "gs": 35.0,
@@ -19349,7 +19349,7 @@
     {
       "name": "Kadeem Allen",
       "year": 2016,
-      "class": null,
+      "class": "Sophomore",
       "totals": {
         "g": 34.0,
         "gs": 28.0,
@@ -19625,7 +19625,7 @@
     {
       "name": "Chance Comanche",
       "year": 2016,
-      "class": null,
+      "class": "Freshman",
       "totals": {
         "g": 23.0,
         "gs": 0.0,
@@ -19947,7 +19947,7 @@
     {
       "name": "Kadeem Allen",
       "year": 2017,
-      "class": null,
+      "class": "Junior",
       "totals": {
         "g": 34.0,
         "gs": 33.0,
@@ -20085,7 +20085,7 @@
     {
       "name": "Chance Comanche",
       "year": 2017,
-      "class": null,
+      "class": "Sophomore",
       "totals": {
         "g": 37.0,
         "gs": 2.0,
@@ -21925,7 +21925,7 @@
     {
       "name": "Jemarl Baker Jr.",
       "year": 2020,
-      "class": null,
+      "class": "Freshman",
       "totals": {
         "g": 32.0,
         "gs": 0.0,
@@ -22569,7 +22569,7 @@
     {
       "name": "Terrell Brown Jr.",
       "year": 2021,
-      "class": null,
+      "class": "Freshman",
       "totals": {
         "g": 26.0,
         "gs": 10.0,
@@ -22615,7 +22615,7 @@
     {
       "name": "Jemarl Baker Jr.",
       "year": 2021,
-      "class": null,
+      "class": "Sophomore",
       "totals": {
         "g": 12.0,
         "gs": 12.0,
