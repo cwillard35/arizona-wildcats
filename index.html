@@ -466,6 +466,35 @@
   .tag-xout { background: rgba(255,100,0,0.2); color: #ff9966; border: 1px solid rgba(255,100,0,0.3); }
   .tag-1done { background: rgba(255,200,0,0.2); color: #ffdd55; border: 1px solid rgba(255,200,0,0.3); }
 
+  /* VIEW TOGGLE */
+  .view-toggle { display: flex; gap: 4px; background: var(--navy-dark); border: 1px solid rgba(255,255,255,0.1); border-radius: 5px; padding: 3px; }
+  .view-btn { background: transparent; border: none; border-radius: 3px; color: var(--gray-mid); cursor: pointer; padding: 5px 8px; display: flex; align-items: center; transition: all 0.2s; }
+  .view-btn:hover { color: var(--white); }
+  .view-btn.active { background: var(--cardinal); color: var(--white); }
+
+  /* CARD GRID */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+
+  .player-card { background: var(--navy-mid); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 1.25rem; position: relative; overflow: hidden; transition: transform 0.15s, border-color 0.15s; }
+  .player-card:hover { transform: translateY(-2px); border-color: rgba(204,0,51,0.4); }
+
+  .era-stripe { position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .stripe-Snowden { background: rgba(150,150,150,0.6); }
+  .stripe-Olson   { background: var(--cardinal); }
+  .stripe-Interim { background: #ccaa44; }
+  .stripe-Miller  { background: #88aaff; }
+  .stripe-Lloyd   { background: #44cc88; }
+
+  .card-name { font-size: 0.95rem; font-weight: 700; color: var(--white); margin-bottom: 0.2rem; margin-top: 0.25rem; line-height: 1.2; }
+  .card-meta { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; letter-spacing: 1px; color: var(--gray-mid); margin-bottom: 0.85rem; }
+  .card-success { display: flex; align-items: center; gap: 6px; margin-bottom: 0.75rem; }
+  .card-stats-row { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .cstat { display: flex; flex-direction: column; align-items: center; }
+  .cstat-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; line-height: 1; color: var(--white); }
+  .cstat-lbl { font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem; letter-spacing: 1px; text-transform: uppercase; color: var(--gray-mid); }
+  .card-badges { display: flex; gap: 3px; flex-wrap: wrap; margin-top: 0.75rem; }
+  .card-year { position: absolute; top: 0.75rem; right: 0.85rem; font-family: 'Bebas Neue', sans-serif; font-size: 0.9rem; letter-spacing: 1px; color: rgba(255,255,255,0.25); }
+
   /* EMPTY STATE */
   .empty-state {
     text-align: center;
@@ -614,10 +643,18 @@
         <option value="ppg-desc">PPG ↓</option>
         <option value="pts-desc">Career Pts ↓</option>
       </select>
+      <div class="view-toggle">
+        <button class="view-btn active" id="btnTable" title="Table view">
+          <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm2 0v3h12V2H2zm0 5v3h12V7H2zm0 5v2h12v-2H2z"/></svg>
+        </button>
+        <button class="view-btn" id="btnCards" title="Card view">
+          <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3z"/></svg>
+        </button>
+      </div>
     </div>
   </div>
 
-  <div class="table-wrap">
+  <div class="table-wrap" id="tableWrap">
     <table>
       <thead>
         <tr>
@@ -637,6 +674,8 @@
       <tbody id="playerTable"></tbody>
     </table>
   </div>
+
+  <div class="card-grid" id="cardGrid" style="display:none;"></div>
 </main>
 
 <footer>
@@ -649,6 +688,7 @@ let filtered = [];
 let activeFlags = new Set();
 let sortCol = 'year';
 let sortDir = 'asc';
+let viewMode = 'table';
 
 const successLabels = {1:'Limited',2:'Reserve',3:'Productive',4:'Starter/Impact',5:'Elite'};
 
@@ -726,17 +766,83 @@ function ppgClass(ppg) {
   return 'ppg-low';
 }
 
-function render() {
-  const tbody = document.getElementById('playerTable');
-  const count = document.getElementById('resultsCount');
+function renderCards() {
+  const grid = document.getElementById('cardGrid');
 
   if (filtered.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="11"><div class="empty-state"><h3>No Players Found</h3><p>Try adjusting your filters</p></div></td></tr>`;
-    count.textContent = 'No players found';
+    grid.innerHTML = `<div style="grid-column:1/-1"><div class="empty-state"><h3>No Players Found</h3><p>Try adjusting your filters</p></div></div>`;
     return;
   }
 
-  count.textContent = `Showing ${filtered.length} of ${allPlayers.length} players`;
+  grid.innerHTML = filtered.map(p => {
+    const badges = [
+      p.allAmerican ? '<span class="badge badge-aa">AA</span>' : '',
+      p.nba         ? '<span class="badge badge-nba">NBA</span>' : '',
+      p.mcdAA       ? '<span class="badge badge-mcd">McD</span>' : '',
+      p.intl        ? '<span class="badge badge-intl">Int\'l</span>' : '',
+      p.xferIn      ? '<span class="badge" style="background:rgba(0,200,100,0.2);color:#44ffaa;border:1px solid rgba(0,200,100,0.3)">Xfer In</span>' : '',
+      p.xferOut     ? '<span class="badge" style="background:rgba(255,100,0,0.2);color:#ff9966;border:1px solid rgba(255,100,0,0.3)">Xfer Out</span>' : '',
+    ].filter(Boolean).join('');
+
+    // Success dots
+    let dots = '';
+    if (p.success !== null) {
+      for (let i = 1; i <= 5; i++) {
+        const cls = i <= p.success ? (p.success === 5 ? 'dot filled-5' : 'dot filled') : 'dot';
+        dots += `<div class="${cls}"></div>`;
+      }
+    }
+
+    const ppg  = p.ppg  !== null ? p.ppg.toFixed(1)  : '—';
+    const yrs  = p.years !== null ? p.years : '—';
+    const pts  = p.pts  !== null ? p.pts   : '—';
+
+    // Short position label
+    const posShort = {
+      'Point Guard':'PG','Combo Guard':'CG','Shooting Guard':'SG',
+      'Wing':'WG','Small Forward':'SF','Combo Forward':'CF',
+      'Power Forward':'PF','Forward/Center':'FC','Center':'C'
+    }[p.position] || p.position || '—';
+
+    return `<div class="player-card">
+      <div class="era-stripe stripe-${p.coach}"></div>
+      <div class="card-year">${p.year}</div>
+      <div class="card-name">${p.name}</div>
+      <div class="card-meta">${posShort} · <span class="era-pill era-${p.coach}" style="font-size:0.65rem;padding:1px 5px">${p.coach}</span></div>
+      ${p.success !== null ? `<div class="card-success"><div class="success-dots">${dots}</div><span class="success-num">${p.success}</span></div>` : ''}
+      <div class="card-stats-row">
+        <div class="cstat"><span class="cstat-val">${ppg}</span><span class="cstat-lbl">PPG</span></div>
+        <div class="cstat"><span class="cstat-val">${yrs}</span><span class="cstat-lbl">Yrs</span></div>
+        <div class="cstat"><span class="cstat-val">${pts}</span><span class="cstat-lbl">Pts</span></div>
+      </div>
+      ${badges ? `<div class="card-badges">${badges}</div>` : ''}
+    </div>`;
+  }).join('');
+}
+
+function render() {
+  const tbody = document.getElementById('playerTable');
+  const grid  = document.getElementById('cardGrid');
+  const count = document.getElementById('resultsCount');
+
+  count.textContent = filtered.length === allPlayers.length
+    ? `Showing all ${allPlayers.length} players`
+    : `Showing ${filtered.length} of ${allPlayers.length} players`;
+
+  if (viewMode === 'cards') {
+    document.getElementById('tableWrap').style.display = 'none';
+    grid.style.display = 'grid';
+    renderCards();
+    return;
+  }
+
+  document.getElementById('tableWrap').style.display = '';
+  grid.style.display = 'none';
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="11"><div class="empty-state"><h3>No Players Found</h3><p>Try adjusting your filters</p></div></td></tr>`;
+    return;
+  }
 
   tbody.innerHTML = filtered.map(p => {
     const badges = [
@@ -775,6 +881,20 @@ function render() {
 }
 
 function bindEvents() {
+  document.getElementById('btnTable').addEventListener('click', () => {
+    viewMode = 'table';
+    document.getElementById('btnTable').classList.add('active');
+    document.getElementById('btnCards').classList.remove('active');
+    render();
+  });
+
+  document.getElementById('btnCards').addEventListener('click', () => {
+    viewMode = 'cards';
+    document.getElementById('btnCards').classList.add('active');
+    document.getElementById('btnTable').classList.remove('active');
+    render();
+  });
+
   document.getElementById('searchInput').addEventListener('input', applyFilters);
   document.getElementById('filterCoach').addEventListener('change', applyFilters);
   document.getElementById('filterPos').addEventListener('change', applyFilters);
