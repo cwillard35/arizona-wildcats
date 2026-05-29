@@ -806,7 +806,7 @@
 </footer>
 
 <script>
-const SUPABASE_URL = 'https://lzzkqbiawsatzzcisypf.db.co';
+const SUPABASE_URL = 'https://lzzkqbiawsatzzcisypf.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx6emtxYmlhd3NhdHp6Y2lzeXBmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwNTE2MjgsImV4cCI6MjA5NTYyNzYyOH0.le5NdvH-dvHax6s2poggH2fTTZd7P8yMyExl2T-6GJ4';
 const { createClient } = supabase;
 const db = createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -890,7 +890,7 @@ async function init() {
   }
 
   // Load players from Supabase
-  const { data, error } = await supabase
+  const { data, error } = await db
     .from('players')
     .select('*')
     .order('year', { ascending: true });
