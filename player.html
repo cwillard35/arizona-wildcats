@@ -8,6 +8,7 @@
 <title>Arizona Wildcats — Player</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
   :root {
@@ -282,6 +283,42 @@ function getBest(seasons, getter) {
   return vals.length ? Math.max(...vals) : null;
 }
 
+const SUPABASE_URL = 'https://lzzkqbiawsatzzcisypf.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx6emtxYmlhd3NhdHp6Y2lzeXBmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwNTE2MjgsImV4cCI6MjA5NTYyNzYyOH0.le5NdvH-dvHax6s2poggH2fTTZd7P8yMyExl2T-6GJ4';
+const { createClient } = supabase;
+const db = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+function fromDB(p) {
+  return {
+    id:          p.id,
+    name:        p.name,
+    year:        p.year,
+    coach:       p.coach,
+    position:    p.position,
+    ranking:     p.ranking,
+    espn:        p.espn,
+    on3:         p.on3,
+    grade247:    p.grade247,
+    intl:        p.intl,
+    mcdAA:       p.mcd_aa,
+    xferIn:      p.xfer_in,
+    years:       p.years,
+    oneDone:     p.one_done,
+    starter:     p.starter,
+    xferOut:     p.xfer_out,
+    allConf:     p.all_conf,
+    allAmerican: p.all_american,
+    g:           p.g,
+    gs:          p.gs,
+    pts:         p.pts,
+    ppg:         p.ppg,
+    success:     p.success,
+    madness:     p.madness,
+    earlyNBA:    p.early_nba,
+    nba:         p.nba,
+  };
+}
+
 async function init() {
   const params = new URLSearchParams(window.location.search);
   const name   = params.get('name');
@@ -293,23 +330,40 @@ async function init() {
 
   document.title = `Arizona Wildcats — ${name}`;
 
-  // Load both data files in parallel
-  const [playersRes, progressRes] = await Promise.all([
-    fetch('players.json'),
+  // Load player from Supabase + progression.json + votes in parallel
+  const [playerResult, progressRes, votesResult] = await Promise.all([
+    db.from('players').select('*').ilike('name', name).single(),
     fetch('progression.json'),
+    db.from('votes').select('score').eq('player_id',
+      // We'll get the ID after player loads — do a second fetch if needed
+      '00000000-0000-0000-0000-000000000000'
+    ),
   ]);
-  const allPlayers  = await playersRes.json();
-  const progression = await progressRes.json();
 
-  // Find player in players.json (case-insensitive)
-  const player = allPlayers.find(p => p.name.toLowerCase() === name.toLowerCase());
-
-  if (!player) {
+  // Load player
+  if (playerResult.error || !playerResult.data) {
     showNotFound(`"${name}" was not found in the database.`);
     return;
   }
+  const player = fromDB(playerResult.data);
 
-  // Find all seasons for this player in progression.json
+  // Load community votes for this player
+  const { data: votesData } = await db
+    .from('votes')
+    .select('score')
+    .eq('player_id', player.id);
+
+  let communityAvg = null;
+  let voteCount = 0;
+  if (votesData && votesData.length > 0) {
+    voteCount = votesData.length;
+    communityAvg = votesData.reduce((a, v) => a + v.score, 0) / voteCount;
+  }
+  player.communityAvg = communityAvg;
+  player.voteCount    = voteCount;
+
+  // Load progression data
+  const progression = await progressRes.json();
   const seasons = (progression.all_seasons || [])
     .filter(s => s.name.toLowerCase() === name.toLowerCase())
     .sort((a, b) => a.year - b.year);
@@ -372,6 +426,7 @@ function renderHero(player, seasons) {
             ${avgFgPct ? `<div class="hstat"><div class="hval">${avgFgPct}%</div><div class="hlbl">FG%</div></div>` : ''}
             ${player.ranking ? `<div class="hstat"><div class="hval">#${player.ranking}</div><div class="hlbl">Recruit Rank</div></div>` : ''}
             ${player.grade247 ? `<div class="hstat"><div class="hval">${player.grade247.toFixed(0)}</div><div class="hlbl">247 Grade</div></div>` : ''}
+            ${player.communityAvg !== null ? `<div class="hstat"><div class="hval" style="color:var(--gold)">${player.communityAvg.toFixed(1)}</div><div class="hlbl">Community Score (${player.voteCount})</div></div>` : ''}
           </div>
         </div>
       </div>
