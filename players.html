@@ -1480,7 +1480,7 @@ function renderCards() {
       <div class="era-stripe stripe-${p.coach}"></div>
       <div class="card-year">${p.year}</div>
       <div class="card-name">
-        <a href="player.html?name=${encodeURIComponent(p.name)}" style="color:var(--white);text-decoration:none;">${p.name}</a>
+        <a href="player.html?name=${encodeURIComponent(p.name)}" style="color:var(--white);text-decoration:none;">${p.name}</a>${jerseyBadge(p.name)}
         ${isAdmin ? `<button class="admin-edit-btn" onclick="openModal(allPlayers.find(x=>x.id==='${p.id}'))">edit</button>` : ''}
       </div>
       <div class="card-meta">${posShort} · <span class="era-pill era-${p.coach}" style="font-size:0.65rem;padding:1px 5px">${p.coach}</span></div>
@@ -1541,7 +1541,7 @@ function render() {
     const editBtn  = isAdmin ? `<button class="admin-edit-btn" onclick="openModal(allPlayers.find(x=>x.id==='${p.id}'))">edit</button>` : '';
 
     return `<tr>
-      <td class="name-cell"><a href="player.html?name=${encodeURIComponent(p.name)}" style="color:var(--white);text-decoration:none;">${p.name}</a>${editBtn}${badges ? `<span class="badges">${badges}</span>` : ''}</td>
+      <td class="name-cell"><a href="player.html?name=${encodeURIComponent(p.name)}" style="color:var(--white);text-decoration:none;">${p.name}</a>${jerseyBadge(p.name)}${editBtn}${badges ? `<span class="badges">${badges}</span>` : ''}</td>
       <td class="year-cell">${p.year}</td>
       <td><span class="era-pill era-${p.coach}">${p.coach}</span></td>
       <td class="pos-cell">${p.position || '—'}</td>

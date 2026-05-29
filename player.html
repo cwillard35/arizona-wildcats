@@ -288,6 +288,17 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const { createClient } = supabase;
 const db = createClient(SUPABASE_URL, SUPABASE_KEY);
 
+const RETIRED_NUMBERS = {
+  'mike bibby': 10, 'jason gardner': 22, 'steve kerr': 25,
+  'jason terry': 31, 'sean elliot': 32, 'miles simon': 34,
+};
+
+function jerseyBadge(name) {
+  const num = RETIRED_NUMBERS[name.toLowerCase()];
+  if (!num) return '';
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" viewBox="0 0 52 78" style="display:inline-block;vertical-align:middle;margin-left:5px;" title="Retired #${num}"><path d="M2,22 L0,10 L14,0 L20,10 Q26,17 32,10 L38,0 L52,10 L50,22 C48,25 46,28 46,32 L48,78 L4,78 C4,78 6,32 4,28 Z" fill="white" stroke="#CC0033" stroke-width="3"/><path d="M20,10 Q26,22 32,10" fill="none" stroke="#CC0033" stroke-width="2.5"/><text x="26" y="58" text-anchor="middle" font-family="Arial Narrow,sans-serif" font-weight="900" font-size="28" fill="#002244">${num}</text></svg>`;
+}
+
 function fromDB(p) {
   return {
     id:          p.id,
@@ -406,7 +417,7 @@ function renderHero(player, seasons) {
 
         <div class="player-info">
           <a href="players.html" class="back-link">← Back to Players</a>
-          <h2>${player.name}</h2>
+          <h2>${player.name}${jerseyBadge(player.name)}</h2>
           <div class="player-sub">
             <span>${player.position || '—'}</span>
             <span class="sep">·</span>
