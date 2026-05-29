@@ -806,9 +806,9 @@
 </footer>
 
 <script>
-const SUPABASE_URL = 'https://lzzkqbiawsatzzcisypf.supabase.co';
+const SUPABASE_URL = 'https://lzzkqbiawsatzzcisypf.db.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx6emtxYmlhd3NhdHp6Y2lzeXBmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwNTE2MjgsImV4cCI6MjA5NTYyNzYyOH0.le5NdvH-dvHax6s2poggH2fTTZd7P8yMyExl2T-6GJ4';
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 let allPlayers = [];
 let filtered = [];
@@ -882,7 +882,7 @@ function toDB(f) {
 
 async function init() {
   // Check admin session
-  const { data: { session } } = await supabase.auth.getSession();
+  const { data: { session } } = await db.auth.getSession();
   if (session) {
     isAdmin = true;
     document.getElementById('adminBar').style.display = 'block';
@@ -990,7 +990,7 @@ function bindAdminEvents() {
   });
 
   document.getElementById('logoutBtn').addEventListener('click', async () => {
-    await supabase.auth.signOut();
+    await db.auth.signOut();
     isAdmin = false;
     document.getElementById('adminBar').style.display = 'none';
     render();
@@ -1007,9 +1007,9 @@ function bindAdminEvents() {
 
     let result;
     if (id) {
-      result = await supabase.from('players').update(data).eq('id', id).select().single();
+      result = await db.from('players').update(data).eq('id', id).select().single();
     } else {
-      result = await supabase.from('players').insert(data).select().single();
+      result = await db.from('players').insert(data).select().single();
     }
 
     btn.textContent = 'Save Player';
@@ -1038,7 +1038,7 @@ function bindAdminEvents() {
     const name = document.getElementById('fName').value;
     if (!confirm(`Delete ${name}? This cannot be undone.`)) return;
 
-    const { error } = await supabase.from('players').delete().eq('id', id);
+    const { error } = await db.from('players').delete().eq('id', id);
     if (error) { alert('Error deleting: ' + error.message); return; }
 
     allPlayers = allPlayers.filter(p => p.id !== id);
