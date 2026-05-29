@@ -892,9 +892,8 @@
           <th data-col="coach">Era</th>
           <th data-col="position">Position</th>
           <th data-col="years">Yrs <span class="sort-arrow">↕</span></th>
-          <th data-col="success">Success <span class="sort-arrow">↕</span></th>
           <th>Your Rating</th>
-          <th>Community</th>
+          <th>Community Score</th>
           <th data-col="ppg">PPG <span class="sort-arrow">↕</span></th>
           <th data-col="pts">Career Pts <span class="sort-arrow">↕</span></th>
           <th data-col="g">G <span class="sort-arrow">↕</span></th>
@@ -1099,8 +1098,35 @@ function starWidget(playerId, userScore) {
 
 function communityScoreDisplay(playerId) {
   const cv = communityVotes[playerId];
-  if (!cv) return '<span class="null-val" style="font-size:0.75rem;">no votes</span>';
-  return `<span class="community-avg">${cv.avg.toFixed(1)}</span><span style="font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;color:var(--gray-mid);">(${cv.count})</span>`;
+  if (!cv) return '<span class="null-val">—</span>';
+
+  const avg = cv.avg;
+  const count = cv.count;
+
+  // Build 5 bubbles with fractional fill
+  let dots = '';
+  for (let i = 1; i <= 5; i++) {
+    const fill = Math.min(1, Math.max(0, avg - (i - 1)));
+    if (fill >= 1) {
+      // Fully filled
+      const cls = avg >= 4.5 ? 'dot filled-5' : 'dot filled';
+      dots += `<div class="${cls}"></div>`;
+    } else if (fill > 0) {
+      // Partially filled — use a gradient
+      const pct = Math.round(fill * 100);
+      const color = avg >= 4.5 ? 'var(--gold)' : 'var(--cardinal)';
+      dots += `<div class="dot" style="background:linear-gradient(90deg,${color} ${pct}%,rgba(255,255,255,0.15) ${pct}%)"></div>`;
+    } else {
+      // Empty
+      dots += `<div class="dot"></div>`;
+    }
+  }
+
+  return `<div class="success-display">
+    <div class="success-dots">${dots}</div>
+    <span class="success-num">${avg.toFixed(1)}</span>
+    <span style="font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;color:var(--gray-mid);">(${count})</span>
+  </div>`;
 }
 
 // Convert Supabase row to site format
@@ -1462,7 +1488,7 @@ function render() {
   grid.style.display = 'none';
 
   if (filtered.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="11"><div class="empty-state"><h3>No Players Found</h3><p>Try adjusting your filters</p></div></td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="10"><div class="empty-state"><h3>No Players Found</h3><p>Try adjusting your filters</p></div></td></tr>`;
     return;
   }
 
@@ -1493,7 +1519,6 @@ function render() {
       <td><span class="era-pill era-${p.coach}">${p.coach}</span></td>
       <td class="pos-cell">${p.position || '—'}</td>
       <td style="text-align:center">${yrsVal}</td>
-      <td>${successDots(p.success)}</td>
       <td>${currentUser ? starWidget(p.id, userVotes[p.id]) : '<span class="vote-prompt" onclick="showAuthModal(\'signin\')">Sign in to rate</span>'}</td>
       <td>${communityScoreDisplay(p.id)}</td>
       <td style="text-align:right">${ppgVal}</td>
