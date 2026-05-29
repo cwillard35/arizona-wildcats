@@ -6,6 +6,7 @@
 <title>Arizona Wildcats Basketball — Player Database</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
   :root {
     --cardinal: #CC0033;
@@ -495,6 +496,75 @@
   .card-badges { display: flex; gap: 3px; flex-wrap: wrap; margin-top: 0.75rem; }
   .card-year { position: absolute; top: 0.75rem; right: 0.85rem; font-family: 'Bebas Neue', sans-serif; font-size: 0.9rem; letter-spacing: 1px; color: rgba(255,255,255,0.25); }
 
+  /* ADMIN BAR */
+  .admin-bar {
+    background: rgba(255,199,44,0.1);
+    border-bottom: 2px solid var(--gold);
+    padding: 0.6rem 2rem;
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+  }
+  .admin-bar-inner { max-width: 1400px; margin: 0 auto; width: 100%; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+  .admin-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
+  .admin-btn {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase;
+    padding: 0.35rem 0.9rem; border-radius: 4px; cursor: pointer; transition: all 0.2s; border: none;
+  }
+  .admin-btn-primary { background: var(--cardinal); color: var(--white); }
+  .admin-btn-primary:hover { background: var(--cardinal-dark); }
+  .admin-btn-outline { background: transparent; border: 1px solid var(--gold); color: var(--gold); }
+  .admin-btn-outline:hover { background: var(--gold); color: var(--navy-dark); }
+  .admin-btn-ghost { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: var(--gray-mid); margin-left: auto; }
+  .admin-btn-ghost:hover { color: var(--white); border-color: rgba(255,255,255,0.4); }
+
+  /* MODAL */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.75);
+    z-index: 1000; display: flex; align-items: center; justify-content: center;
+    padding: 1rem;
+  }
+  .modal {
+    background: var(--navy-mid); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px; padding: 2rem; width: 100%; max-width: 640px;
+    max-height: 90vh; overflow-y: auto;
+  }
+  .modal h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 3px; margin-bottom: 1.5rem; }
+  .modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .modal-field { display: flex; flex-direction: column; gap: 0.3rem; }
+  .modal-field.full { grid-column: 1 / -1; }
+  .modal-field label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gray-mid); }
+  .modal-field input, .modal-field select {
+    background: var(--navy-dark); border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 4px; color: var(--white); font-family: 'Barlow', sans-serif;
+    font-size: 0.9rem; padding: 0.5rem 0.75rem; outline: none;
+  }
+  .modal-field input:focus, .modal-field select:focus { border-color: var(--cardinal); }
+  .modal-field select option { background: var(--navy-dark); }
+  .checkbox-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin-top: 0.25rem; }
+  .check-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; color: var(--off-white); cursor: pointer; }
+  .check-item input[type=checkbox] { accent-color: var(--cardinal); width: 14px; height: 14px; }
+  .modal-actions { display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.08); }
+  .modal-btn {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase; padding: 0.6rem 1.5rem;
+    border-radius: 4px; cursor: pointer; border: none; transition: all 0.2s;
+  }
+  .modal-btn-save { background: var(--cardinal); color: var(--white); }
+  .modal-btn-save:hover { background: var(--cardinal-dark); }
+  .modal-btn-cancel { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: var(--gray-mid); }
+  .modal-btn-cancel:hover { color: var(--white); }
+  .modal-btn-delete { background: transparent; border: 1px solid rgba(204,0,51,0.4); color: var(--cardinal-light); margin-right: auto; }
+  .modal-btn-delete:hover { background: rgba(204,0,51,0.2); }
+
+  .admin-edit-btn {
+    background: rgba(255,199,44,0.15); border: 1px solid rgba(255,199,44,0.3);
+    border-radius: 3px; color: var(--gold); font-size: 0.65rem;
+    font-family: 'Barlow Condensed', sans-serif; letter-spacing: 1px;
+    text-transform: uppercase; padding: 1px 5px; cursor: pointer;
+    margin-left: 6px; transition: all 0.2s; vertical-align: middle;
+  }
+  .admin-edit-btn:hover { background: rgba(255,199,44,0.3); }
+
   /* EMPTY STATE */
   .empty-state {
     text-align: center;
@@ -553,6 +623,59 @@
   <div class="stat-chip"><div class="num" id="aaCount">—</div><div class="label">All-Americans</div></div>
   <div class="stat-chip"><div class="num" id="mcdCount">—</div><div class="label">McDonald's AAs</div></div>
   <div class="stat-chip"><div class="num" id="avgSuccess">—</div><div class="label">Avg Success Score</div></div>
+</div>
+
+<div id="adminBar" class="admin-bar" style="display:none;">
+  <div class="admin-bar-inner">
+    <span class="admin-label">⚡ Admin Mode</span>
+    <button class="admin-btn admin-btn-primary" id="addPlayerBtn">+ Add Player</button>
+    <button class="admin-btn admin-btn-ghost" id="logoutBtn">Sign Out</button>
+  </div>
+</div>
+
+<!-- Player Edit/Add Modal -->
+<div class="modal-overlay" id="playerModal" style="display:none;">
+  <div class="modal">
+    <h3 id="modalTitle">Add Player</h3>
+    <input type="hidden" id="modalPlayerId">
+    <div class="modal-grid">
+      <div class="modal-field full"><label>Name</label><input type="text" id="fName"></div>
+      <div class="modal-field"><label>Class Year (recruited)</label><input type="number" id="fYear" placeholder="e.g. 2024"></div>
+      <div class="modal-field"><label>Coach Era</label>
+        <select id="fCoach"><option value="">—</option><option>Snowden</option><option>Olson</option><option>Interim</option><option>Miller</option><option>Lloyd</option></select>
+      </div>
+      <div class="modal-field"><label>Position</label>
+        <select id="fPosition"><option value="">—</option><option>Point Guard</option><option>Combo Guard</option><option>Shooting Guard</option><option>Wing</option><option>Small Forward</option><option>Combo Forward</option><option>Power Forward</option><option>Forward/Center</option><option>Center</option></select>
+      </div>
+      <div class="modal-field"><label>Years at Arizona</label><input type="number" id="fYears" min="1" max="6"></div>
+      <div class="modal-field"><label>Success Score (1–5)</label><input type="number" id="fSuccess" min="1" max="5"></div>
+      <div class="modal-field"><label>Career PPG</label><input type="number" id="fPpg" step="0.1"></div>
+      <div class="modal-field"><label>Career Points</label><input type="number" id="fPts"></div>
+      <div class="modal-field"><label>Career Games</label><input type="number" id="fG"></div>
+      <div class="modal-field"><label>247 Grade</label><input type="number" id="fGrade247" step="0.1"></div>
+      <div class="modal-field"><label>Recruiting Rank</label><input type="number" id="fRanking"></div>
+      <div class="modal-field full"><label>Flags</label>
+        <div class="checkbox-grid">
+          <label class="check-item"><input type="checkbox" id="fNba"> NBA</label>
+          <label class="check-item"><input type="checkbox" id="fEarlyNba"> Early NBA</label>
+          <label class="check-item"><input type="checkbox" id="fAllAmerican"> All-American</label>
+          <label class="check-item"><input type="checkbox" id="fMcdAa"> McDonald's AA</label>
+          <label class="check-item"><input type="checkbox" id="fXferIn"> Transfer In</label>
+          <label class="check-item"><input type="checkbox" id="fXferOut"> Transfer Out</label>
+          <label class="check-item"><input type="checkbox" id="fOneDone"> 1 & Done</label>
+          <label class="check-item"><input type="checkbox" id="fStarter"> Starter</label>
+          <label class="check-item"><input type="checkbox" id="fIntl"> International</label>
+          <label class="check-item"><input type="checkbox" id="fAllConf"> All-Conference</label>
+          <label class="check-item"><input type="checkbox" id="fMadness"> March Madness</label>
+        </div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-btn modal-btn-delete" id="deletePlayerBtn" style="display:none;">Delete Player</button>
+      <button class="modal-btn modal-btn-cancel" id="modalCancelBtn">Cancel</button>
+      <button class="modal-btn modal-btn-save" id="modalSaveBtn">Save Player</button>
+    </div>
+  </div>
 </div>
 
 <main>
@@ -683,271 +806,244 @@
 </footer>
 
 <script>
+const SUPABASE_URL = 'https://lzzkqbiawsatzzcisypf.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx6emtxYmlhd3NhdHp6Y2lzeXBmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwNTE2MjgsImV4cCI6MjA5NTYyNzYyOH0.le5NdvH-dvHax6s2poggH2fTTZd7P8yMyExl2T-6GJ4';
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
 let allPlayers = [];
 let filtered = [];
 let activeFlags = new Set();
 let sortCol = 'year';
 let sortDir = 'asc';
 let viewMode = 'table';
+let isAdmin = false;
 
 const successLabels = {1:'Limited',2:'Reserve',3:'Productive',4:'Starter/Impact',5:'Elite'};
 
-async function init() {
-  const res = await fetch('players.json');
-  allPlayers = await res.json();
+// Convert Supabase row to site format
+function fromDB(p) {
+  return {
+    id:          p.id,
+    name:        p.name,
+    year:        p.year,
+    coach:       p.coach,
+    position:    p.position,
+    ranking:     p.ranking,
+    espn:        p.espn,
+    on3:         p.on3,
+    grade247:    p.grade247,
+    intl:        p.intl,
+    mcdAA:       p.mcd_aa,
+    xferIn:      p.xfer_in,
+    years:       p.years,
+    oneDone:     p.one_done,
+    starter:     p.starter,
+    xferOut:     p.xfer_out,
+    allConf:     p.all_conf,
+    allAmerican: p.all_american,
+    g:           p.g,
+    gs:          p.gs,
+    pts:         p.pts,
+    ppg:         p.ppg,
+    success:     p.success,
+    madness:     p.madness,
+    earlyNBA:    p.early_nba,
+    nba:         p.nba,
+  };
+}
 
-  // Stats for hero strip
+// Convert site format to Supabase row
+function toDB(f) {
+  return {
+    name:        f.name,
+    year:        f.year ? parseInt(f.year) : null,
+    coach:       f.coach || null,
+    position:    f.position || null,
+    ranking:     f.ranking ? parseInt(f.ranking) : null,
+    grade247:    f.grade247 ? parseFloat(f.grade247) : null,
+    years:       f.years ? parseInt(f.years) : null,
+    success:     f.success ? parseInt(f.success) : null,
+    ppg:         f.ppg ? parseFloat(f.ppg) : null,
+    pts:         f.pts ? parseInt(f.pts) : null,
+    g:           f.g ? parseInt(f.g) : null,
+    nba:         !!f.nba,
+    early_nba:   !!f.earlyNBA,
+    all_american:!!f.allAmerican,
+    mcd_aa:      !!f.mcdAA,
+    xfer_in:     !!f.xferIn,
+    xfer_out:    !!f.xferOut,
+    one_done:    !!f.oneDone,
+    starter:     !!f.starter,
+    intl:        !!f.intl,
+    all_conf:    !!f.allConf,
+    madness:     !!f.madness,
+  };
+}
+
+async function init() {
+  // Check admin session
+  const { data: { session } } = await supabase.auth.getSession();
+  if (session) {
+    isAdmin = true;
+    document.getElementById('adminBar').style.display = 'block';
+  }
+
+  // Load players from Supabase
+  const { data, error } = await supabase
+    .from('players')
+    .select('*')
+    .order('year', { ascending: true });
+
+  if (error) {
+    console.error('Error loading players:', error);
+    return;
+  }
+
+  allPlayers = data.map(fromDB);
+
+  // Hero stats
   const withSuccess = allPlayers.filter(p => p.success !== null);
   document.getElementById('totalPlayers').textContent = allPlayers.length;
   document.getElementById('nbaCount').textContent = allPlayers.filter(p => p.nba).length;
   document.getElementById('aaCount').textContent = allPlayers.filter(p => p.allAmerican).length;
   document.getElementById('mcdCount').textContent = allPlayers.filter(p => p.mcdAA).length;
-  const avg = withSuccess.reduce((a,p)=>a+p.success,0)/withSuccess.length;
+  const avg = withSuccess.reduce((a,p) => a + p.success, 0) / withSuccess.length;
   document.getElementById('avgSuccess').textContent = avg.toFixed(2);
 
   filtered = [...allPlayers];
   render();
   bindEvents();
+  bindAdminEvents();
 }
 
-function applyFilters() {
-  const search = document.getElementById('searchInput').value.toLowerCase().trim();
-  const coach = document.getElementById('filterCoach').value;
-  const pos = document.getElementById('filterPos').value;
-  const minSuccess = parseInt(document.getElementById('filterSuccess').value) || 0;
-  const era = document.getElementById('filterEra').value;
+// ── ADMIN MODAL ────────────────────────────────────────────────────────
+function openModal(player) {
+  const modal = document.getElementById('playerModal');
+  const isEdit = !!player;
+  document.getElementById('modalTitle').textContent = isEdit ? 'Edit Player' : 'Add Player';
+  document.getElementById('deletePlayerBtn').style.display = isEdit ? 'block' : 'none';
+  document.getElementById('modalPlayerId').value = isEdit ? player.id : '';
 
-  filtered = allPlayers.filter(p => {
-    if (search && !p.name.toLowerCase().includes(search)) return false;
-    if (coach && p.coach !== coach) return false;
-    if (pos && p.position !== pos) return false;
-    if (minSuccess && (p.success === null || p.success < minSuccess)) return false;
-    if (era) {
-      const [y1, y2] = era.split('-').map(Number);
-      if (p.year < y1 || p.year > y2) return false;
-    }
-    for (const flag of activeFlags) {
-      if (!p[flag]) return false;
-    }
-    return true;
+  // Populate fields
+  document.getElementById('fName').value        = player?.name        || '';
+  document.getElementById('fYear').value        = player?.year        || '';
+  document.getElementById('fCoach').value       = player?.coach       || '';
+  document.getElementById('fPosition').value    = player?.position    || '';
+  document.getElementById('fYears').value       = player?.years       || '';
+  document.getElementById('fSuccess').value     = player?.success     || '';
+  document.getElementById('fPpg').value         = player?.ppg         || '';
+  document.getElementById('fPts').value         = player?.pts         || '';
+  document.getElementById('fG').value           = player?.g           || '';
+  document.getElementById('fGrade247').value    = player?.grade247    || '';
+  document.getElementById('fRanking').value     = player?.ranking     || '';
+  document.getElementById('fNba').checked       = !!player?.nba;
+  document.getElementById('fEarlyNba').checked  = !!player?.earlyNBA;
+  document.getElementById('fAllAmerican').checked = !!player?.allAmerican;
+  document.getElementById('fMcdAa').checked     = !!player?.mcdAA;
+  document.getElementById('fXferIn').checked    = !!player?.xferIn;
+  document.getElementById('fXferOut').checked   = !!player?.xferOut;
+  document.getElementById('fOneDone').checked   = !!player?.oneDone;
+  document.getElementById('fStarter').checked   = !!player?.starter;
+  document.getElementById('fIntl').checked      = !!player?.intl;
+  document.getElementById('fAllConf').checked   = !!player?.allConf;
+  document.getElementById('fMadness').checked   = !!player?.madness;
+
+  modal.style.display = 'flex';
+}
+
+function closeModal() {
+  document.getElementById('playerModal').style.display = 'none';
+}
+
+function getFormData() {
+  return toDB({
+    name:        document.getElementById('fName').value.trim(),
+    year:        document.getElementById('fYear').value,
+    coach:       document.getElementById('fCoach').value,
+    position:    document.getElementById('fPosition').value,
+    years:       document.getElementById('fYears').value,
+    success:     document.getElementById('fSuccess').value,
+    ppg:         document.getElementById('fPpg').value,
+    pts:         document.getElementById('fPts').value,
+    g:           document.getElementById('fG').value,
+    grade247:    document.getElementById('fGrade247').value,
+    ranking:     document.getElementById('fRanking').value,
+    nba:         document.getElementById('fNba').checked,
+    earlyNBA:    document.getElementById('fEarlyNba').checked,
+    allAmerican: document.getElementById('fAllAmerican').checked,
+    mcdAA:       document.getElementById('fMcdAa').checked,
+    xferIn:      document.getElementById('fXferIn').checked,
+    xferOut:     document.getElementById('fXferOut').checked,
+    oneDone:     document.getElementById('fOneDone').checked,
+    starter:     document.getElementById('fStarter').checked,
+    intl:        document.getElementById('fIntl').checked,
+    allConf:     document.getElementById('fAllConf').checked,
+    madness:     document.getElementById('fMadness').checked,
+  });
+}
+
+function bindAdminEvents() {
+  document.getElementById('addPlayerBtn').addEventListener('click', () => openModal(null));
+  document.getElementById('modalCancelBtn').addEventListener('click', closeModal);
+  document.getElementById('playerModal').addEventListener('click', e => {
+    if (e.target === document.getElementById('playerModal')) closeModal();
   });
 
-  applySort();
-  render();
-}
-
-function applySort() {
-  const col = sortCol;
-  const dir = sortDir === 'asc' ? 1 : -1;
-  filtered.sort((a, b) => {
-    let av = a[col], bv = b[col];
-    if (av === null || av === undefined) av = dir === 1 ? Infinity : -Infinity;
-    if (bv === null || bv === undefined) bv = dir === 1 ? Infinity : -Infinity;
-    if (typeof av === 'string') return av.localeCompare(bv) * dir;
-    return (av - bv) * dir;
-  });
-}
-
-function successDots(score) {
-  if (score === null) return '<span class="null-val">—</span>';
-  let html = '<div class="success-display"><div class="success-dots">';
-  for (let i = 1; i <= 5; i++) {
-    const cls = i <= score ? (score === 5 ? 'dot filled-5' : 'dot filled') : 'dot';
-    html += `<div class="${cls}" title="${successLabels[score]}"></div>`;
-  }
-  html += `</div><span class="success-num">${score}</span></div>`;
-  return html;
-}
-
-function ppgClass(ppg) {
-  if (ppg === null) return 'null-val';
-  if (ppg >= 14) return 'ppg-high';
-  if (ppg >= 8) return 'ppg-mid';
-  return 'ppg-low';
-}
-
-function renderCards() {
-  const grid = document.getElementById('cardGrid');
-
-  if (filtered.length === 0) {
-    grid.innerHTML = `<div style="grid-column:1/-1"><div class="empty-state"><h3>No Players Found</h3><p>Try adjusting your filters</p></div></div>`;
-    return;
-  }
-
-  grid.innerHTML = filtered.map(p => {
-    const badges = [
-      p.allAmerican ? '<span class="badge badge-aa">AA</span>' : '',
-      p.nba         ? '<span class="badge badge-nba">NBA</span>' : '',
-      p.mcdAA       ? '<span class="badge badge-mcd">McD</span>' : '',
-      p.intl        ? '<span class="badge badge-intl">Int\'l</span>' : '',
-      p.xferIn      ? '<span class="badge" style="background:rgba(0,200,100,0.2);color:#44ffaa;border:1px solid rgba(0,200,100,0.3)">Xfer In</span>' : '',
-      p.xferOut     ? '<span class="badge" style="background:rgba(255,100,0,0.2);color:#ff9966;border:1px solid rgba(255,100,0,0.3)">Xfer Out</span>' : '',
-    ].filter(Boolean).join('');
-
-    // Success dots
-    let dots = '';
-    if (p.success !== null) {
-      for (let i = 1; i <= 5; i++) {
-        const cls = i <= p.success ? (p.success === 5 ? 'dot filled-5' : 'dot filled') : 'dot';
-        dots += `<div class="${cls}"></div>`;
-      }
-    }
-
-    const ppg  = p.ppg  !== null ? p.ppg.toFixed(1)  : '—';
-    const yrs  = p.years !== null ? p.years : '—';
-    const pts  = p.pts  !== null ? p.pts   : '—';
-
-    // Short position label
-    const posShort = {
-      'Point Guard':'PG','Combo Guard':'CG','Shooting Guard':'SG',
-      'Wing':'WG','Small Forward':'SF','Combo Forward':'CF',
-      'Power Forward':'PF','Forward/Center':'FC','Center':'C'
-    }[p.position] || p.position || '—';
-
-    return `<div class="player-card">
-      <div class="era-stripe stripe-${p.coach}"></div>
-      <div class="card-year">${p.year}</div>
-      <div class="card-name"><a href="player.html?name=${encodeURIComponent(p.name)}" style="color:var(--white);text-decoration:none;">${p.name}</a></div>
-      <div class="card-meta">${posShort} · <span class="era-pill era-${p.coach}" style="font-size:0.65rem;padding:1px 5px">${p.coach}</span></div>
-      ${p.success !== null ? `<div class="card-success"><div class="success-dots">${dots}</div><span class="success-num">${p.success}</span></div>` : ''}
-      <div class="card-stats-row">
-        <div class="cstat"><span class="cstat-val">${ppg}</span><span class="cstat-lbl">PPG</span></div>
-        <div class="cstat"><span class="cstat-val">${yrs}</span><span class="cstat-lbl">Yrs</span></div>
-        <div class="cstat"><span class="cstat-val">${pts}</span><span class="cstat-lbl">Pts</span></div>
-      </div>
-      ${badges ? `<div class="card-badges">${badges}</div>` : ''}
-    </div>`;
-  }).join('');
-}
-
-function render() {
-  const tbody = document.getElementById('playerTable');
-  const grid  = document.getElementById('cardGrid');
-  const count = document.getElementById('resultsCount');
-
-  count.textContent = filtered.length === allPlayers.length
-    ? `Showing all ${allPlayers.length} players`
-    : `Showing ${filtered.length} of ${allPlayers.length} players`;
-
-  if (viewMode === 'cards') {
-    document.getElementById('tableWrap').style.display = 'none';
-    grid.style.display = 'grid';
-    renderCards();
-    return;
-  }
-
-  document.getElementById('tableWrap').style.display = '';
-  grid.style.display = 'none';
-
-  if (filtered.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="11"><div class="empty-state"><h3>No Players Found</h3><p>Try adjusting your filters</p></div></td></tr>`;
-    return;
-  }
-
-  tbody.innerHTML = filtered.map(p => {
-    const badges = [
-      p.allAmerican ? '<span class="badge badge-aa">AA</span>' : '',
-      p.nba ? '<span class="badge badge-nba">NBA</span>' : '',
-      p.mcdAA ? '<span class="badge badge-mcd">McD</span>' : '',
-      p.intl ? '<span class="badge badge-intl">Int\'l</span>' : '',
-    ].filter(Boolean).join('');
-
-    const tags = [
-      p.xferIn ? '<span class="tag tag-xin">Xfer In</span>' : '',
-      p.xferOut ? '<span class="tag tag-xout">Xfer Out</span>' : '',
-      p.oneDone ? '<span class="tag tag-1done">1&Done</span>' : '',
-    ].filter(Boolean).join('');
-
-    const ppgVal = p.ppg !== null ? `<span class="${ppgClass(p.ppg)}">${p.ppg.toFixed(1)}</span>` : '<span class="null-val">—</span>';
-    const ptsVal = p.pts !== null ? p.pts.toLocaleString() : '<span class="null-val">—</span>';
-    const gVal = p.g !== null ? p.g : '<span class="null-val">—</span>';
-    const yrsVal = p.years !== null ? p.years : '<span class="null-val">—</span>';
-    const gradeVal = p.grade247 !== null ? p.grade247.toFixed(0) : (p.on3 !== null ? `<span style="color:var(--gray-mid)">${p.on3.toFixed(0)}</span>` : '<span class="null-val">—</span>');
-
-    return `<tr>
-      <td class="name-cell"><a href="player.html?name=${encodeURIComponent(p.name)}" style="color:var(--white);text-decoration:none;">${p.name}</a>${badges ? `<span class="badges">${badges}</span>` : ''}</td>
-      <td class="year-cell">${p.year}</td>
-      <td><span class="era-pill era-${p.coach}">${p.coach}</span></td>
-      <td class="pos-cell">${p.position || '—'}</td>
-      <td style="text-align:center">${yrsVal}</td>
-      <td>${successDots(p.success)}</td>
-      <td style="text-align:right">${ppgVal}</td>
-      <td style="text-align:right">${ptsVal}</td>
-      <td style="text-align:center">${gVal}</td>
-      <td><div class="tag-wrap">${tags || '<span class="null-val">—</span>'}</div></td>
-      <td style="text-align:center">${gradeVal}</td>
-    </tr>`;
-  }).join('');
-}
-
-function bindEvents() {
-  document.getElementById('btnTable').addEventListener('click', () => {
-    viewMode = 'table';
-    document.getElementById('btnTable').classList.add('active');
-    document.getElementById('btnCards').classList.remove('active');
+  document.getElementById('logoutBtn').addEventListener('click', async () => {
+    await supabase.auth.signOut();
+    isAdmin = false;
+    document.getElementById('adminBar').style.display = 'none';
     render();
   });
 
-  document.getElementById('btnCards').addEventListener('click', () => {
-    viewMode = 'cards';
-    document.getElementById('btnCards').classList.add('active');
-    document.getElementById('btnTable').classList.remove('active');
-    render();
-  });
+  document.getElementById('modalSaveBtn').addEventListener('click', async () => {
+    const id   = document.getElementById('modalPlayerId').value;
+    const data = getFormData();
+    if (!data.name) { alert('Name is required'); return; }
 
-  document.getElementById('searchInput').addEventListener('input', applyFilters);
-  document.getElementById('filterCoach').addEventListener('change', applyFilters);
-  document.getElementById('filterPos').addEventListener('change', applyFilters);
-  document.getElementById('filterSuccess').addEventListener('change', applyFilters);
-  document.getElementById('filterEra').addEventListener('change', applyFilters);
+    const btn = document.getElementById('modalSaveBtn');
+    btn.textContent = 'Saving...';
+    btn.disabled = true;
 
-  document.querySelectorAll('.toggle-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const flag = btn.dataset.flag;
-      if (activeFlags.has(flag)) {
-        activeFlags.delete(flag);
-        btn.classList.remove('active');
-      } else {
-        activeFlags.add(flag);
-        btn.classList.add('active');
-      }
-      applyFilters();
-    });
-  });
+    let result;
+    if (id) {
+      result = await supabase.from('players').update(data).eq('id', id).select().single();
+    } else {
+      result = await supabase.from('players').insert(data).select().single();
+    }
 
-  document.getElementById('clearBtn').addEventListener('click', () => {
-    document.getElementById('searchInput').value = '';
-    document.getElementById('filterCoach').value = '';
-    document.getElementById('filterPos').value = '';
-    document.getElementById('filterSuccess').value = '';
-    document.getElementById('filterEra').value = '';
-    activeFlags.clear();
-    document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+    btn.textContent = 'Save Player';
+    btn.disabled = false;
+
+    if (result.error) {
+      alert('Error saving: ' + result.error.message);
+      return;
+    }
+
+    // Update local data
+    const updated = fromDB(result.data);
+    if (id) {
+      const idx = allPlayers.findIndex(p => p.id === id);
+      if (idx >= 0) allPlayers[idx] = updated;
+    } else {
+      allPlayers.push(updated);
+    }
+
+    closeModal();
     applyFilters();
   });
 
-  document.getElementById('sortSelect').addEventListener('change', e => {
-    const [col, dir] = e.target.value.split('-');
-    sortCol = col;
-    sortDir = dir;
-    applySort();
-    render();
-  });
+  document.getElementById('deletePlayerBtn').addEventListener('click', async () => {
+    const id   = document.getElementById('modalPlayerId').value;
+    const name = document.getElementById('fName').value;
+    if (!confirm(`Delete ${name}? This cannot be undone.`)) return;
 
-  document.querySelectorAll('th[data-col]').forEach(th => {
-    th.addEventListener('click', () => {
-      const col = th.dataset.col;
-      if (sortCol === col) {
-        sortDir = sortDir === 'asc' ? 'desc' : 'asc';
-      } else {
-        sortCol = col;
-        sortDir = col === 'name' ? 'asc' : 'desc';
-      }
-      document.querySelectorAll('th').forEach(t => t.classList.remove('sorted'));
-      th.classList.add('sorted');
-      applySort();
-      render();
-    });
+    const { error } = await supabase.from('players').delete().eq('id', id);
+    if (error) { alert('Error deleting: ' + error.message); return; }
+
+    allPlayers = allPlayers.filter(p => p.id !== id);
+    closeModal();
+    applyFilters();
   });
 }
 
