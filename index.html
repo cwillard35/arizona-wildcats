@@ -868,7 +868,8 @@
         <option value="year-asc">Year (oldest first)</option>
         <option value="year-desc">Year (newest first)</option>
         <option value="name-asc">Name A–Z</option>
-        <option value="success-desc">Success ↓</option>
+        <option value="communityAvg-desc">Community Score ↓</option>
+        <option value="userVote-desc">My Rating ↓</option>
         <option value="ppg-desc">PPG ↓</option>
         <option value="pts-desc">Career Pts ↓</option>
       </select>
@@ -892,8 +893,8 @@
           <th data-col="coach">Era</th>
           <th data-col="position">Position</th>
           <th data-col="years">Yrs <span class="sort-arrow">↕</span></th>
-          <th>Your Rating</th>
-          <th>Community Score</th>
+          <th data-col="userVote">Your Rating <span class="sort-arrow">↕</span></th>
+          <th data-col="communityAvg">Community Score <span class="sort-arrow">↕</span></th>
           <th data-col="ppg">PPG <span class="sort-arrow">↕</span></th>
           <th data-col="pts">Career Pts <span class="sort-arrow">↕</span></th>
           <th data-col="g">G <span class="sort-arrow">↕</span></th>
@@ -1085,6 +1086,14 @@ async function submitVote(playerId, score) {
 
   userVotes[playerId] = score;
   await loadCommunityVotes();
+
+  // Re-merge community scores onto player objects
+  allPlayers.forEach(p => {
+    const cv = communityVotes[p.id];
+    p.communityAvg = cv ? cv.avg : null;
+    p.userVote = userVotes[p.id] || null;
+  });
+
   render();
 }
 
@@ -1216,6 +1225,13 @@ async function init() {
   }
 
   allPlayers = playersResult.data.map(fromDB);
+
+  // Merge community scores and user votes onto player objects for sorting
+  allPlayers.forEach(p => {
+    const cv = communityVotes[p.id];
+    p.communityAvg = cv ? cv.avg : null;
+    p.userVote = userVotes[p.id] || null;
+  });
 
   // Hero stats
   const withSuccess = allPlayers.filter(p => p.success !== null);
