@@ -6,7 +6,7 @@
 <title>Arizona Wildcats Basketball — Player Database</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
   :root {
     --cardinal: #CC0033;
@@ -806,7 +806,7 @@
 </footer>
 
 <script>
-const SUPABASE_URL = 'https://lzzkqbiawsatzzcisypf.supabase.co';
+const SUPABASE_URL = 'https://lzzkqbiawsatzzcisypf.db.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx6emtxYmlhd3NhdHp6Y2lzeXBmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwNTE2MjgsImV4cCI6MjA5NTYyNzYyOH0.le5NdvH-dvHax6s2poggH2fTTZd7P8yMyExl2T-6GJ4';
 const { createClient } = supabase;
 const db = createClient(SUPABASE_URL, SUPABASE_KEY);
