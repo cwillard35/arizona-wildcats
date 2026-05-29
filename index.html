@@ -1048,6 +1048,225 @@ function bindAdminEvents() {
   });
 }
 
+// ── FILTERS & SORT ────────────────────────────────────────────────────
+function applyFilters() {
+  const search     = document.getElementById('searchInput').value.toLowerCase().trim();
+  const coach      = document.getElementById('filterCoach').value;
+  const pos        = document.getElementById('filterPos').value;
+  const minSuccess = parseInt(document.getElementById('filterSuccess').value) || 0;
+  const era        = document.getElementById('filterEra').value;
+
+  filtered = allPlayers.filter(p => {
+    if (search && !p.name.toLowerCase().includes(search)) return false;
+    if (coach && p.coach !== coach) return false;
+    if (pos && p.position !== pos) return false;
+    if (minSuccess && (p.success === null || p.success < minSuccess)) return false;
+    if (era) {
+      const [y1, y2] = era.split('-').map(Number);
+      if (p.year < y1 || p.year > y2) return false;
+    }
+    for (const flag of activeFlags) {
+      if (!p[flag]) return false;
+    }
+    return true;
+  });
+
+  applySort();
+  render();
+}
+
+function applySort() {
+  const col = sortCol;
+  const dir = sortDir === 'asc' ? 1 : -1;
+  filtered.sort((a, b) => {
+    let av = a[col], bv = b[col];
+    if (av === null || av === undefined) av = dir === 1 ? Infinity : -Infinity;
+    if (bv === null || bv === undefined) bv = dir === 1 ? Infinity : -Infinity;
+    if (typeof av === 'string') return av.localeCompare(bv) * dir;
+    return (av - bv) * dir;
+  });
+}
+
+function successDots(score) {
+  if (score === null) return '<span class="null-val">—</span>';
+  let html = '<div class="success-display"><div class="success-dots">';
+  for (let i = 1; i <= 5; i++) {
+    const cls = i <= score ? (score === 5 ? 'dot filled-5' : 'dot filled') : 'dot';
+    html += `<div class="${cls}" title="${successLabels[score]}"></div>`;
+  }
+  html += `</div><span class="success-num">${score}</span></div>`;
+  return html;
+}
+
+function ppgClass(ppg) {
+  if (ppg === null) return 'null-val';
+  if (ppg >= 14) return 'ppg-high';
+  if (ppg >= 8) return 'ppg-mid';
+  return 'ppg-low';
+}
+
+function renderCards() {
+  const grid = document.getElementById('cardGrid');
+  if (filtered.length === 0) {
+    grid.innerHTML = `<div style="grid-column:1/-1"><div class="empty-state"><h3>No Players Found</h3><p>Try adjusting your filters</p></div></div>`;
+    return;
+  }
+  grid.innerHTML = filtered.map(p => {
+    const badges = [
+      p.allAmerican ? '<span class="badge badge-aa">AA</span>' : '',
+      p.nba         ? '<span class="badge badge-nba">NBA</span>' : '',
+      p.mcdAA       ? '<span class="badge badge-mcd">McD</span>' : '',
+      p.intl        ? '<span class="badge badge-intl">Int\'l</span>' : '',
+      p.xferIn      ? '<span class="badge" style="background:rgba(0,200,100,0.2);color:#44ffaa;border:1px solid rgba(0,200,100,0.3)">Xfer In</span>' : '',
+      p.xferOut     ? '<span class="badge" style="background:rgba(255,100,0,0.2);color:#ff9966;border:1px solid rgba(255,100,0,0.3)">Xfer Out</span>' : '',
+    ].filter(Boolean).join('');
+
+    let dots = '';
+    if (p.success !== null) {
+      for (let i = 1; i <= 5; i++) {
+        const cls = i <= p.success ? (p.success === 5 ? 'dot filled-5' : 'dot filled') : 'dot';
+        dots += `<div class="${cls}"></div>`;
+      }
+    }
+
+    const ppg     = p.ppg   !== null ? p.ppg.toFixed(1) : '—';
+    const yrs     = p.years !== null ? p.years : '—';
+    const pts     = p.pts   !== null ? p.pts   : '—';
+    const posShort = {'Point Guard':'PG','Combo Guard':'CG','Shooting Guard':'SG','Wing':'WG','Small Forward':'SF','Combo Forward':'CF','Power Forward':'PF','Forward/Center':'FC','Center':'C'}[p.position] || p.position || '—';
+
+    return `<div class="player-card">
+      <div class="era-stripe stripe-${p.coach}"></div>
+      <div class="card-year">${p.year}</div>
+      <div class="card-name">
+        <a href="player.html?name=${encodeURIComponent(p.name)}" style="color:var(--white);text-decoration:none;">${p.name}</a>
+        ${isAdmin ? `<button class="admin-edit-btn" onclick="openModal(allPlayers.find(x=>x.id==='${p.id}'))">edit</button>` : ''}
+      </div>
+      <div class="card-meta">${posShort} · <span class="era-pill era-${p.coach}" style="font-size:0.65rem;padding:1px 5px">${p.coach}</span></div>
+      ${p.success !== null ? `<div class="card-success"><div class="success-dots">${dots}</div><span class="success-num">${p.success}</span></div>` : ''}
+      <div class="card-stats-row">
+        <div class="cstat"><span class="cstat-val">${ppg}</span><span class="cstat-lbl">PPG</span></div>
+        <div class="cstat"><span class="cstat-val">${yrs}</span><span class="cstat-lbl">Yrs</span></div>
+        <div class="cstat"><span class="cstat-val">${pts}</span><span class="cstat-lbl">Pts</span></div>
+      </div>
+      ${badges ? `<div class="card-badges">${badges}</div>` : ''}
+    </div>`;
+  }).join('');
+}
+
+function render() {
+  const tbody = document.getElementById('playerTable');
+  const grid  = document.getElementById('cardGrid');
+  const count = document.getElementById('resultsCount');
+
+  count.textContent = filtered.length === allPlayers.length
+    ? `Showing all ${allPlayers.length} players`
+    : `Showing ${filtered.length} of ${allPlayers.length} players`;
+
+  if (viewMode === 'cards') {
+    document.getElementById('tableWrap').style.display = 'none';
+    grid.style.display = 'grid';
+    renderCards();
+    return;
+  }
+
+  document.getElementById('tableWrap').style.display = '';
+  grid.style.display = 'none';
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="11"><div class="empty-state"><h3>No Players Found</h3><p>Try adjusting your filters</p></div></td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = filtered.map(p => {
+    const badges = [
+      p.allAmerican ? '<span class="badge badge-aa">AA</span>' : '',
+      p.nba ? '<span class="badge badge-nba">NBA</span>' : '',
+      p.mcdAA ? '<span class="badge badge-mcd">McD</span>' : '',
+      p.intl ? '<span class="badge badge-intl">Int\'l</span>' : '',
+    ].filter(Boolean).join('');
+
+    const tags = [
+      p.xferIn  ? '<span class="tag tag-xin">Xfer In</span>'   : '',
+      p.xferOut ? '<span class="tag tag-xout">Xfer Out</span>' : '',
+      p.oneDone ? '<span class="tag tag-1done">1&Done</span>'  : '',
+    ].filter(Boolean).join('');
+
+    const ppgVal  = p.ppg  !== null ? `<span class="${ppgClass(p.ppg)}">${p.ppg.toFixed(1)}</span>` : '<span class="null-val">—</span>';
+    const ptsVal  = p.pts  !== null ? p.pts.toLocaleString() : '<span class="null-val">—</span>';
+    const gVal    = p.g    !== null ? p.g    : '<span class="null-val">—</span>';
+    const yrsVal  = p.years !== null ? p.years : '<span class="null-val">—</span>';
+    const gradeVal = p.grade247 !== null ? p.grade247.toFixed(0) : (p.on3 !== null ? `<span style="color:var(--gray-mid)">${p.on3.toFixed(0)}</span>` : '<span class="null-val">—</span>');
+    const editBtn  = isAdmin ? `<button class="admin-edit-btn" onclick="openModal(allPlayers.find(x=>x.id==='${p.id}'))">edit</button>` : '';
+
+    return `<tr>
+      <td class="name-cell"><a href="player.html?name=${encodeURIComponent(p.name)}" style="color:var(--white);text-decoration:none;">${p.name}</a>${editBtn}${badges ? `<span class="badges">${badges}</span>` : ''}</td>
+      <td class="year-cell">${p.year}</td>
+      <td><span class="era-pill era-${p.coach}">${p.coach}</span></td>
+      <td class="pos-cell">${p.position || '—'}</td>
+      <td style="text-align:center">${yrsVal}</td>
+      <td>${successDots(p.success)}</td>
+      <td style="text-align:right">${ppgVal}</td>
+      <td style="text-align:right">${ptsVal}</td>
+      <td style="text-align:center">${gVal}</td>
+      <td><div class="tag-wrap">${tags || '<span class="null-val">—</span>'}</div></td>
+      <td style="text-align:center">${gradeVal}</td>
+    </tr>`;
+  }).join('');
+}
+
+function bindEvents() {
+  document.getElementById('btnTable').addEventListener('click', () => {
+    viewMode = 'table';
+    document.getElementById('btnTable').classList.add('active');
+    document.getElementById('btnCards').classList.remove('active');
+    render();
+  });
+  document.getElementById('btnCards').addEventListener('click', () => {
+    viewMode = 'cards';
+    document.getElementById('btnCards').classList.add('active');
+    document.getElementById('btnTable').classList.remove('active');
+    render();
+  });
+  document.getElementById('searchInput').addEventListener('input', applyFilters);
+  document.getElementById('filterCoach').addEventListener('change', applyFilters);
+  document.getElementById('filterPos').addEventListener('change', applyFilters);
+  document.getElementById('filterSuccess').addEventListener('change', applyFilters);
+  document.getElementById('filterEra').addEventListener('change', applyFilters);
+  document.querySelectorAll('.toggle-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const flag = btn.dataset.flag;
+      if (activeFlags.has(flag)) { activeFlags.delete(flag); btn.classList.remove('active'); }
+      else { activeFlags.add(flag); btn.classList.add('active'); }
+      applyFilters();
+    });
+  });
+  document.getElementById('clearBtn').addEventListener('click', () => {
+    document.getElementById('searchInput').value = '';
+    document.getElementById('filterCoach').value = '';
+    document.getElementById('filterPos').value = '';
+    document.getElementById('filterSuccess').value = '';
+    document.getElementById('filterEra').value = '';
+    activeFlags.clear();
+    document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+    applyFilters();
+  });
+  document.getElementById('sortSelect').addEventListener('change', e => {
+    const [col, dir] = e.target.value.split('-');
+    sortCol = col; sortDir = dir;
+    applySort(); render();
+  });
+  document.querySelectorAll('th[data-col]').forEach(th => {
+    th.addEventListener('click', () => {
+      const col = th.dataset.col;
+      if (sortCol === col) { sortDir = sortDir === 'asc' ? 'desc' : 'asc'; }
+      else { sortCol = col; sortDir = col === 'name' ? 'asc' : 'desc'; }
+      document.querySelectorAll('th').forEach(t => t.classList.remove('sorted'));
+      th.classList.add('sorted');
+      applySort(); render();
+    });
+  });
+}
+
 init();
 </script>
 </body>
