@@ -495,7 +495,6 @@ async function loadUserVotes() {
 
 async function submitVote(seasonId, score) {
   if (!currentUser) return;
-  const existing = userVotes[seasonId];
 
   const result = await db.from('season_votes')
     .upsert(
@@ -505,48 +504,16 @@ async function submitVote(seasonId, score) {
 
   if (result.error) { console.error('Vote error:', result.error); return; }
 
-  // Update local state
-  const prev = communityVotes[seasonId];
-  if (prev) {
-    const oldTotal = prev.avg * prev.count;
-    const newTotal = existing !== undefined ? (oldTotal - existing + score) : (oldTotal + score);
-    const newCount = existing !== undefined ? prev.count : prev.count + 1;
-    communityVotes[seasonId] = { avg: newTotal / newCount, count: newCount };
-  } else {
-    communityVotes[seasonId] = { avg: score, count: 1 };
-  }
+  // Update local state and reload everything fresh from server
   userVotes[seasonId] = score;
+  await Promise.all([loadVotes(), loadUserVotes()]);
+  applyFilters();
 
-  // Update just the community display in DOM — no full re-render
-  const cv = communityVotes[seasonId];
-  const cards = document.querySelectorAll('.season-card');
-  cards.forEach(card => {
-    const editBtn = card.querySelector('.season-edit-btn');
-    const sid = editBtn ? editBtn.getAttribute('onclick').match(/'([^']+)'/)?.[1] : null;
-    // Find by slider
-    const slider = card.querySelector(`.vote-slider[data-sid="${seasonId}"]`);
-    if (!slider) return;
-
-    // Update community row
-    const ratingRows = card.querySelectorAll('.rating-row');
-    ratingRows.forEach(row => {
-      if (row.querySelector('.rating-lbl')?.textContent.trim() === 'Community') {
-        row.innerHTML = `
-          <span class="rating-lbl">Community</span>
-          ${bubbles(cv.avg, cv.avg >= 4.5)}
-          <span class="rating-num">${cv.avg.toFixed(2)}</span>
-          <span class="rating-votes">(${cv.count})</span>`;
-      }
-    });
-
-    // Show saved confirmation
-    const savedEl = card.querySelector(`#vsaved-${seasonId}`);
-    if (savedEl) { savedEl.style.display = 'inline'; }
-  });
-
-  // Refresh from server quietly in background
-  setTimeout(() => loadVotes(), 2000);
+  // Show saved confirmation
+  const savedEl = document.getElementById(`vsaved-${seasonId}`);
+  if (savedEl) { savedEl.style.display = 'inline'; }
 }
+
 
 function openModal(seasonId) {
   const s = seasonId ? allSeasons.find(x => x.id === seasonId) : null;
