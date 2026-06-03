@@ -496,17 +496,14 @@ async function loadUserVotes() {
 async function submitVote(seasonId, score) {
   if (!currentUser) return;
   const existing = userVotes[seasonId];
-  let result;
-  if (existing !== undefined) {
-    result = await db.from('season_votes')
-      .update({ score, updated_at: new Date().toISOString() })
-      .eq('season_id', seasonId)
-      .eq('user_id', currentUser.id);
-  } else {
-    result = await db.from('season_votes')
-      .insert({ season_id: seasonId, user_id: currentUser.id, score });
-  }
-  if (result.error) { console.error(result.error); return; }
+
+  const result = await db.from('season_votes')
+    .upsert(
+      { season_id: seasonId, user_id: currentUser.id, score, updated_at: new Date().toISOString() },
+      { onConflict: 'season_id,user_id' }
+    );
+
+  if (result.error) { console.error('Vote error:', result.error); return; }
 
   // Update local state
   const prev = communityVotes[seasonId];
