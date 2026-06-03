@@ -18,12 +18,7 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: 'Barlow', sans-serif; background: var(--navy-dark); color: var(--white); min-height: 100vh; }
 
-  header {
-    background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 60%, var(--cardinal-dark) 100%);
-    border-bottom: 3px solid var(--cardinal);
-    padding: 0 2rem; position: sticky; top: 0; z-index: 100;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-  }
+  header { background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 60%, var(--cardinal-dark) 100%); border-bottom: 3px solid var(--cardinal); padding: 0 2rem; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
   .header-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; gap: 2rem; padding: 0.75rem 0; }
   .logo-mark { display: flex; align-items: center; flex-shrink: 0; }
   .logo-text { flex: 1; }
@@ -34,14 +29,12 @@
   nav a:hover { color: var(--cardinal-light); background: rgba(204,0,51,0.2); }
   nav a.active { color: var(--gold); border-bottom: 2px solid var(--gold); border-radius: 3px 3px 0 0; }
 
-  /* ADMIN BAR */
   .admin-bar { background: rgba(255,199,44,0.1); border-bottom: 2px solid var(--gold); padding: 0.6rem 2rem; display: none; }
   .admin-bar-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; gap: 1rem; }
   .admin-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
-  .admin-btn { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 0.35rem 0.9rem; border-radius: 4px; cursor: pointer; transition: all 0.2s; border: none; background: var(--cardinal); color: var(--white); }
+  .admin-btn { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 0.35rem 0.9rem; border-radius: 4px; cursor: pointer; border: none; background: var(--cardinal); color: var(--white); }
   .admin-btn:hover { background: var(--cardinal-dark); }
 
-  /* HERO STRIP */
   .hero-strip { background: var(--cardinal); padding: 1.2rem 2rem; display: flex; align-items: center; gap: 3rem; justify-content: center; flex-wrap: wrap; }
   .stat-chip { text-align: center; }
   .stat-chip .num { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; line-height: 1; color: var(--white); }
@@ -49,114 +42,86 @@
 
   main { max-width: 1100px; margin: 0 auto; padding: 2rem; }
 
-  /* FILTERS */
   .filters-bar { background: var(--navy-mid); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 1rem 1.5rem; margin-bottom: 1.5rem; display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
   .filter-group { display: flex; flex-direction: column; gap: 0.3rem; }
   .filter-group label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gray-mid); }
   .filter-group select { background: var(--navy-dark); border: 1px solid rgba(255,255,255,0.15); border-radius: 4px; color: var(--white); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; padding: 0.4rem 0.75rem; outline: none; }
-  .filter-group select:focus { border-color: var(--cardinal); }
 
-  /* SEASON GRID */
+  /* SEASON CARD */
   .season-grid { display: flex; flex-direction: column; gap: 0.75rem; }
-
-  .season-card {
-    background: var(--navy-mid);
-    border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 8px;
-    padding: 1.25rem 1.5rem;
-    display: grid;
-    grid-template-columns: 80px 1fr auto auto;
-    align-items: center;
-    gap: 1.5rem;
-    transition: border-color 0.15s;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .season-card::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 4px;
-  }
-
-  .season-card.tier-5::before { background: var(--gold); }
-  .season-card.tier-4::before { background: var(--cardinal); }
-  .season-card.tier-3::before { background: #4488ff; }
-  .season-card.tier-2::before { background: var(--gray-dark); }
-  .season-card.tier-1::before { background: rgba(255,255,255,0.1); }
-  .season-card.no-rating::before { background: transparent; }
-
+  .season-card { background: var(--navy-mid); border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; padding: 1.25rem 1.5rem; display: grid; grid-template-columns: 90px 1fr auto; align-items: start; gap: 1.5rem; position: relative; overflow: hidden; transition: border-color 0.15s; }
   .season-card:hover { border-color: rgba(204,0,51,0.3); }
+  .season-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; }
+  .tier-5::before { background: var(--gold); }
+  .tier-4::before { background: var(--cardinal); }
+  .tier-3::before { background: #4488ff; }
+  .tier-2::before { background: var(--gray-dark); }
+  .tier-1::before { background: rgba(255,255,255,0.1); }
+  .no-rating::before { background: transparent; }
 
-  /* Year block */
-  .season-year {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2rem;
-    letter-spacing: 2px;
-    color: var(--white);
-    line-height: 1;
-  }
-  .season-year-sub {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.7rem;
-    letter-spacing: 2px;
-    color: var(--gray-mid);
-    text-transform: uppercase;
-  }
+  /* Year column */
+  .season-year { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 2px; color: var(--white); line-height: 1; }
+  .season-year-sub { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; letter-spacing: 2px; color: var(--gray-mid); text-transform: uppercase; margin-top: 2px; }
 
-  /* Info block */
-  .season-info {}
-  .season-coach { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; letter-spacing: 1px; text-transform: uppercase; color: var(--gray-mid); margin-bottom: 0.3rem; }
+  /* Info column */
+  .season-coach { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; letter-spacing: 1px; text-transform: uppercase; color: var(--gray-mid); margin-bottom: 0.25rem; }
   .season-record { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 2px; color: var(--white); }
-  .season-conf { font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; letter-spacing: 1px; color: var(--gray-mid); margin-left: 0.5rem; }
-  .season-tournament {
-    display: inline-block;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.72rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
-    padding: 2px 8px; border-radius: 3px; margin-top: 0.3rem;
-  }
-  .tourn-champion    { background: rgba(255,199,44,0.2); color: var(--gold); border: 1px solid rgba(255,199,44,0.4); }
-  .tourn-final4      { background: rgba(204,0,51,0.2); color: #ff6688; border: 1px solid rgba(204,0,51,0.3); }
-  .tourn-elite8      { background: rgba(68,136,255,0.2); color: #88aaff; border: 1px solid rgba(68,136,255,0.3); }
-  .tourn-sweet16     { background: rgba(0,180,120,0.2); color: #44ddaa; border: 1px solid rgba(0,180,120,0.3); }
-  .tourn-first2      { background: rgba(150,150,150,0.15); color: #aaa; border: 1px solid rgba(150,150,150,0.2); }
-  .tourn-nit         { background: rgba(100,100,100,0.15); color: #888; border: 1px solid rgba(100,100,100,0.2); }
-  .tourn-none        { background: transparent; color: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.08); }
+  .season-conf-rec { font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; color: var(--gray-mid); margin-left: 0.5rem; }
+  .season-meta { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; margin-top: 0.4rem; }
+  .meta-chip { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; letter-spacing: 0.5px; color: var(--gray-mid); }
+  .meta-chip span { color: var(--white); font-weight: 600; }
   .season-notes { font-size: 0.82rem; color: rgba(255,255,255,0.5); margin-top: 0.4rem; font-style: italic; }
 
-  /* Rating block */
-  .season-ratings { display: flex; flex-direction: column; gap: 0.5rem; align-items: flex-end; min-width: 140px; }
-  .rating-row { display: flex; align-items: center; gap: 8px; }
-  .rating-lbl { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; letter-spacing: 1px; text-transform: uppercase; color: var(--gray-mid); min-width: 60px; text-align: right; }
+  /* Tournament badge */
+  .season-tournament { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 2px 8px; border-radius: 3px; margin-top: 0.4rem; }
+  .tourn-champion  { background: rgba(255,199,44,0.2); color: var(--gold); border: 1px solid rgba(255,199,44,0.4); }
+  .tourn-runnerup  { background: rgba(180,150,0,0.2); color: #ddbb44; border: 1px solid rgba(180,150,0,0.3); }
+  .tourn-final4    { background: rgba(204,0,51,0.2); color: #ff6688; border: 1px solid rgba(204,0,51,0.3); }
+  .tourn-elite8    { background: rgba(68,136,255,0.2); color: #88aaff; border: 1px solid rgba(68,136,255,0.3); }
+  .tourn-sweet16   { background: rgba(0,180,120,0.2); color: #44ddaa; border: 1px solid rgba(0,180,120,0.3); }
+  .tourn-first2    { background: rgba(150,150,150,0.15); color: #aaa; border: 1px solid rgba(150,150,150,0.2); }
+  .tourn-nit       { background: rgba(100,100,100,0.15); color: #888; border: 1px solid rgba(100,100,100,0.2); }
+  .tourn-none      { color: rgba(255,255,255,0.2); font-style: italic; }
 
-  /* Fractional bubbles */
+  /* Ratings column */
+  .season-ratings { display: flex; flex-direction: column; gap: 0.6rem; align-items: flex-end; min-width: 160px; }
+  .rating-row { display: flex; align-items: center; gap: 8px; width: 100%; justify-content: flex-end; }
+  .rating-lbl { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; letter-spacing: 1px; text-transform: uppercase; color: var(--gray-mid); min-width: 65px; text-align: right; }
   .fbubbles { display: flex; gap: 3px; }
   .fb { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,0.12); flex-shrink: 0; }
   .fb.full { background: var(--cardinal); }
   .fb.full-gold { background: var(--gold); }
-
   .rating-num { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; color: var(--white); min-width: 28px; }
   .rating-votes { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; color: var(--gray-mid); }
+  .no-rating-msg { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; color: rgba(255,255,255,0.2); font-style: italic; }
 
-  /* Vote stars */
-  .star-row { display: flex; gap: 3px; cursor: pointer; }
-  .s { font-size: 0.85rem; color: rgba(255,255,255,0.2); transition: color 0.1s; }
-  .s.filled { color: var(--gold); }
-  .vote-signin { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; color: var(--gray-mid); cursor: pointer; font-style: italic; }
+  /* SLIDER VOTE WIDGET */
+  .vote-slider-wrap { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; width: 100%; }
+  .vote-slider-row { display: flex; align-items: center; gap: 6px; width: 100%; justify-content: flex-end; }
+  .vote-slider {
+    -webkit-appearance: none; appearance: none;
+    width: 110px; height: 4px; border-radius: 2px;
+    background: rgba(255,255,255,0.15); outline: none; cursor: pointer;
+  }
+  .vote-slider::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none;
+    width: 16px; height: 16px; border-radius: 50%;
+    background: var(--cardinal); cursor: pointer;
+    border: 2px solid var(--white);
+    box-shadow: 0 0 4px rgba(204,0,51,0.5);
+    transition: background 0.15s;
+  }
+  .vote-slider::-webkit-slider-thumb:hover { background: var(--cardinal-light); }
+  .vote-slider::-moz-range-thumb { width: 16px; height: 16px; border-radius: 50%; background: var(--cardinal); cursor: pointer; border: 2px solid var(--white); }
+  .vote-val { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; color: var(--gold); min-width: 28px; text-align: right; }
+  .vote-save-btn { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; background: var(--cardinal); border: none; border-radius: 3px; color: var(--white); padding: 2px 8px; cursor: pointer; transition: background 0.2s; }
+  .vote-save-btn:hover { background: var(--cardinal-dark); }
+  .vote-saved { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; color: #44cc88; letter-spacing: 1px; }
+  .vote-signin { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; color: var(--gray-mid); font-style: italic; cursor: pointer; }
   .vote-signin:hover { color: var(--cardinal-light); }
 
-  /* Admin edit btn */
-  .season-edit-btn {
-    position: absolute; top: 0.75rem; right: 0.85rem;
-    background: rgba(255,199,44,0.15); border: 1px solid rgba(255,199,44,0.3);
-    border-radius: 3px; color: var(--gold); font-size: 0.65rem;
-    font-family: 'Barlow Condensed', sans-serif; letter-spacing: 1px;
-    text-transform: uppercase; padding: 1px 6px; cursor: pointer; transition: all 0.2s;
-  }
+  .season-edit-btn { position: absolute; top: 0.75rem; right: 0.85rem; background: rgba(255,199,44,0.15); border: 1px solid rgba(255,199,44,0.3); border-radius: 3px; color: var(--gold); font-size: 0.65rem; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 1px; text-transform: uppercase; padding: 1px 6px; cursor: pointer; }
   .season-edit-btn:hover { background: rgba(255,199,44,0.3); }
-
-  .no-rating-msg { font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; color: rgba(255,255,255,0.2); font-style: italic; }
 
   /* MODAL */
   .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 1rem; }
@@ -166,19 +131,19 @@
   .modal-field { display: flex; flex-direction: column; gap: 0.3rem; }
   .modal-field.full { grid-column: 1 / -1; }
   .modal-field label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gray-mid); }
-  .modal-field input, .modal-field select, .modal-field textarea {
-    background: var(--navy-dark); border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 4px; color: var(--white); font-family: 'Barlow', sans-serif;
-    font-size: 0.9rem; padding: 0.5rem 0.75rem; outline: none;
-  }
+  .modal-field input, .modal-field select, .modal-field textarea { background: var(--navy-dark); border: 1px solid rgba(255,255,255,0.15); border-radius: 4px; color: var(--white); font-family: 'Barlow', sans-serif; font-size: 0.9rem; padding: 0.5rem 0.75rem; outline: none; }
   .modal-field input:focus, .modal-field select:focus, .modal-field textarea:focus { border-color: var(--cardinal); }
   .modal-field textarea { resize: vertical; min-height: 70px; }
   .modal-actions { display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.08); }
-  .modal-btn { font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 0.6rem 1.5rem; border-radius: 4px; cursor: pointer; border: none; transition: all 0.2s; }
+  .modal-btn { font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 0.6rem 1.5rem; border-radius: 4px; cursor: pointer; border: none; }
   .modal-btn-save { background: var(--cardinal); color: var(--white); }
-  .modal-btn-save:hover { background: var(--cardinal-dark); }
   .modal-btn-cancel { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: var(--gray-mid); }
   .modal-btn-delete { background: transparent; border: 1px solid rgba(204,0,51,0.4); color: var(--cardinal-light); margin-right: auto; }
+
+  @media (max-width: 700px) {
+    .season-card { grid-template-columns: 70px 1fr; }
+    .season-ratings { grid-column: 1 / -1; align-items: flex-start; }
+  }
 
   footer { text-align: center; padding: 2rem; margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.05); font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; letter-spacing: 1px; color: rgba(255,255,255,0.25); }
   footer a { color: rgba(255,255,255,0.4); text-decoration: none; }
@@ -210,10 +175,10 @@
 </div>
 
 <div class="hero-strip">
-  <div class="stat-chip"><div class="num" id="statSeasons">—</div><div class="label">Seasons Rated</div></div>
+  <div class="stat-chip"><div class="num" id="statSeasons">—</div><div class="label">Seasons</div></div>
   <div class="stat-chip"><div class="num" id="statWins">—</div><div class="label">All-Time Wins</div></div>
   <div class="stat-chip"><div class="num" id="statChamps">2</div><div class="label">Championships</div></div>
-  <div class="stat-chip"><div class="num" id="statAvgRating">—</div><div class="label">Avg Season Rating</div></div>
+  <div class="stat-chip"><div class="num" id="statAvgRating">—</div><div class="label">Avg Editor Rating</div></div>
 </div>
 
 <!-- Season Modal -->
@@ -229,19 +194,15 @@
       <div class="modal-field"><label>Wins</label><input type="number" id="fWins" min="0"></div>
       <div class="modal-field"><label>Losses</label><input type="number" id="fLosses" min="0"></div>
       <div class="modal-field"><label>Conf Record (e.g. 14-4)</label><input type="text" id="fConfRecord" placeholder="14-4"></div>
-      <div class="modal-field"><label>Conf Finish (e.g. 1st Pac-12)</label><input type="text" id="fConfFinish" placeholder="1st Pac-12"></div>
+      <div class="modal-field"><label>Conf Finish</label><input type="text" id="fConfFinish" placeholder="1st Pac-12"></div>
       <div class="modal-field"><label>Tournament</label>
-        <select id="fTournament">
-          <option value="">—</option>
-          <option value="NCAA">NCAA Tournament</option>
-          <option value="NIT">NIT</option>
-          <option value="None">No Tournament</option>
-        </select>
+        <select id="fTournament"><option value="">—</option><option value="NCAA">NCAA</option><option value="NIT">NIT</option><option value="None">None</option></select>
       </div>
       <div class="modal-field"><label>Tournament Result</label>
         <select id="fTournamentResult">
           <option value="">—</option>
           <option value="Champion">🏆 National Champion</option>
+          <option value="Runner Up">🥈 Runner Up</option>
           <option value="Final Four">Final Four</option>
           <option value="Elite Eight">Elite Eight</option>
           <option value="Sweet 16">Sweet 16</option>
@@ -251,7 +212,8 @@
           <option value="NIT">NIT</option>
         </select>
       </div>
-      <div class="modal-field"><label>Your Rating (1.0–5.0)</label><input type="number" id="fRating" min="1" max="5" step="0.1" placeholder="e.g. 4.5"></div>
+      <div class="modal-field"><label>Your Rating (1.0–5.0)</label><input type="number" id="fRating" min="1" max="5" step="0.25" placeholder="e.g. 4.5"></div>
+      <div class="modal-field"><label>NCAA Seed</label><input type="number" id="fSeed" min="1" max="16"></div>
       <div class="modal-field full"><label>Notes</label><textarea id="fNotes" placeholder="Brief description of the season..."></textarea></div>
     </div>
     <div class="modal-actions">
@@ -263,7 +225,6 @@
 </div>
 
 <main>
-  <!-- Filters -->
   <div class="filters-bar">
     <div class="filter-group">
       <label>Coach Era</label>
@@ -288,21 +249,18 @@
       <select id="sortSelect">
         <option value="year-desc">Year (newest first)</option>
         <option value="year-asc">Year (oldest first)</option>
-        <option value="rating-desc">Rating ↓</option>
+        <option value="rating-desc">Editor Rating ↓</option>
         <option value="community-desc">Community Score ↓</option>
         <option value="wins-desc">Wins ↓</option>
       </select>
     </div>
   </div>
-
   <div class="season-grid" id="seasonGrid">
     <div style="text-align:center;padding:3rem;color:var(--gray-mid);font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;">Loading seasons...</div>
   </div>
 </main>
 
-<footer>
-  Arizona Wildcats Basketball Database · <a href="about.html">About</a> · Bear Down
-</footer>
+<footer>Arizona Wildcats Basketball Database · <a href="about.html">About</a> · Bear Down</footer>
 
 <script>
 const SUPABASE_URL = 'https://lzzkqbiawsatzzcisypf.supabase.co';
@@ -310,13 +268,9 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const { createClient } = supabase;
 const db = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-let allSeasons = [];
-let communityVotes = {}; // season_id -> {avg, count}
-let userVotes = {};      // season_id -> score
-let currentUser = null;
-let isAdmin = false;
+let allSeasons = [], communityVotes = {}, userVotes = {};
+let currentUser = null, isAdmin = false;
 
-// ── FRACTIONAL BUBBLES ────────────────────────────────────────────
 function bubbles(score, isGold) {
   if (score === null || score === undefined) return '';
   let html = '<div class="fbubbles">';
@@ -332,29 +286,27 @@ function bubbles(score, isGold) {
       html += '<div class="fb"></div>';
     }
   }
-  html += '</div>';
-  return html;
+  return html + '</div>';
 }
 
-// ── TOURNAMENT BADGE ──────────────────────────────────────────────
-function tournBadge(result) {
+function tournBadge(result, tournament) {
+  if (!result && tournament === 'None') return '<span class="season-tournament tourn-none">No Tournament</span>';
   if (!result) return '';
   const map = {
-    'Champion':    'tourn-champion',
-    'Final Four':  'tourn-final4',
-    'Elite Eight': 'tourn-elite8',
-    'Sweet 16':    'tourn-sweet16',
-    'Round of 32': 'tourn-first2',
-    'First Round': 'tourn-first2',
-    'NIT Champion':'tourn-sweet16',
-    'NIT':         'tourn-nit',
+    'Champion':    ['tourn-champion', '🏆 National Champion'],
+    'Runner Up':   ['tourn-runnerup', '🥈 Runner Up'],
+    'Final Four':  ['tourn-final4',   'Final Four'],
+    'Elite Eight': ['tourn-elite8',   'Elite Eight'],
+    'Sweet 16':    ['tourn-sweet16',  'Sweet 16'],
+    'Round of 32': ['tourn-first2',   'Round of 32'],
+    'First Round': ['tourn-first2',   'First Round'],
+    'NIT Champion':['tourn-sweet16',  'NIT Champion'],
+    'NIT':         ['tourn-nit',      'NIT'],
   };
-  const cls = map[result] || 'tourn-none';
-  const icon = result === 'Champion' ? '🏆 ' : '';
-  return `<span class="season-tournament ${cls}">${icon}${result}</span>`;
+  const [cls, label] = map[result] || ['tourn-none', result];
+  return `<span class="season-tournament ${cls}">${label}</span>`;
 }
 
-// ── TIER ──────────────────────────────────────────────────────────
 function tierClass(rating) {
   if (!rating) return 'no-rating';
   if (rating >= 4.5) return 'tier-5';
@@ -364,45 +316,46 @@ function tierClass(rating) {
   return 'tier-1';
 }
 
-// ── STAR WIDGET ───────────────────────────────────────────────────
-function starWidget(seasonId, userScore) {
-  if (!currentUser) {
-    return `<span class="vote-signin" onclick="alert('Sign in on the Players page to vote')">Sign in to rate</span>`;
-  }
-  const stars = [1,2,3,4,5].map(i => {
-    const filled = userScore && i <= userScore ? 'filled' : '';
-    return `<span class="s ${filled}" data-score="${i}" data-sid="${seasonId}">★</span>`;
-  }).join('');
-  return `<div class="star-row" data-sid="${seasonId}">${stars}</div>`;
+function sliderWidget(seasonId, userScore) {
+  if (!currentUser) return `<span class="vote-signin" onclick="alert('Sign in on the Players page to vote')">Sign in to rate</span>`;
+  const val = userScore ? userScore.toFixed(2) : '3.00';
+  return `<div class="vote-slider-wrap">
+    <div class="vote-slider-row">
+      <input type="range" class="vote-slider" data-sid="${seasonId}"
+        min="1" max="5" step="0.25" value="${userScore || 3}">
+      <span class="vote-val" id="vval-${seasonId}">${userScore ? userScore.toFixed(2) : '—'}</span>
+    </div>
+    <div style="display:flex;gap:6px;align-items:center;justify-content:flex-end;">
+      <button class="vote-save-btn" data-sid="${seasonId}">Save</button>
+      ${userScore ? `<span class="vote-saved" id="vsaved-${seasonId}">✓ voted</span>` : `<span class="vote-saved" id="vsaved-${seasonId}" style="display:none">✓ saved</span>`}
+    </div>
+  </div>`;
 }
 
-// ── RENDER ────────────────────────────────────────────────────────
 function applyFilters() {
   const coach      = document.getElementById('filterCoach').value;
   const tournament = document.getElementById('filterTournament').value;
-  const sort       = document.getElementById('sortSelect').value;
+  const [col, dir] = document.getElementById('sortSelect').value.split('-');
 
   let filtered = [...allSeasons];
-
   if (coach) filtered = filtered.filter(s => s.coach === coach);
   if (tournament) {
-    const tMap = {
-      'Champion':   s => s.tournament_result === 'Champion',
-      'Final Four': s => ['Champion','Final Four'].includes(s.tournament_result),
-      'Elite Eight':s => ['Champion','Final Four','Elite Eight'].includes(s.tournament_result),
-      'NCAA':       s => s.tournament === 'NCAA',
-      'None':       s => !s.tournament || s.tournament === 'None',
-    };
-    if (tMap[tournament]) filtered = filtered.filter(tMap[tournament]);
+    const order = ['Champion','Runner Up','Final Four','Elite Eight','Sweet 16','Round of 32','First Round'];
+    const idx = order.indexOf(tournament);
+    if (tournament === 'NCAA') filtered = filtered.filter(s => s.tournament === 'NCAA');
+    else if (tournament === 'None') filtered = filtered.filter(s => !s.tournament || s.tournament === 'None');
+    else filtered = filtered.filter(s => order.indexOf(s.tournament_result) <= idx && order.indexOf(s.tournament_result) >= 0);
   }
 
-  const [col, dir] = sort.split('-');
   filtered.sort((a, b) => {
-    let av, bv;
-    if (col === 'year')      { av = a.year; bv = b.year; }
-    else if (col === 'rating')    { av = a.rating || 0; bv = b.rating || 0; }
-    else if (col === 'community') { av = communityVotes[a.id]?.avg || 0; bv = communityVotes[b.id]?.avg || 0; }
-    else if (col === 'wins')      { av = a.wins || 0; bv = b.wins || 0; }
+    let av = col === 'year'      ? a.year :
+             col === 'rating'    ? (a.rating || 0) :
+             col === 'community' ? (communityVotes[a.id]?.avg || 0) :
+             col === 'wins'      ? (a.wins || 0) : 0;
+    let bv = col === 'year'      ? b.year :
+             col === 'rating'    ? (b.rating || 0) :
+             col === 'community' ? (communityVotes[b.id]?.avg || 0) :
+             col === 'wins'      ? (b.wins || 0) : 0;
     return dir === 'desc' ? bv - av : av - bv;
   });
 
@@ -411,92 +364,96 @@ function applyFilters() {
 
 function render(seasons) {
   const grid = document.getElementById('seasonGrid');
-
   if (!seasons || seasons.length === 0) {
-    grid.innerHTML = `<div style="text-align:center;padding:3rem;color:var(--gray-mid);font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;">
-      No seasons found${isAdmin ? ' — click + Add Season to get started' : ''}.
-    </div>`;
+    grid.innerHTML = `<div style="text-align:center;padding:3rem;color:var(--gray-mid);font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;">No seasons found.</div>`;
     return;
   }
 
   grid.innerHTML = seasons.map(s => {
-    const cv       = communityVotes[s.id];
-    const uv       = userVotes[s.id];
-    const tier     = tierClass(s.rating);
-    const editBtn  = isAdmin ? `<button class="season-edit-btn" onclick="openModal('${s.id}')">edit</button>` : '';
-    const record   = (s.wins !== null && s.losses !== null) ? `${s.wins}–${s.losses}` : '';
-    const eraLabel = s.coach ? `${s.coach} Era` : '';
+    const cv      = communityVotes[s.id];
+    const uv      = userVotes[s.id];
+    const tier    = tierClass(s.rating);
+    const editBtn = isAdmin ? `<button class="season-edit-btn" onclick="openModal('${s.id}')">edit</button>` : '';
+    const record  = (s.wins !== null && s.losses !== null) ? `${s.wins}–${s.losses}` : '';
+    const yr1     = s.year - 1, yr2 = String(s.year).slice(2);
+
+    // AP rankings and seed chips
+    const chips = [];
+    if (s.ncaa_seed)  chips.push(`<span class="meta-chip">#<span>${s.ncaa_seed}</span> seed</span>`);
+    if (s.ap_pre)     chips.push(`<span class="meta-chip">AP Pre: <span>${s.ap_pre}</span></span>`);
+    if (s.ap_high)    chips.push(`<span class="meta-chip">AP High: <span>${s.ap_high}</span></span>`);
+    if (s.ap_final)   chips.push(`<span class="meta-chip">AP Final: <span>${s.ap_final}</span></span>`);
+    if (s.pts_per_game) chips.push(`<span class="meta-chip">PPG: <span>${Number(s.pts_per_game).toFixed(1)}</span></span>`);
+    if (s.pts_allowed)  chips.push(`<span class="meta-chip">Opp: <span>${Number(s.pts_allowed).toFixed(1)}</span></span>`);
 
     return `<div class="season-card ${tier}">
       ${editBtn}
       <div>
         <div class="season-year">${s.year}</div>
-        <div class="season-year-sub">${(s.year-1)}–${String(s.year).slice(2)}</div>
+        <div class="season-year-sub">${yr1}–${yr2}</div>
       </div>
-      <div class="season-info">
-        <div class="season-coach">${eraLabel}</div>
+      <div>
+        <div class="season-coach">${s.coach || ''} Era${s.conf ? ' · ' + s.conf : ''}</div>
         <div>
           ${record ? `<span class="season-record">${record}</span>` : ''}
-          ${s.conf_record ? `<span class="season-conf">${s.conf_record}${s.conf_finish ? ' · ' + s.conf_finish : ''}</span>` : ''}
+          ${s.conf_record ? `<span class="season-conf-rec">${s.conf_record}${s.conf_finish ? ' · ' + s.conf_finish : ''}</span>` : ''}
         </div>
-        ${s.tournament_result ? tournBadge(s.tournament_result) : (s.tournament === 'None' ? '<span class="season-tournament tourn-none">No Tournament</span>' : '')}
+        ${tournBadge(s.tournament_result, s.tournament)}
+        ${chips.length ? `<div class="season-meta">${chips.join('')}</div>` : ''}
         ${s.notes ? `<div class="season-notes">${s.notes}</div>` : ''}
       </div>
       <div class="season-ratings">
-        ${s.rating !== null ? `
+        ${s.rating !== null && s.rating !== undefined ? `
         <div class="rating-row">
           <span class="rating-lbl">Editor</span>
           ${bubbles(s.rating, s.rating >= 4.5)}
-          <span class="rating-num">${Number(s.rating).toFixed(1)}</span>
+          <span class="rating-num">${Number(s.rating).toFixed(2)}</span>
         </div>` : ''}
         ${cv ? `
         <div class="rating-row">
           <span class="rating-lbl">Community</span>
           ${bubbles(cv.avg, cv.avg >= 4.5)}
-          <span class="rating-num">${cv.avg.toFixed(1)}</span>
+          <span class="rating-num">${cv.avg.toFixed(2)}</span>
           <span class="rating-votes">(${cv.count})</span>
-        </div>` : `<div class="rating-row"><span class="rating-lbl">Community</span><span class="no-rating-msg">no votes yet</span></div>`}
-        <div class="rating-row">
-          <span class="rating-lbl">Your Vote</span>
-          ${starWidget(s.id, uv)}
+        </div>` : `<div class="rating-row"><span class="rating-lbl">Community</span><span class="no-rating-msg">no votes</span></div>`}
+        <div class="rating-row" style="flex-direction:column;align-items:flex-end;gap:4px;">
+          <span class="rating-lbl" style="align-self:flex-end;">Your Vote</span>
+          ${sliderWidget(s.id, uv)}
         </div>
       </div>
     </div>`;
   }).join('');
 
-  // Bind star clicks
-  grid.querySelectorAll('.star-row').forEach(row => {
-    row.addEventListener('click', e => {
-      const star = e.target.closest('.s');
-      if (!star) return;
-      submitVote(star.dataset.sid, parseFloat(star.dataset.score));
+  // Bind slider events
+  grid.querySelectorAll('.vote-slider').forEach(slider => {
+    const sid    = slider.dataset.sid;
+    const valEl  = document.getElementById(`vval-${sid}`);
+    slider.addEventListener('input', () => {
+      valEl.textContent = parseFloat(slider.value).toFixed(2);
     });
-    row.addEventListener('mouseover', e => {
-      const star = e.target.closest('.s');
-      if (!star) return;
-      const score = parseInt(star.dataset.score);
-      row.querySelectorAll('.s').forEach(s => {
-        s.classList.toggle('filled', parseInt(s.dataset.score) <= score);
-      });
-    });
-    row.addEventListener('mouseleave', () => {
-      const sid = row.dataset.sid;
-      const uScore = userVotes[sid] || 0;
-      row.querySelectorAll('.s').forEach(s => {
-        s.classList.toggle('filled', parseInt(s.dataset.score) <= uScore);
-      });
+  });
+
+  grid.querySelectorAll('.vote-save-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const sid    = btn.dataset.sid;
+      const slider = grid.querySelector(`.vote-slider[data-sid="${sid}"]`);
+      const score  = parseFloat(slider.value);
+      btn.textContent = '...';
+      await submitVote(sid, score);
+      btn.textContent = 'Save';
+      const savedEl = document.getElementById(`vsaved-${sid}`);
+      if (savedEl) { savedEl.style.display = 'inline'; }
     });
   });
 }
 
-// ── VOTES ─────────────────────────────────────────────────────────
 async function loadVotes() {
   const { data } = await db.from('season_votes').select('season_id, score');
   if (!data) return;
   const agg = {};
   data.forEach(v => {
     if (!agg[v.season_id]) agg[v.season_id] = { total: 0, count: 0 };
-    agg[v.season_id].total += v.score;
+    agg[v.season_id].total += parseFloat(v.score);
     agg[v.season_id].count += 1;
   });
   communityVotes = {};
@@ -510,14 +467,14 @@ async function loadUserVotes() {
   const { data } = await db.from('season_votes').select('season_id, score').eq('user_id', currentUser.id);
   if (!data) return;
   userVotes = {};
-  data.forEach(v => { userVotes[v.season_id] = v.score; });
+  data.forEach(v => { userVotes[v.season_id] = parseFloat(v.score); });
 }
 
 async function submitVote(seasonId, score) {
-  if (!currentUser) { alert('Sign in on the Players page to vote'); return; }
+  if (!currentUser) return;
   const existing = userVotes[seasonId];
   let result;
-  if (existing) {
+  if (existing !== undefined) {
     result = await db.from('season_votes').update({ score }).eq('season_id', seasonId).eq('user_id', currentUser.id);
   } else {
     result = await db.from('season_votes').insert({ season_id: seasonId, user_id: currentUser.id, score });
@@ -528,29 +485,27 @@ async function submitVote(seasonId, score) {
   applyFilters();
 }
 
-// ── ADMIN MODAL ───────────────────────────────────────────────────
 function openModal(seasonId) {
-  const modal = document.getElementById('seasonModal');
   const s = seasonId ? allSeasons.find(x => x.id === seasonId) : null;
   document.getElementById('modalTitle').textContent = s ? 'Edit Season' : 'Add Season';
-  document.getElementById('modalSeasonId').value = s ? s.id : '';
+  document.getElementById('modalSeasonId').value    = s?.id || '';
   document.getElementById('deleteSeasonBtn').style.display = s ? 'block' : 'none';
-  document.getElementById('fYear').value            = s?.year            || '';
-  document.getElementById('fCoach').value           = s?.coach           || '';
-  document.getElementById('fWins').value            = s?.wins            ?? '';
-  document.getElementById('fLosses').value          = s?.losses          ?? '';
-  document.getElementById('fConfRecord').value      = s?.conf_record     || '';
-  document.getElementById('fConfFinish').value      = s?.conf_finish     || '';
-  document.getElementById('fTournament').value      = s?.tournament      || '';
-  document.getElementById('fTournamentResult').value= s?.tournament_result || '';
-  document.getElementById('fRating').value          = s?.rating          ?? '';
-  document.getElementById('fNotes').value           = s?.notes           || '';
-  modal.style.display = 'flex';
+  document.getElementById('fYear').value             = s?.year            || '';
+  document.getElementById('fCoach').value            = s?.coach           || '';
+  document.getElementById('fWins').value             = s?.wins            ?? '';
+  document.getElementById('fLosses').value           = s?.losses          ?? '';
+  document.getElementById('fConfRecord').value       = s?.conf_record     || '';
+  document.getElementById('fConfFinish').value       = s?.conf_finish     || '';
+  document.getElementById('fTournament').value       = s?.tournament      || '';
+  document.getElementById('fTournamentResult').value = s?.tournament_result || '';
+  document.getElementById('fRating').value           = s?.rating          ?? '';
+  document.getElementById('fSeed').value             = s?.ncaa_seed       ?? '';
+  document.getElementById('fNotes').value            = s?.notes           || '';
+  document.getElementById('seasonModal').style.display = 'flex';
 }
 
 function closeModal() { document.getElementById('seasonModal').style.display = 'none'; }
 
-// ── INIT ──────────────────────────────────────────────────────────
 async function init() {
   const { data: { session } } = await db.auth.getSession();
   if (session) {
@@ -569,11 +524,10 @@ async function init() {
 
   allSeasons = seasonsResult.data || [];
 
-  // Hero stats
   document.getElementById('statSeasons').textContent = allSeasons.length;
   const totalWins = allSeasons.reduce((a, s) => a + (s.wins || 0), 0);
   document.getElementById('statWins').textContent = totalWins || '—';
-  const rated = allSeasons.filter(s => s.rating !== null);
+  const rated = allSeasons.filter(s => s.rating !== null && s.rating !== undefined);
   if (rated.length) {
     const avg = rated.reduce((a, s) => a + parseFloat(s.rating), 0) / rated.length;
     document.getElementById('statAvgRating').textContent = avg.toFixed(2);
@@ -581,12 +535,10 @@ async function init() {
 
   applyFilters();
 
-  // Filter/sort events
   document.getElementById('filterCoach').addEventListener('change', applyFilters);
   document.getElementById('filterTournament').addEventListener('change', applyFilters);
   document.getElementById('sortSelect').addEventListener('change', applyFilters);
 
-  // Admin modal events
   document.getElementById('addSeasonBtn')?.addEventListener('click', () => openModal(null));
   document.getElementById('modalCancelBtn').addEventListener('click', closeModal);
   document.getElementById('seasonModal').addEventListener('click', e => {
@@ -594,7 +546,7 @@ async function init() {
   });
 
   document.getElementById('modalSaveBtn').addEventListener('click', async () => {
-    const id = document.getElementById('modalSeasonId').value;
+    const id   = document.getElementById('modalSeasonId').value;
     const data = {
       year:              parseInt(document.getElementById('fYear').value) || null,
       coach:             document.getElementById('fCoach').value || null,
@@ -605,6 +557,7 @@ async function init() {
       tournament:        document.getElementById('fTournament').value || null,
       tournament_result: document.getElementById('fTournamentResult').value || null,
       rating:            parseFloat(document.getElementById('fRating').value) || null,
+      ncaa_seed:         parseInt(document.getElementById('fSeed').value) || null,
       notes:             document.getElementById('fNotes').value || null,
     };
     if (!data.year) { alert('Year is required'); return; }
@@ -626,18 +579,16 @@ async function init() {
     }
     closeModal();
     applyFilters();
-    // Update hero stats
     document.getElementById('statSeasons').textContent = allSeasons.length;
   });
 
   document.getElementById('deleteSeasonBtn').addEventListener('click', async () => {
     const id = document.getElementById('modalSeasonId').value;
-    if (!confirm('Delete this season? This cannot be undone.')) return;
+    if (!confirm('Delete this season?')) return;
     const { error } = await db.from('seasons').delete().eq('id', id);
     if (error) { alert('Error: ' + error.message); return; }
     allSeasons = allSeasons.filter(s => s.id !== id);
-    closeModal();
-    applyFilters();
+    closeModal(); applyFilters();
   });
 }
 
