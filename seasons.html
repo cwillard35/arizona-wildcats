@@ -47,6 +47,47 @@
   .filter-group label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gray-mid); }
   .filter-group select { background: var(--navy-dark); border: 1px solid rgba(255,255,255,0.15); border-radius: 4px; color: var(--white); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; padding: 0.4rem 0.75rem; outline: none; }
 
+  /* VIEW TOGGLE */
+  .view-toggle { display: flex; gap: 4px; background: var(--navy-dark); border: 1px solid rgba(255,255,255,0.1); border-radius: 5px; padding: 3px; }
+  .view-btn { background: transparent; border: none; border-radius: 3px; color: var(--gray-mid); cursor: pointer; padding: 5px 8px; display: flex; align-items: center; transition: all 0.2s; }
+  .view-btn:hover { color: var(--white); }
+  .view-btn.active { background: var(--cardinal); color: var(--white); }
+
+  /* SEASON CARD GRID */
+  .season-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+
+  .season-card-tile {
+    background: var(--navy-mid);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 8px;
+    padding: 1.25rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.15s;
+  }
+  .season-card-tile:hover { border-color: rgba(204,0,51,0.3); }
+  .season-card-tile::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .season-card-tile.tier-5::before { background: var(--gold); }
+  .season-card-tile.tier-4::before { background: var(--cardinal); }
+  .season-card-tile.tier-3::before { background: #4488ff; }
+  .season-card-tile.tier-2::before { background: var(--gray-dark); }
+
+  .tile-year { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 2px; color: var(--white); line-height: 1; }
+  .tile-sub { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; letter-spacing: 2px; color: var(--gray-mid); text-transform: uppercase; margin-bottom: 0.5rem; }
+  .tile-record { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 1px; color: var(--white); margin-bottom: 0.4rem; }
+  .tile-edit { position: absolute; top: 0.75rem; right: 0.75rem; background: rgba(255,199,44,0.15); border: 1px solid rgba(255,199,44,0.3); border-radius: 3px; color: var(--gold); font-size: 0.65rem; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 1px; text-transform: uppercase; padding: 1px 6px; cursor: pointer; }
+
+  .tile-community { display: flex; align-items: center; gap: 6px; margin-top: 0.6rem; margin-bottom: 0.6rem; }
+  .tile-vote { margin-top: 0.5rem; }
+
+  /* RESULTS BAR */
+  .results-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; }
+  .results-count { font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; letter-spacing: 1px; color: var(--gray-mid); }
+
   /* SEASON CARD */
   .season-grid { display: flex; flex-direction: column; gap: 0.75rem; }
   .season-card { background: var(--navy-mid); border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; padding: 1.25rem 1.5rem; display: grid; grid-template-columns: 90px 1fr auto; align-items: start; gap: 1.5rem; position: relative; overflow: hidden; transition: border-color 0.15s; }
@@ -255,9 +296,20 @@
       </select>
     </div>
   </div>
-  <div class="season-grid" id="seasonGrid">
-    <div style="text-align:center;padding:3rem;color:var(--gray-mid);font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;">Loading seasons...</div>
+  <div class="results-bar">
+    <span class="results-count" id="resultsCount"></span>
+    <div class="view-toggle">
+      <button class="view-btn active" id="btnList" title="List view">
+        <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm2 0v3h12V2H2zm0 5v3h12V7H2zm0 5v2h12v-2H2z"/></svg>
+      </button>
+      <button class="view-btn" id="btnCards" title="Card view">
+        <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3z"/></svg>
+      </button>
+    </div>
   </div>
+
+  <div class="season-grid" id="seasonGrid"></div>
+  <div class="season-card-grid" id="seasonCardGrid" style="display:none;"></div>
 </main>
 
 <footer>Arizona Wildcats Basketball Database · <a href="about.html">About</a> · Bear Down</footer>
@@ -270,7 +322,40 @@ const db = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 let allSeasons = [], communityVotes = {}, userVotes = {};
 let currentUser = null, isAdmin = false;
-let progressionData = {}; // year -> [{name, gs}]
+let progressionData = {};
+let viewMode = 'list';
+
+function renderSeasonCards(seasons) {
+  const grid = document.getElementById('seasonCardGrid');
+  if (!seasons || seasons.length === 0) { grid.innerHTML = ''; return; }
+
+  grid.innerHTML = seasons.map(s => {
+    const cv  = communityVotes[s.id];
+    const uv  = userVotes[s.id];
+    const tier = cv ? tierClass(cv.avg) : 'no-rating';
+    const record = (s.wins !== null && s.losses !== null) ? `${s.wins}–${s.losses}` : '';
+    const yr1 = s.year - 1, yr2 = String(s.year).slice(2);
+    const five = getStartingFive(s.year);
+    const editBtn = isAdmin ? `<button class="tile-edit" onclick="openModal('${s.id}')">edit</button>` : '';
+
+    return `<div class="season-card-tile ${tier}">
+      ${editBtn}
+      <div class="tile-year">${s.year}</div>
+      <div class="tile-sub">${yr1}–${yr2}${s.coach ? ' · ' + s.coach : ''}</div>
+      ${record ? `<div class="tile-record">${record}</div>` : ''}
+      ${tournBadge(s.tournament_result, s.tournament)}
+      ${cv ? `<div class="tile-community">
+        ${bubbles(cv.avg, cv.avg >= 4.5)}
+        <span class="rating-num">${cv.avg.toFixed(2)}</span>
+        <span class="rating-votes">(${cv.count})</span>
+      </div>` : '<div style="margin-top:0.6rem;margin-bottom:0.6rem;"><span class="no-rating-msg">no votes yet</span></div>'}
+      ${five ? `<div style="font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;color:rgba(255,255,255,0.35);margin-bottom:0.5rem;">${five.join(', ')}</div>` : ''}
+      <div class="tile-vote">${sliderWidget(s.id, uv)}</div>
+    </div>`;
+  }).join('');
+
+  bindSliderEvents(grid);
+} // year -> [{name, gs}]
 
 async function loadProgression() {
   try {
@@ -389,17 +474,56 @@ function applyFilters() {
   render(filtered);
 }
 
+function bindSliderEvents(container) {
+  container.querySelectorAll('.vote-slider').forEach(slider => {
+    const sid   = slider.dataset.sid;
+    const valEl = document.getElementById(`vval-${sid}`);
+    slider.addEventListener('input', () => {
+      const raw     = parseFloat(slider.value);
+      const snapped = Math.round(raw * 4) / 4;
+      slider.value  = snapped;
+      if (valEl) valEl.textContent = snapped.toFixed(2);
+    });
+  });
+
+  container.querySelectorAll('.vote-save-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const sid    = btn.dataset.sid;
+      const slider = container.querySelector(`.vote-slider[data-sid="${sid}"]`);
+      const score  = Math.round(parseFloat(slider.value) * 4) / 4;
+      btn.textContent = '...';
+      await submitVote(sid, score);
+      btn.textContent = 'Save';
+    });
+  });
+}
+
 function render(seasons) {
-  const grid = document.getElementById('seasonGrid');
-  if (!seasons || seasons.length === 0) {
-    grid.innerHTML = `<div style="text-align:center;padding:3rem;color:var(--gray-mid);font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;">No seasons found.</div>`;
+  const listGrid = document.getElementById('seasonGrid');
+  const cardGrid = document.getElementById('seasonCardGrid');
+  const count    = document.getElementById('resultsCount');
+
+  count.textContent = `Showing ${seasons.length} of ${allSeasons.length} seasons`;
+
+  if (viewMode === 'cards') {
+    listGrid.style.display = 'none';
+    cardGrid.style.display = 'grid';
+    renderSeasonCards(seasons);
     return;
   }
 
-  grid.innerHTML = seasons.map(s => {
+  listGrid.style.display = 'flex';
+  cardGrid.style.display = 'none';
+
+  if (!seasons || seasons.length === 0) {
+    listGrid.innerHTML = `<div style="text-align:center;padding:3rem;color:var(--gray-mid);font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;">No seasons found.</div>`;
+    return;
+  }
+
+  listGrid.innerHTML = seasons.map(s => {
     const cv      = communityVotes[s.id];
     const uv      = userVotes[s.id];
-    const tier    = tierClass(s.rating);
+    const tier    = tierClass(cv?.avg || s.rating);
     const editBtn = isAdmin ? `<button class="season-edit-btn" onclick="openModal('${s.id}')">edit</button>` : '';
     const record  = (s.wins !== null && s.losses !== null) ? `${s.wins}–${s.losses}` : '';
     const yr1     = s.year - 1, yr2 = String(s.year).slice(2);
@@ -431,12 +555,6 @@ function render(seasons) {
         ${(() => { const five = getStartingFive(s.year); return five ? `<div class="season-notes" style="margin-top:0.4rem;color:rgba(255,255,255,0.4);">Starting 5: ${five.join(', ')}</div>` : ''; })()}
       </div>
       <div class="season-ratings">
-        ${s.rating !== null && s.rating !== undefined ? `
-        <div class="rating-row">
-          <span class="rating-lbl">Editor</span>
-          ${bubbles(s.rating, s.rating >= 4.5)}
-          <span class="rating-num">${Number(s.rating).toFixed(2)}</span>
-        </div>` : ''}
         ${cv ? `
         <div class="rating-row">
           <span class="rating-lbl">Community</span>
@@ -452,30 +570,7 @@ function render(seasons) {
     </div>`;
   }).join('');
 
-  // Bind slider events
-  grid.querySelectorAll('.vote-slider').forEach(slider => {
-    const sid    = slider.dataset.sid;
-    const valEl  = document.getElementById(`vval-${sid}`);
-    slider.addEventListener('input', () => {
-      const raw = parseFloat(slider.value);
-      const snapped = Math.round(raw * 4) / 4;
-      slider.value = snapped;
-      valEl.textContent = snapped.toFixed(2);
-    });
-  });
-
-  grid.querySelectorAll('.vote-save-btn').forEach(btn => {
-    btn.addEventListener('click', async () => {
-      const sid    = btn.dataset.sid;
-      const slider = grid.querySelector(`.vote-slider[data-sid="${sid}"]`);
-      const score = Math.round(parseFloat(slider.value) * 4) / 4; // snap to nearest 0.25
-      btn.textContent = '...';
-      await submitVote(sid, score);
-      btn.textContent = 'Save';
-      const savedEl = document.getElementById(`vsaved-${sid}`);
-      if (savedEl) { savedEl.style.display = 'inline'; }
-    });
-  });
+  bindSliderEvents(listGrid);
 }
 
 async function loadVotes() {
@@ -576,6 +671,20 @@ async function init() {
   document.getElementById('filterCoach').addEventListener('change', applyFilters);
   document.getElementById('filterTournament').addEventListener('change', applyFilters);
   document.getElementById('sortSelect').addEventListener('change', applyFilters);
+
+  document.getElementById('btnList').addEventListener('click', () => {
+    viewMode = 'list';
+    document.getElementById('btnList').classList.add('active');
+    document.getElementById('btnCards').classList.remove('active');
+    applyFilters();
+  });
+
+  document.getElementById('btnCards').addEventListener('click', () => {
+    viewMode = 'cards';
+    document.getElementById('btnCards').classList.add('active');
+    document.getElementById('btnList').classList.remove('active');
+    applyFilters();
+  });
 
   document.getElementById('addSeasonBtn')?.addEventListener('click', () => openModal(null));
   document.getElementById('modalCancelBtn').addEventListener('click', closeModal);
