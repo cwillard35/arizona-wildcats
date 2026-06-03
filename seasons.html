@@ -498,13 +498,17 @@ async function submitVote(seasonId, score) {
   const existing = userVotes[seasonId];
   let result;
   if (existing !== undefined) {
-    result = await db.from('season_votes').update({ score }).eq('season_id', seasonId).eq('user_id', currentUser.id);
+    result = await db.from('season_votes')
+      .update({ score, updated_at: new Date().toISOString() })
+      .eq('season_id', seasonId)
+      .eq('user_id', currentUser.id);
   } else {
-    result = await db.from('season_votes').insert({ season_id: seasonId, user_id: currentUser.id, score });
+    result = await db.from('season_votes')
+      .insert({ season_id: seasonId, user_id: currentUser.id, score });
   }
   if (result.error) { console.error(result.error); return; }
 
-  // Update community average locally right away
+  // Update local state
   const prev = communityVotes[seasonId];
   if (prev) {
     const oldTotal = prev.avg * prev.count;
@@ -514,12 +518,37 @@ async function submitVote(seasonId, score) {
   } else {
     communityVotes[seasonId] = { avg: score, count: 1 };
   }
-
   userVotes[seasonId] = score;
-  applyFilters();
 
-  // Then refresh from server in background
-  loadVotes().then(() => applyFilters());
+  // Update just the community display in DOM — no full re-render
+  const cv = communityVotes[seasonId];
+  const cards = document.querySelectorAll('.season-card');
+  cards.forEach(card => {
+    const editBtn = card.querySelector('.season-edit-btn');
+    const sid = editBtn ? editBtn.getAttribute('onclick').match(/'([^']+)'/)?.[1] : null;
+    // Find by slider
+    const slider = card.querySelector(`.vote-slider[data-sid="${seasonId}"]`);
+    if (!slider) return;
+
+    // Update community row
+    const ratingRows = card.querySelectorAll('.rating-row');
+    ratingRows.forEach(row => {
+      if (row.querySelector('.rating-lbl')?.textContent.trim() === 'Community') {
+        row.innerHTML = `
+          <span class="rating-lbl">Community</span>
+          ${bubbles(cv.avg, cv.avg >= 4.5)}
+          <span class="rating-num">${cv.avg.toFixed(2)}</span>
+          <span class="rating-votes">(${cv.count})</span>`;
+      }
+    });
+
+    // Show saved confirmation
+    const savedEl = card.querySelector(`#vsaved-${seasonId}`);
+    if (savedEl) { savedEl.style.display = 'inline'; }
+  });
+
+  // Refresh from server quietly in background
+  setTimeout(() => loadVotes(), 2000);
 }
 
 function openModal(seasonId) {
