@@ -287,10 +287,15 @@ async function loadProgression() {
 function getStartingFive(year) {
   const players = progressionData[year];
   if (!players || !players.length) return null;
-  const withGS = players.filter(p => p.totals?.gs > 0);
-  if (!withGS.length) return null;
-  withGS.sort((a, b) => (b.totals?.gs || 0) - (a.totals?.gs || 0));
-  return withGS.slice(0, 5).map(p => p.name.replace(/\s*\(jc\)\s*/gi, '').trim().split(' ').pop()); // last names only
+
+  // Prefer GS, fall back to G if no GS data available
+  const hasGS = players.some(p => p.totals?.gs > 0);
+  const statKey = hasGS ? 'gs' : 'g';
+
+  const withStat = players.filter(p => (p.totals?.[statKey] || 0) > 0);
+  if (!withStat.length) return null;
+  withStat.sort((a, b) => (b.totals?.[statKey] || 0) - (a.totals?.[statKey] || 0));
+  return withStat.slice(0, 5).map(p => p.name.replace(/\s*\(jc\)\s*/gi, '').trim().split(' ').pop());
 }
 
 function bubbles(score, isGold) {
