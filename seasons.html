@@ -452,7 +452,9 @@ function render(seasons) {
     const sid    = slider.dataset.sid;
     const valEl  = document.getElementById(`vval-${sid}`);
     slider.addEventListener('input', () => {
-      const snapped = Math.round(parseFloat(slider.value) * 4) / 4;
+      const raw = parseFloat(slider.value);
+      const snapped = Math.round(raw * 4) / 4;
+      slider.value = snapped;
       valEl.textContent = snapped.toFixed(2);
     });
   });
