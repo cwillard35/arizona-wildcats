@@ -290,7 +290,7 @@ function getStartingFive(year) {
   const withGS = players.filter(p => p.totals?.gs > 0);
   if (!withGS.length) return null;
   withGS.sort((a, b) => (b.totals?.gs || 0) - (a.totals?.gs || 0));
-  return withGS.slice(0, 5).map(p => p.name.split(' ').pop()); // last names only
+  return withGS.slice(0, 5).map(p => p.name.replace(/\s*\(jc\)\s*/gi, '').trim().split(' ').pop()); // last names only
 }
 
 function bubbles(score, isGold) {
@@ -502,16 +502,15 @@ async function submitVote(seasonId, score) {
       { onConflict: 'season_id,user_id' }
     );
 
-  if (result.error) { console.error('Vote error:', result.error); return; }
+  if (result.error) {
+    console.error('Vote error:', result.error);
+    alert(`Vote failed: ${result.error.message}`);
+    return;
+  }
 
-  // Update local state and reload everything fresh from server
-  userVotes[seasonId] = score;
+  // Reload everything fresh from server
   await Promise.all([loadVotes(), loadUserVotes()]);
   applyFilters();
-
-  // Show saved confirmation
-  const savedEl = document.getElementById(`vsaved-${seasonId}`);
-  if (savedEl) { savedEl.style.display = 'inline'; }
 }
 
 
