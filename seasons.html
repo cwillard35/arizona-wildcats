@@ -217,9 +217,10 @@
 
 <div class="hero-strip">
   <div class="stat-chip"><div class="num" id="statSeasons">—</div><div class="label">Seasons</div></div>
-  <div class="stat-chip"><div class="num" id="statWins">—</div><div class="label">All-Time Wins</div></div>
-  <div class="stat-chip"><div class="num" id="statChamps">2</div><div class="label">Championships</div></div>
-  <div class="stat-chip"><div class="num" id="statAvgRating">—</div><div class="label">Avg Editor Rating</div></div>
+  <div class="stat-chip"><div class="num" id="statChamps">—</div><div class="label">Championships</div></div>
+  <div class="stat-chip"><div class="num" id="statFinal4">—</div><div class="label">Final Fours</div></div>
+  <div class="stat-chip"><div class="num" id="statElite8">—</div><div class="label">Elite Eights</div></div>
+  <div class="stat-chip"><div class="num" id="statSweet16">—</div><div class="label">Sweet 16s</div></div>
 </div>
 
 <!-- Season Modal -->
@@ -660,13 +661,17 @@ async function init() {
   allSeasons = seasonsResult.data || [];
 
   document.getElementById('statSeasons').textContent = allSeasons.length;
-  const totalWins = allSeasons.reduce((a, s) => a + (s.wins || 0), 0);
-  document.getElementById('statWins').textContent = totalWins || '—';
-  const rated = allSeasons.filter(s => s.rating !== null && s.rating !== undefined);
-  if (rated.length) {
-    const avg = rated.reduce((a, s) => a + parseFloat(s.rating), 0) / rated.length;
-    document.getElementById('statAvgRating').textContent = avg.toFixed(2);
-  }
+
+  const order = ['Champion', 'Runner Up', 'Final Four', 'Elite Eight', 'Sweet 16'];
+  const champs   = allSeasons.filter(s => s.tournament_result === 'Champion').length;
+  const final4   = allSeasons.filter(s => ['Champion','Runner Up','Final Four'].includes(s.tournament_result)).length;
+  const elite8   = allSeasons.filter(s => ['Champion','Runner Up','Final Four','Elite Eight'].includes(s.tournament_result)).length;
+  const sweet16  = allSeasons.filter(s => ['Champion','Runner Up','Final Four','Elite Eight','Sweet 16'].includes(s.tournament_result)).length;
+
+  document.getElementById('statChamps').textContent  = champs;
+  document.getElementById('statFinal4').textContent  = final4;
+  document.getElementById('statElite8').textContent  = elite8;
+  document.getElementById('statSweet16').textContent = sweet16;
 
   applyFilters();
 
