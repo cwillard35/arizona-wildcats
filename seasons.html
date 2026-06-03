@@ -452,7 +452,8 @@ function render(seasons) {
     const sid    = slider.dataset.sid;
     const valEl  = document.getElementById(`vval-${sid}`);
     slider.addEventListener('input', () => {
-      valEl.textContent = parseFloat(slider.value).toFixed(2);
+      const snapped = Math.round(parseFloat(slider.value) * 4) / 4;
+      valEl.textContent = snapped.toFixed(2);
     });
   });
 
@@ -460,7 +461,7 @@ function render(seasons) {
     btn.addEventListener('click', async () => {
       const sid    = btn.dataset.sid;
       const slider = grid.querySelector(`.vote-slider[data-sid="${sid}"]`);
-      const score  = Math.round(parseFloat(slider.value) * 4) / 4; // snap to 0.25
+      const score = Math.round(parseFloat(slider.value) * 4) / 4; // snap to nearest 0.25
       btn.textContent = '...';
       await submitVote(sid, score);
       btn.textContent = 'Save';
