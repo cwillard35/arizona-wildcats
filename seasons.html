@@ -291,8 +291,8 @@
       <select id="sortSelect">
         <option value="year-desc">Year (newest first)</option>
         <option value="year-asc">Year (oldest first)</option>
-        <option value="rating-desc">Editor Rating ↓</option>
         <option value="community-desc">Community Score ↓</option>
+        <option value="uservote-desc">Your Rating ↓</option>
         <option value="wins-desc">Wins ↓</option>
       </select>
     </div>
@@ -462,12 +462,12 @@ function applyFilters() {
 
   filtered.sort((a, b) => {
     let av = col === 'year'      ? a.year :
-             col === 'rating'    ? (a.rating || 0) :
              col === 'community' ? (communityVotes[a.id]?.avg || 0) :
+             col === 'uservote'  ? (userVotes[a.id] || 0) :
              col === 'wins'      ? (a.wins || 0) : 0;
     let bv = col === 'year'      ? b.year :
-             col === 'rating'    ? (b.rating || 0) :
              col === 'community' ? (communityVotes[b.id]?.avg || 0) :
+             col === 'uservote'  ? (userVotes[b.id] || 0) :
              col === 'wins'      ? (b.wins || 0) : 0;
     return dir === 'desc' ? bv - av : av - bv;
   });
