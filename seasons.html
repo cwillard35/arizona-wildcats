@@ -160,9 +160,9 @@
     </div>
     <nav>
       <a href="players.html">Players</a>
+      <a href="seasons.html" class="active">Seasons</a>
       <a href="classes.html">Recruiting Classes</a>
       <a href="progression.html">Progression</a>
-      <a href="seasons.html" class="active">Seasons</a>
     </nav>
   </div>
 </header>
@@ -270,6 +270,28 @@ const db = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 let allSeasons = [], communityVotes = {}, userVotes = {};
 let currentUser = null, isAdmin = false;
+let progressionData = {}; // year -> [{name, gs}]
+
+async function loadProgression() {
+  try {
+    const res = await fetch('progression.json');
+    const data = await res.json();
+    // Group by year, sort by GS descending
+    data.all_seasons.forEach(p => {
+      if (!progressionData[p.year]) progressionData[p.year] = [];
+      progressionData[p.year].push(p);
+    });
+  } catch(e) { console.warn('Could not load progression.json', e); }
+}
+
+function getStartingFive(year) {
+  const players = progressionData[year];
+  if (!players || !players.length) return null;
+  const withGS = players.filter(p => p.totals?.gs > 0);
+  if (!withGS.length) return null;
+  withGS.sort((a, b) => (b.totals?.gs || 0) - (a.totals?.gs || 0));
+  return withGS.slice(0, 5).map(p => p.name.split(' ').pop()); // last names only
+}
 
 function bubbles(score, isGold) {
   if (score === null || score === undefined) return '';
@@ -401,6 +423,7 @@ function render(seasons) {
         ${tournBadge(s.tournament_result, s.tournament)}
         ${chips.length ? `<div class="season-meta">${chips.join('')}</div>` : ''}
         ${s.notes ? `<div class="season-notes">${s.notes}</div>` : ''}
+        ${(() => { const five = getStartingFive(s.year); return five ? `<div class="season-notes" style="margin-top:0.4rem;color:rgba(255,255,255,0.4);">Starting 5: ${five.join(', ')}</div>` : ''; })()}
       </div>
       <div class="season-ratings">
         ${s.rating !== null && s.rating !== undefined ? `
@@ -520,6 +543,7 @@ async function init() {
   const [seasonsResult] = await Promise.all([
     db.from('seasons').select('*').order('year', { ascending: false }),
     loadVotes(),
+    loadProgression(),
   ]);
 
   allSeasons = seasonsResult.data || [];
