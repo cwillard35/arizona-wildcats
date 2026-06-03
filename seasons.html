@@ -503,9 +503,23 @@ async function submitVote(seasonId, score) {
     result = await db.from('season_votes').insert({ season_id: seasonId, user_id: currentUser.id, score });
   }
   if (result.error) { console.error(result.error); return; }
+
+  // Update community average locally right away
+  const prev = communityVotes[seasonId];
+  if (prev) {
+    const oldTotal = prev.avg * prev.count;
+    const newTotal = existing !== undefined ? (oldTotal - existing + score) : (oldTotal + score);
+    const newCount = existing !== undefined ? prev.count : prev.count + 1;
+    communityVotes[seasonId] = { avg: newTotal / newCount, count: newCount };
+  } else {
+    communityVotes[seasonId] = { avg: score, count: 1 };
+  }
+
   userVotes[seasonId] = score;
-  await loadVotes();
   applyFilters();
+
+  // Then refresh from server in background
+  loadVotes().then(() => applyFilters());
 }
 
 function openModal(seasonId) {
