@@ -477,7 +477,7 @@ function applyFilters() {
 function bindSliderEvents(container) {
   container.querySelectorAll('.vote-slider').forEach(slider => {
     const sid   = slider.dataset.sid;
-    const valEl = document.getElementById(`vval-${sid}`);
+    const valEl = container.querySelector(`#vval-${sid}`);
     slider.addEventListener('input', () => {
       const raw     = parseFloat(slider.value);
       const snapped = Math.round(raw * 4) / 4;
@@ -494,6 +494,8 @@ function bindSliderEvents(container) {
       btn.textContent = '...';
       await submitVote(sid, score);
       btn.textContent = 'Save';
+      const savedEl = container.querySelector(`#vsaved-${sid}`);
+      if (savedEl) savedEl.style.display = 'inline';
     });
   });
 }
