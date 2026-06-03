@@ -344,7 +344,7 @@ function sliderWidget(seasonId, userScore) {
   return `<div class="vote-slider-wrap">
     <div class="vote-slider-row">
       <input type="range" class="vote-slider" data-sid="${seasonId}"
-        min="1" max="5" step="0.25" value="${userScore || 3}">
+        min="1" max="5" step="0.01" value="${userScore || 3}">
       <span class="vote-val" id="vval-${seasonId}">${userScore ? userScore.toFixed(2) : '—'}</span>
     </div>
     <div style="display:flex;gap:6px;align-items:center;justify-content:flex-end;">
