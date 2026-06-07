@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arizona Wildcats — Player Progression</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root {
+    --cardinal: #CC0033;
+    --cardinal-dark: #990022;
+    --cardinal-light: #ff1a4d;
+    --navy: #003366;
+    --navy-dark: #001a33;
+    --navy-mid: #00244d;
+    --gold: #FFC72C;
+    --white: #ffffff;
+    --off-white: #f5f5f5;
+    --gray-mid: #aaaaaa;
+    --gray-dark: #444444;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Barlow', sans-serif; background: var(--navy-dark); color: var(--white); min-height: 100vh; }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 60%, var(--cardinal-dark) 100%);
+    border-bottom: 3px solid var(--cardinal);
+    padding: 0 2rem;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+  .header-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; gap: 2rem; padding: 0.75rem 0; }
+  .logo-mark { display: flex; align-items: center; flex-shrink: 0; }
+  .logo-text { flex: 1; }
+  .logo-text h1 { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 3px; color: var(--white); line-height: 1; }
+  .logo-text p { font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase; color: var(--gray-mid); margin-top: 2px; }
+  nav { display: flex; gap: 0.25rem; }
+  nav a { font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gray-mid); text-decoration: none; padding: 0.5rem 1rem; border-radius: 3px; transition: all 0.2s; }
+  nav a:hover { color: var(--cardinal-light); background: rgba(204,0,51,0.2); }
+  nav a.active { color: var(--gold); border-bottom: 2px solid var(--gold); border-radius: 3px 3px 0 0; }
+
+  /* HERO STRIP */
+  .hero-strip {
+    background: var(--cardinal);
+    padding: 1.2rem 2rem;
+    display: flex; align-items: center; gap: 3rem; justify-content: center; flex-wrap: wrap;
+  }
+  .stat-chip { text-align: center; }
+  .stat-chip .num { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; line-height: 1; color: var(--white); }
+  .stat-chip .label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.7); }
+
+  /* MAIN */
+  main { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+
+  .page-title { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; letter-spacing: 4px; margin-bottom: 0.25rem; }
+  .page-sub { font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gray-mid); margin-bottom: 2rem; }
+
+  /* CLASS SUMMARY CARDS */
+  .class-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  @media (max-width: 900px) { .class-cards { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 500px) { .class-cards { grid-template-columns: 1fr; } }
+
+  .class-card {
+    background: var(--navy-mid);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    padding: 1.25rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .class-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .class-card.fr::before { background: rgba(255,255,255,0.3); }
+  .class-card.so::before { background: var(--cardinal); }
+  .class-card.jr::before { background: var(--gold); }
+  .class-card.sr::before { background: #44cc88; }
+
+  .class-card h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 3px;
+    margin-bottom: 0.75rem;
+  }
+  .class-card.fr h3 { color: rgba(255,255,255,0.6); }
+  .class-card.so h3 { color: var(--cardinal-light); }
+  .class-card.jr h3 { color: var(--gold); }
+  .class-card.sr h3 { color: #44cc88; }
+
+  .card-stats { display: flex; flex-direction: column; gap: 0.4rem; }
+  .card-stat { display: flex; justify-content: space-between; align-items: center; }
+  .card-stat .slabel { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; letter-spacing: 1px; text-transform: uppercase; color: var(--gray-mid); }
+  .card-stat .sval { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: var(--white); }
+  .card-stat .sdelta { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; }
+  .delta-up { color: #44cc88; }
+  .delta-down { color: var(--cardinal-light); }
+  .card-n { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; color: var(--gray-mid); margin-top: 0.75rem; letter-spacing: 1px; }
+
+  /* CHART SECTION */
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+    color: var(--white);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .charts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  @media (max-width: 900px) { .charts-grid { grid-template-columns: 1fr; } }
+
+  .chart-card {
+    background: var(--navy-mid);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    padding: 1.5rem;
+  }
+  .chart-card h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--gray-mid); margin-bottom: 1.25rem;
+  }
+  .chart-card canvas { max-height: 220px; }
+
+  /* PROGRESSION TABLE */
+  .table-wrap { background: var(--navy-mid); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; overflow: hidden; overflow-x: auto; margin-bottom: 2rem; }
+  table { width: 100%; border-collapse: collapse; min-width: 600px; }
+  thead { background: var(--navy-dark); border-bottom: 2px solid var(--cardinal); }
+  th { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gray-mid); padding: 0.85rem 1rem; text-align: center; white-space: nowrap; }
+  th:first-child { text-align: left; }
+  tbody tr { border-bottom: 1px solid rgba(255,255,255,0.05); }
+  tbody tr:last-child { border-bottom: none; }
+  td { font-size: 0.9rem; padding: 0.75rem 1rem; text-align: center; color: var(--off-white); }
+  td:first-child { text-align: left; font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gray-mid); }
+
+  .class-label {
+    display: inline-block;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    padding: 2px 10px;
+    border-radius: 3px;
+  }
+  .label-fr { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); }
+  .label-so { background: rgba(204,0,51,0.2); color: var(--cardinal-light); }
+  .label-jr { background: rgba(255,199,44,0.2); color: var(--gold); }
+  .label-sr { background: rgba(68,204,136,0.2); color: #44cc88; }
+
+  .val-best { color: var(--gold); font-weight: 700; }
+
+  /* STAT SELECTOR */
+  .stat-selector {
+    display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem;
+  }
+  .stat-btn {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; font-weight: 600;
+    letter-spacing: 1px; text-transform: uppercase;
+    background: var(--navy-mid); border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 4px; color: var(--gray-mid);
+    padding: 0.4rem 0.9rem; cursor: pointer; transition: all 0.2s;
+  }
+  .stat-btn:hover { color: var(--white); border-color: var(--cardinal); }
+  .stat-btn.active { background: var(--cardinal); border-color: var(--cardinal); color: var(--white); }
+
+  footer { text-align: center; padding: 2rem; margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.05); font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; letter-spacing: 1px; color: rgba(255,255,255,0.25); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo-mark">
+      <a href="index.html"><img src="logo.png" alt="Arizona Wildcats" style="height:60px;width:60px;object-fit:contain;display:block;"></a>
+    </div>
+    <div class="logo-text">
+      <h1>Arizona Wildcats Basketball</h1>
+      <p>Player History Database · 1981–Present</p>
+    </div>
+    <nav>
+      <a href="players.html">Players</a>
+      <a href="seasons.html">Seasons</a>
+      <a href="classes.html">Recruiting</a>
+      <a href="progression.html" class="active">Progression</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero-strip" id="heroStrip">
+  <div class="stat-chip"><div class="num" id="totalSeasons">—</div><div class="label">Seasons</div></div>
+  <div class="stat-chip"><div class="num" id="totalPlayerSeasons">—</div><div class="label">Player Seasons</div></div>
+  <div class="stat-chip"><div class="num" id="ptsJump">—</div><div class="label">Fr→Sr PPG Jump</div></div>
+  <div class="stat-chip"><div class="num" id="fgJump">—</div><div class="label">Fr→Sr FG% Jump</div></div>
+</div>
+
+<main>
+  <div class="page-title">Player Development</div>
+  <div class="page-sub" id="pageSubtitle">Freshman through Senior progression · Arizona Wildcats</div>
+
+  <!-- CLASS SUMMARY CARDS -->
+  <div class="class-cards" id="classCards"></div>
+
+  <!-- CHARTS -->
+  <div class="section-title">Stat Progression Charts</div>
+
+  <div class="stat-selector" id="statSelector">
+    <button class="stat-btn active" data-stat="pts">Points</button>
+    <button class="stat-btn" data-stat="trb">Rebounds</button>
+    <button class="stat-btn" data-stat="ast">Assists</button>
+    <button class="stat-btn" data-stat="stl">Steals</button>
+    <button class="stat-btn" data-stat="blk">Blocks</button>
+    <button class="stat-btn" data-stat="fg_pct">FG%</button>
+    <button class="stat-btn" data-stat="fg3_pct">3P%</button>
+    <button class="stat-btn" data-stat="ft_pct">FT%</button>
+    <button class="stat-btn" data-stat="mp">Minutes</button>
+  </div>
+
+  <div class="charts-grid">
+    <div class="chart-card">
+      <h3 id="mainChartTitle">Points Per Game — Fr/So/Jr/Sr Averages</h3>
+      <canvas id="mainChart"></canvas>
+    </div>
+    <div class="chart-card">
+      <h3>Scoring + Efficiency Progression</h3>
+      <canvas id="comboChart"></canvas>
+    </div>
+    <div class="chart-card">
+      <h3>Playmaking Progression (Assists & Steals)</h3>
+      <canvas id="playChart"></canvas>
+    </div>
+    <div class="chart-card">
+      <h3>Shooting Percentages (FG%, FT%)</h3>
+      <canvas id="shootChart"></canvas>
+    </div>
+  </div>
+
+  <!-- FULL STATS TABLE -->
+  <div class="section-title">Full Averages by Class Year</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Class</th>
+          <th>N</th>
+          <th>G</th>
+          <th>MIN</th>
+          <th>PPG</th>
+          <th>RPG</th>
+          <th>APG</th>
+          <th>SPG</th>
+          <th>BPG</th>
+          <th>TOV</th>
+          <th>FG%</th>
+          <th>3P%</th>
+          <th>FT%</th>
+        </tr>
+      </thead>
+      <tbody id="progressTable"></tbody>
+    </table>
+  </div>
+</main>
+
+<footer>
+  Arizona Wildcats Basketball Database · Built with ❤️ for Wildcat fans · <a href="about.html" style="color:rgba(255,255,255,0.4);text-decoration:none;">About</a> · Data compiled by cwillard35
+</footer>
+
+<script>
+const CLASS_ORDER  = ["Freshman", "Sophomore", "Junior", "Senior"];
+const CLASS_SHORT  = ["FR", "SO", "JR", "SR"];
+const CLASS_COLORS = {
+  Freshman:  { border: 'rgba(255,255,255,0.5)',  bg: 'rgba(255,255,255,0.08)' },
+  Sophomore: { border: 'rgb(204,0,51)',           bg: 'rgba(204,0,51,0.15)'   },
+  Junior:    { border: 'rgb(255,199,44)',         bg: 'rgba(255,199,44,0.15)' },
+  Senior:    { border: 'rgb(68,204,136)',         bg: 'rgba(68,204,136,0.15)' },
+};
+const CLASS_CSS = { Freshman:'fr', Sophomore:'so', Junior:'jr', Senior:'sr' };
+
+const STAT_LABELS = {
+  pts:'PPG', trb:'RPG', ast:'APG', stl:'SPG', blk:'BPG',
+  fg_pct:'FG%', fg3_pct:'3P%', ft_pct:'FT%', mp:'MIN', tov:'TOV'
+};
+
+const STAT_FULL = {
+  pts:'Points Per Game', trb:'Rebounds Per Game', ast:'Assists Per Game',
+  stl:'Steals Per Game', blk:'Blocks Per Game', fg_pct:'Field Goal %',
+  fg3_pct:'Three-Point %', ft_pct:'Free Throw %', mp:'Minutes Per Game',
+};
+
+let byClass = {};
+let mainChartInstance = null;
+
+function fmt(val, stat) {
+  if (val === null || val === undefined) return '—';
+  if (stat && (stat.includes('pct') || stat.includes('fg') || stat.includes('ft'))) {
+    return (val * 100).toFixed(1) + '%';
+  }
+  return val.toFixed(1);
+}
+
+function delta(curr, prev, stat) {
+  if (curr === null || prev === null) return '';
+  const diff = curr - prev;
+  const pct  = stat && stat.includes('pct');
+  const str  = (diff >= 0 ? '+' : '') + (pct ? (diff * 100).toFixed(1) + '%' : diff.toFixed(1));
+  return `<span class="${diff >= 0 ? 'delta-up' : 'delta-down'}">${str}</span>`;
+}
+
+function buildCards(byClass) {
+  const container = document.getElementById('classCards');
+  const stats = [
+    {key:'pts', label:'PPG'},
+    {key:'trb', label:'RPG'},
+    {key:'ast', label:'APG'},
+    {key:'fg_pct', label:'FG%'},
+  ];
+
+  container.innerHTML = CLASS_ORDER.map((cls, i) => {
+    const d = byClass[cls];
+    if (!d) return '';
+    const prev = i > 0 ? byClass[CLASS_ORDER[i-1]] : null;
+    const css  = CLASS_CSS[cls];
+
+    const statRows = stats.map(s => {
+      const val  = d[s.key];
+      const pval = prev ? prev[s.key] : null;
+      return `<div class="card-stat">
+        <span class="slabel">${s.label}</span>
+        <span class="sval">${fmt(val, s.key)}</span>
+        ${prev ? delta(val, pval, s.key) : ''}
+      </div>`;
+    }).join('');
+
+    return `<div class="class-card ${css}">
+      <h3>${cls}</h3>
+      <div class="card-stats">${statRows}</div>
+      <div class="card-n">n = ${d.n} player-seasons</div>
+    </div>`;
+  }).join('');
+}
+
+function buildTable(byClass) {
+  const stats = ['pts','trb','ast','stl','blk','tov','fg_pct','fg3_pct','ft_pct'];
+  const tbody = document.getElementById('progressTable');
+
+  // Find best value per stat column
+  const best = {};
+  for (const stat of stats) {
+    const vals = CLASS_ORDER.map(c => byClass[c]?.[stat]).filter(v => v !== null && v !== undefined);
+    best[stat] = stat === 'tov' ? Math.min(...vals) : Math.max(...vals);
+  }
+
+  tbody.innerHTML = CLASS_ORDER.map((cls, i) => {
+    const d   = byClass[cls];
+    const css = CLASS_CSS[cls];
+    if (!d) return '';
+
+    const cells = [
+      `<td><span class="class-label label-${css}">${cls}</span></td>`,
+      `<td>${d.n}</td>`,
+      `<td>${fmt(d.g, 'g')}</td>`,
+      `<td>${fmt(d.mp, 'mp')}</td>`,
+    ];
+
+    for (const stat of stats) {
+      const val = d[stat];
+      const isBest = val !== null && Math.abs(val - best[stat]) < 0.001;
+      cells.push(`<td class="${isBest ? 'val-best' : ''}">${fmt(val, stat)}</td>`);
+    }
+
+    return `<tr>${cells.join('')}</tr>`;
+  }).join('');
+}
+
+function makeLineChart(canvasId, labels, datasets, yCallback) {
+  const ctx = document.getElementById(canvasId).getContext('2d');
+  const options = {
+    responsive: true,
+    plugins: { legend: { labels: { color: '#aaa', font: { family: 'Barlow Condensed', size: 11 }, boxWidth: 12 } } },
+    scales: {
+      x: { ticks: { color: '#aaa', font: { family: 'Barlow Condensed' } }, grid: { color: 'rgba(255,255,255,0.05)' } },
+      y: { ticks: { color: '#aaa', font: { family: 'Barlow Condensed' }, callback: yCallback || (v => v) }, grid: { color: 'rgba(255,255,255,0.05)' } }
+    }
+  };
+  return new Chart(ctx, { type: 'line', data: { labels, datasets }, options });
+}
+
+function buildCharts(byClass) {
+  const labels = CLASS_SHORT;
+
+  // Main switchable chart
+  buildMainChart('pts');
+
+  // Scoring + rebounds combo
+  makeLineChart('comboChart', labels, [
+    {
+      label: 'PPG',
+      data: CLASS_ORDER.map(c => byClass[c]?.pts),
+      borderColor: 'rgb(204,0,51)', backgroundColor: 'rgba(204,0,51,0.1)',
+      pointBackgroundColor: 'rgb(255,199,44)', pointRadius: 6, tension: 0.3, fill: true, yAxisID: 'y',
+    },
+    {
+      label: 'RPG',
+      data: CLASS_ORDER.map(c => byClass[c]?.trb),
+      borderColor: 'rgba(255,255,255,0.5)', backgroundColor: 'rgba(255,255,255,0.05)',
+      pointBackgroundColor: 'rgba(255,255,255,0.8)', pointRadius: 6, tension: 0.3, fill: true, yAxisID: 'y',
+    },
+  ]);
+
+  // Playmaking
+  makeLineChart('playChart', labels, [
+    {
+      label: 'APG',
+      data: CLASS_ORDER.map(c => byClass[c]?.ast),
+      borderColor: 'rgb(255,199,44)', backgroundColor: 'rgba(255,199,44,0.1)',
+      pointBackgroundColor: 'rgb(255,199,44)', pointRadius: 6, tension: 0.3, fill: true,
+    },
+    {
+      label: 'SPG',
+      data: CLASS_ORDER.map(c => byClass[c]?.stl),
+      borderColor: 'rgb(68,204,136)', backgroundColor: 'rgba(68,204,136,0.05)',
+      pointBackgroundColor: 'rgb(68,204,136)', pointRadius: 6, tension: 0.3,
+    },
+  ]);
+
+  // Shooting
+  makeLineChart('shootChart', labels, [
+    {
+      label: 'FG%',
+      data: CLASS_ORDER.map(c => byClass[c]?.fg_pct ? +(byClass[c].fg_pct * 100).toFixed(1) : null),
+      borderColor: 'rgb(204,0,51)', backgroundColor: 'rgba(204,0,51,0.1)',
+      pointBackgroundColor: 'rgb(255,199,44)', pointRadius: 6, tension: 0.3, fill: true,
+    },
+    {
+      label: 'FT%',
+      data: CLASS_ORDER.map(c => byClass[c]?.ft_pct ? +(byClass[c].ft_pct * 100).toFixed(1) : null),
+      borderColor: 'rgba(255,255,255,0.5)', backgroundColor: 'rgba(255,255,255,0.05)',
+      pointBackgroundColor: 'rgba(255,255,255,0.8)', pointRadius: 6, tension: 0.3,
+    },
+  ], v => v + '%');
+}
+
+function buildMainChart(stat) {
+  const ctx = document.getElementById('mainChart').getContext('2d');
+  if (mainChartInstance) mainChartInstance.destroy();
+
+  const isPct = stat.includes('pct');
+  const data  = CLASS_ORDER.map(c => {
+    const val = byClass[c]?.[stat];
+    return isPct && val ? +(val * 100).toFixed(1) : val;
+  });
+
+  mainChartInstance = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: CLASS_SHORT,
+      datasets: [{
+        label: STAT_LABELS[stat],
+        data,
+        backgroundColor: CLASS_ORDER.map(c => CLASS_COLORS[c].bg.replace('0.08','0.6').replace('0.15','0.7')),
+        borderColor:     CLASS_ORDER.map(c => CLASS_COLORS[c].border),
+        borderWidth: 2,
+        borderRadius: 4,
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { ticks: { color: '#aaa', font: { family: 'Barlow Condensed', size: 13 } }, grid: { color: 'rgba(255,255,255,0.05)' } },
+        y: { ticks: { color: '#aaa', font: { family: 'Barlow Condensed' }, callback: v => isPct ? v + '%' : v }, grid: { color: 'rgba(255,255,255,0.05)' } }
+      }
+    }
+  });
+
+  document.getElementById('mainChartTitle').textContent =
+    `${STAT_FULL[stat]} — Freshman through Senior Averages`;
+}
+
+// Stat selector buttons
+document.getElementById('statSelector').addEventListener('click', e => {
+  const btn = e.target.closest('.stat-btn');
+  if (!btn) return;
+  document.querySelectorAll('.stat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  buildMainChart(btn.dataset.stat);
+});
+
+async function init() {
+  const res  = await fetch('progression.json');
+  const data = await res.json();
+  byClass    = data.by_class;
+
+  const seasons = data.meta.seasons || [];
+  document.getElementById('totalSeasons').textContent = seasons.length;
+  document.getElementById('totalPlayerSeasons').textContent = data.meta.total_player_seasons;
+
+  const fr = byClass['Freshman'];
+  const sr = byClass['Senior'];
+  if (fr && sr) {
+    const ptsJump = (sr.pts - fr.pts).toFixed(1);
+    const fgJump  = ((sr.fg_pct - fr.fg_pct) * 100).toFixed(1);
+    document.getElementById('ptsJump').textContent = '+' + ptsJump;
+    document.getElementById('fgJump').textContent  = '+' + fgJump + '%';
+  }
+
+  const minYear = Math.min(...seasons);
+  const maxYear = Math.max(...seasons);
+  document.getElementById('pageSubtitle').textContent =
+    `Freshman through Senior progression · ${minYear}–${maxYear} · ${data.meta.total_player_seasons} player-seasons`;
+
+  buildCards(byClass);
+  buildTable(byClass);
+  buildCharts(byClass);
+}
+
+init();
+</script>
+</body>
+</html>

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arizona Wildcats — About</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cardinal: #CC0033;
+    --cardinal-dark: #990022;
+    --cardinal-light: #ff1a4d;
+    --navy: #003366;
+    --navy-dark: #001a33;
+    --navy-mid: #00244d;
+    --gold: #FFC72C;
+    --white: #ffffff;
+    --off-white: #f5f5f5;
+    --gray-mid: #aaaaaa;
+    --gray-dark: #444444;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Barlow', sans-serif; background: var(--navy-dark); color: var(--white); min-height: 100vh; }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 60%, var(--cardinal-dark) 100%);
+    border-bottom: 3px solid var(--cardinal);
+    padding: 0 2rem;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+  .header-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; gap: 2rem; padding: 0.75rem 0; }
+  .logo-mark { display: flex; align-items: center; flex-shrink: 0; }
+  .logo-text { flex: 1; }
+  .logo-text h1 { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 3px; color: var(--white); line-height: 1; }
+  .logo-text p { font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase; color: var(--gray-mid); margin-top: 2px; }
+  nav { display: flex; gap: 0.25rem; }
+  nav a { font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gray-mid); text-decoration: none; padding: 0.5rem 1rem; border-radius: 3px; transition: all 0.2s; }
+  nav a:hover { color: var(--cardinal-light); background: rgba(204,0,51,0.2); }
+  nav a.active { color: var(--gold); border-bottom: 2px solid var(--gold); border-radius: 3px 3px 0 0; }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(180deg, var(--cardinal-dark) 0%, var(--navy-dark) 100%);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+  .hero h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem;
+    letter-spacing: 6px;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .hero p {
+    font-family: 'Barlow', sans-serif;
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.7);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+  .hero-rule {
+    width: 60px; height: 3px;
+    background: var(--cardinal);
+    margin: 1.5rem auto;
+  }
+
+  /* MAIN */
+  main { max-width: 860px; margin: 0 auto; padding: 3rem 2rem; }
+
+  .section {
+    margin-bottom: 3rem;
+  }
+
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--cardinal);
+    margin-bottom: 0.6rem;
+  }
+
+  .section h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 3px;
+    color: var(--white);
+    margin-bottom: 1.25rem;
+  }
+
+  .section p {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 1rem;
+  }
+
+  .section p:last-child { margin-bottom: 0; }
+
+  .divider {
+    border: none;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    margin: 3rem 0;
+  }
+
+  /* SCORE LEGEND */
+  .score-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+  }
+
+  .score-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--navy-mid);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 6px;
+    padding: 0.85rem 1.25rem;
+  }
+
+  .score-dots {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+
+  .dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+  }
+  .dot.filled { background: var(--cardinal); }
+  .dot.filled-gold { background: var(--gold); }
+
+  .score-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    color: var(--white);
+    min-width: 20px;
+    flex-shrink: 0;
+  }
+
+  .score-desc {
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.4;
+  }
+
+  .score-desc strong {
+    color: var(--white);
+    font-weight: 600;
+  }
+
+  /* HOW TO USE CARDS */
+  .how-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1.25rem;
+  }
+  @media (max-width: 600px) { .how-grid { grid-template-columns: 1fr; } }
+
+  .how-card {
+    background: var(--navy-mid);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 6px;
+    padding: 1.25rem;
+  }
+
+  .how-card h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  .how-card p {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 0;
+  }
+
+  /* DATA SOURCES */
+  .source-list {
+    margin-top: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .source-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.5;
+  }
+
+  .source-bullet {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--cardinal);
+    flex-shrink: 0;
+    margin-top: 0.45rem;
+  }
+
+  /* CALLOUT */
+  .callout {
+    background: rgba(204,0,51,0.1);
+    border: 1px solid rgba(204,0,51,0.3);
+    border-left: 4px solid var(--cardinal);
+    border-radius: 4px;
+    padding: 1.25rem 1.5rem;
+    margin-top: 1.25rem;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.8);
+    font-style: italic;
+  }
+
+  footer { text-align: center; padding: 2rem; margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.05); font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; letter-spacing: 1px; color: rgba(255,255,255,0.25); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo-mark">
+      <a href="index.html"><img src="logo.png" alt="Arizona Wildcats" style="height:60px;width:60px;object-fit:contain;display:block;"></a>
+    </div>
+    <div class="logo-text">
+      <h1>Arizona Wildcats Basketball</h1>
+      <p>Player History Database · 1981–Present</p>
+    </div>
+    <nav>
+      <a href="players.html">Players</a>
+      <a href="seasons.html">Seasons</a>
+      <a href="classes.html">Recruiting</a>
+      <a href="progression.html">Progression</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <h2>About This Site</h2>
+  <div class="hero-rule"></div>
+  <p>A fan-built archive of Arizona Wildcats basketball history — every player, every era, every coach.</p>
+</div>
+
+<main>
+
+  <!-- THE STORY -->
+  <div class="section">
+    <div class="section-label">The Story</div>
+    <h3>How This Started</h3>
+    <p>It started with Lute Olson. If you were an Arizona fan in the early 1980s, you watched something remarkable take shape in Tucson — a program finding its footing, then its identity, then its greatness. That first Final Four run lit a fire that never went out.</p>
+    <p>For years, tracking Arizona basketball meant spreadsheets. Tabs for rosters, tabs for recruiting classes, tabs for season stats — a personal archive built out of curiosity and stubbornness. Who was the best player in the Miller era? How does the current recruiting class compare to the 1988 group? How do freshmen actually develop into seniors over four years in the program? The spreadsheet had answers, but only one person could see them.</p>
+    <p>This site is the spreadsheet, opened up. The same data, the same methodology, now shareable with anyone who cares about Wildcat basketball history as much as we do.</p>
+
+    <div class="callout">
+      "There was nothing like that first Final Four season. I caught the fever and was never the same again."
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- THE SUCCESS SCORE -->
+  <div class="section">
+    <div class="section-label">The Data</div>
+    <h3>The Success Score</h3>
+    <p>Every player in the database carries a Success Score from 1 to 5. This is a single subjective number — one fan's assessment of how much a player contributed to the Arizona program during their tenure. It is not a formula. It reflects production, impact, memorable moments, and overall legacy in the context of their era.</p>
+
+    <div class="score-grid">
+      <div class="score-row">
+        <div class="score-dots">
+          <div class="dot filled-gold"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        </div>
+        <div class="score-num">1</div>
+        <div class="score-desc"><strong>Limited contribution.</strong> Saw the floor but made minimal lasting impact on the program.</div>
+      </div>
+      <div class="score-row">
+        <div class="score-dots">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        </div>
+        <div class="score-num">2</div>
+        <div class="score-desc"><strong>Reserve / role player.</strong> Solid contributor, provided depth, but not a featured piece.</div>
+      </div>
+      <div class="score-row">
+        <div class="score-dots">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div><div class="dot"></div>
+        </div>
+        <div class="score-num">3</div>
+        <div class="score-desc"><strong>Productive contributor.</strong> Regular rotation player, meaningfully helped the team win.</div>
+      </div>
+      <div class="score-row">
+        <div class="score-dots">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div>
+        </div>
+        <div class="score-num">4</div>
+        <div class="score-desc"><strong>Starter / impact player.</strong> Key piece of successful teams, All-Conference caliber.</div>
+      </div>
+      <div class="score-row">
+        <div class="score-dots">
+          <div class="dot filled-gold"></div><div class="dot filled-gold"></div><div class="dot filled-gold"></div><div class="dot filled-gold"></div><div class="dot filled-gold"></div>
+        </div>
+        <div class="score-num">5</div>
+        <div class="score-desc"><strong>Elite / program-defining.</strong> All-American, lottery pick, or otherwise unforgettable Wildcat.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- HOW TO USE -->
+  <div class="section">
+    <div class="section-label">Navigation</div>
+    <h3>How to Use the Site</h3>
+
+    <div class="how-grid">
+      <div class="how-card">
+        <h4>Players</h4>
+        <p>The full roster database going back to 1981. Search by name, filter by position, coach era, or Success Score. Toggle flags for NBA players, transfers, McDonald's All-Americans, and more. Click any column header to sort.</p>
+      </div>
+      <div class="how-card">
+        <h4>Recruiting Classes</h4>
+        <p>Every recruiting class rated and compared, from the early Olson years through today. See how 247Sports rankings correlate (or don't) with actual on-court success as measured by the Success Score.</p>
+      </div>
+      <div class="how-card">
+        <h4>Progression</h4>
+        <p>How do Arizona players develop over their time in the program? This page tracks average stats by class year — Freshman through Senior — across 40+ seasons of data. Select any stat to see the progression chart.</p>
+      </div>
+      <div class="how-card">
+        <h4>Coming Soon</h4>
+        <p>Community ratings, season-by-season starting lineups, all-conference honorees, and individual player detail pages. The archive keeps growing.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- DATA SOURCES -->
+  <div class="section">
+    <div class="section-label">Methodology</div>
+    <h3>Data Sources & Notes</h3>
+    <p>This is a personal project built and maintained by one fan. The data comes from a combination of sources compiled over many years:</p>
+
+    <div class="source-list">
+      <div class="source-item"><div class="source-bullet"></div>Season statistics sourced from Sports Reference College Basketball</div>
+      <div class="source-item"><div class="source-bullet"></div>Recruiting rankings from 247Sports, ESPN, and On3</div>
+      <div class="source-item"><div class="source-bullet"></div>Roster and career data compiled manually from historical records</div>
+      <div class="source-item"><div class="source-bullet"></div>Success Scores are entirely subjective — one fan's opinion, not a formula</div>
+      <div class="source-item"><div class="source-bullet"></div>Transfer and NBA data verified against public records</div>
+      <div class="source-item"><div class="source-bullet"></div>Data is updated periodically; recent seasons may be incomplete</div>
+    </div>
+
+    <p style="margin-top: 1.25rem;">If you spot an error, a missing player, or a score you strongly disagree with — that's part of what makes this fun. A community rating feature is on the way that will let you weigh in with your own assessment alongside the original scores.</p>
+  </div>
+
+</main>
+
+<footer>
+  Arizona Wildcats Basketball Database · Built with ❤️ for Wildcat fans · <a href="about.html" style="color:rgba(255,255,255,0.4);text-decoration:none;">About</a> · Bear Down
+</footer>
+
+<script>
+// Add About link to nav on other pages if needed — nothing to run here
+</script>
+</body>
+</html>
