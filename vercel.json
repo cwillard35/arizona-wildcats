@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/cbb-arizona-wildcats",
+      "destination": "/cbb-arizona-wildcats/index.html"
+    },
+    {
+      "source": "/cbb-arizona-wildcats/:path*",
+      "destination": "/cbb-arizona-wildcats/:path*"
+    }
+  ]
+}
