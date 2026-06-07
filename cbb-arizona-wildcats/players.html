@@ -678,16 +678,16 @@
 
 <header>
   <div class="header-inner">
-    <div class="logo-mark"><a href="index.html"><img src="logo.png" alt="Arizona Wildcats" style="height:60px;width:60px;object-fit:contain;display:block;"></a></div>
+    <div class="logo-mark"><a href="cbb-arizona-wildcats/index.html"><img src="logo.png" alt="Arizona Wildcats" style="height:60px;width:60px;object-fit:contain;display:block;"></a></div>
     <div class="logo-text">
       <h1>Arizona Wildcats Basketball</h1>
       <p>Player History Database · 1981–Present</p>
     </div>
     <nav>
-      <a href="players.html" class="active">Players</a>
-      <a href="seasons.html">Seasons</a>
-      <a href="classes.html">Recruiting</a>
-      <a href="progression.html">Progression</a>
+      <a href="cbb-arizona-wildcats/players.html" class="active">Players</a>
+      <a href="cbb-arizona-wildcats/seasons.html">Seasons</a>
+      <a href="cbb-arizona-wildcats/classes.html">Recruiting</a>
+      <a href="cbb-arizona-wildcats/progression.html">Progression</a>
     </nav>
   </div>
 </header>
@@ -911,7 +911,7 @@
 </main>
 
 <footer>
-  Arizona Wildcats Basketball Database · Built with ❤️ for Wildcat fans · <a href="about.html" style="color:rgba(255,255,255,0.4);text-decoration:none;">About</a> · Data compiled by cwillard35
+  Arizona Wildcats Basketball Database · Built with ❤️ for Wildcat fans · <a href="cbb-arizona-wildcats/about.html" style="color:rgba(255,255,255,0.4);text-decoration:none;">About</a> · Data compiled by cwillard35
 </footer>
 
 <script>
@@ -1481,7 +1481,7 @@ function renderCards() {
       <div class="era-stripe stripe-${p.coach}"></div>
       <div class="card-year">${p.year}</div>
       <div class="card-name">
-        <a href="player.html?name=${encodeURIComponent(p.name)}" style="color:var(--white);text-decoration:none;">${p.name}</a>${jerseyBadge(p.name)}
+        <a href="cbb-arizona-wildcats/player.html?name=${encodeURIComponent(p.name)}" style="color:var(--white);text-decoration:none;">${p.name}</a>${jerseyBadge(p.name)}
         ${isAdmin ? `<button class="admin-edit-btn" onclick="openModal(allPlayers.find(x=>x.id==='${p.id}'))">edit</button>` : ''}
       </div>
       <div class="card-meta">${posShort} · <span class="era-pill era-${p.coach}" style="font-size:0.65rem;padding:1px 5px">${p.coach}</span></div>
@@ -1542,7 +1542,7 @@ function render() {
     const editBtn  = isAdmin ? `<button class="admin-edit-btn" onclick="openModal(allPlayers.find(x=>x.id==='${p.id}'))">edit</button>` : '';
 
     return `<tr>
-      <td class="name-cell"><a href="player.html?name=${encodeURIComponent(p.name)}" style="color:var(--white);text-decoration:none;">${p.name}</a>${jerseyBadge(p.name)}${editBtn}${badges ? `<span class="badges">${badges}</span>` : ''}</td>
+      <td class="name-cell"><a href="cbb-arizona-wildcats/player.html?name=${encodeURIComponent(p.name)}" style="color:var(--white);text-decoration:none;">${p.name}</a>${jerseyBadge(p.name)}${editBtn}${badges ? `<span class="badges">${badges}</span>` : ''}</td>
       <td class="year-cell">${p.year}</td>
       <td><span class="era-pill era-${p.coach}">${p.coach}</span></td>
       <td class="pos-cell">${p.position || '—'}</td>
