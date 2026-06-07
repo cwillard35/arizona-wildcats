@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<link rel="icon" type="image/x-icon" href="cbb-arizona-wildcats/favicon.ico">
+<link rel="icon" type="image/x-icon" href="/cbb-arizona-wildcats/favicon.ico">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Arizona Wildcats Basketball Archive</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -433,7 +433,7 @@
   <div class="hero-bg"></div>
   <div class="hero-content">
     <div class="hero-eyebrow">Est. 1914 · McKale Center · Tucson, Arizona</div>
-    <img src="logo.png" alt="Arizona Wildcats" class="hero-logo">
+    <img src="/cbb-arizona-wildcats/logo.png" alt="Arizona Wildcats" class="hero-logo">
     <h1 class="hero-title">Arizona<br><span>Wildcats</span></h1>
     <div class="hero-subtitle">Basketball Archive</div>
     <p class="hero-desc">Four decades of Wildcat basketball history. Every player, every era, every coach — rated by fans.</p>
@@ -445,7 +445,7 @@
       <div class="hstat"><div class="hstat-num" id="statVotes">—</div><div class="hstat-lbl">Fan Votes</div></div>
     </div>
 
-    <a href="cbb-arizona-wildcats/players.html" class="enter-btn">Enter the Database</a>
+    <a href="/cbb-arizona-wildcats/players.html" class="enter-btn">Enter the Database</a>
   </div>
 </div>
 
@@ -462,17 +462,17 @@
 
 <div class="bottom-cta">
   <p>Think we got it wrong?</p>
-  <a href="cbb-arizona-wildcats/players.html" class="enter-btn">Enter Your Scores</a>
+  <a href="/cbb-arizona-wildcats/players.html" class="enter-btn">Enter Your Scores</a>
   <div class="bottom-nav">
-    <a href="cbb-arizona-wildcats/players.html" class="nav-link">Full Database</a>
-    <a href="cbb-arizona-wildcats/classes.html" class="nav-link">Recruiting Classes</a>
-    <a href="cbb-arizona-wildcats/progression.html" class="nav-link">Player Development</a>
-    <a href="cbb-arizona-wildcats/about.html" class="nav-link">About</a>
+    <a href="/cbb-arizona-wildcats/players.html" class="nav-link">Full Database</a>
+    <a href="/cbb-arizona-wildcats/classes.html" class="nav-link">Recruiting Classes</a>
+    <a href="/cbb-arizona-wildcats/progression.html" class="nav-link">Player Development</a>
+    <a href="/cbb-arizona-wildcats/about.html" class="nav-link">About</a>
   </div>
 </div>
 
 <footer>
-  Arizona Wildcats Basketball Archive · Built with ❤️ for Wildcat fans · <a href="cbb-arizona-wildcats/about.html">About</a> · Bear Down
+  Arizona Wildcats Basketball Archive · Built with ❤️ for Wildcat fans · <a href="/cbb-arizona-wildcats/about.html">About</a> · Bear Down
 </footer>
 
 <script>
@@ -574,7 +574,7 @@ async function init() {
     const yrs = p.years ? `${p.years} yr${p.years > 1 ? 's' : ''}` : '';
     const era = ERA_LABEL[p.coach] || p.coach || '';
 
-    return `<a class="lb-row${rankClass}" href="cbb-arizona-wildcats/player.html?name=${encodeURIComponent(p.name)}"
+    return `<a class="lb-row${rankClass}" href="/cbb-arizona-wildcats/player.html?name=${encodeURIComponent(p.name)}"
         style="animation-delay:${0.05 * i}s">
       <div class="lb-rank">${rankDisplay}</div>
       <div class="lb-info">

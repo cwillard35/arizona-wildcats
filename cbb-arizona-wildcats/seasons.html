@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<link rel="icon" type="image/x-icon" href="cbb-arizona-wildcats/favicon.ico">
+<link rel="icon" type="image/x-icon" href="/cbb-arizona-wildcats/favicon.ico">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Arizona Wildcats — Season Ratings</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -194,16 +194,16 @@
 
 <header>
   <div class="header-inner">
-    <div class="logo-mark"><a href="cbb-arizona-wildcats/index.html"><img src="logo.png" alt="Arizona Wildcats" style="height:60px;width:60px;object-fit:contain;display:block;"></a></div>
+    <div class="logo-mark"><a href="/cbb-arizona-wildcats/index.html"><img src="/cbb-arizona-wildcats/logo.png" alt="Arizona Wildcats" style="height:60px;width:60px;object-fit:contain;display:block;"></a></div>
     <div class="logo-text">
       <h1>Arizona Wildcats Basketball</h1>
       <p>Player History Database · 1981–Present</p>
     </div>
     <nav>
-      <a href="cbb-arizona-wildcats/players.html">Players</a>
-      <a href="cbb-arizona-wildcats/seasons.html" class="active">Seasons</a>
-      <a href="cbb-arizona-wildcats/classes.html">Recruiting</a>
-      <a href="cbb-arizona-wildcats/progression.html">Progression</a>
+      <a href="/cbb-arizona-wildcats/players.html">Players</a>
+      <a href="/cbb-arizona-wildcats/seasons.html" class="active">Seasons</a>
+      <a href="/cbb-arizona-wildcats/classes.html">Recruiting</a>
+      <a href="/cbb-arizona-wildcats/progression.html">Progression</a>
     </nav>
   </div>
 </header>
@@ -313,7 +313,7 @@
   <div class="season-card-grid" id="seasonCardGrid" style="display:none;"></div>
 </main>
 
-<footer>Arizona Wildcats Basketball Database · <a href="cbb-arizona-wildcats/about.html">About</a> · Bear Down</footer>
+<footer>Arizona Wildcats Basketball Database · <a href="/cbb-arizona-wildcats/about.html">About</a> · Bear Down</footer>
 
 <script>
 const SUPABASE_URL = 'https://lzzkqbiawsatzzcisypf.supabase.co';
@@ -360,7 +360,7 @@ function renderSeasonCards(seasons) {
 
 async function loadProgression() {
   try {
-    const res = await fetch('progression.json');
+    const res = await fetch('/cbb-arizona-wildcats/progression.json');
     const data = await res.json();
     // Group by year, sort by GS descending
     data.all_seasons.forEach(p => {
