@@ -1,0 +1,1647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/x-icon" href="/cbb-arizona-wildcats/favicon.ico">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arizona Wildcats Basketball — Player Database</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+  :root {
+    --cardinal: #CC0033;
+    --cardinal-dark: #990022;
+    --cardinal-light: #ff1a4d;
+    --navy: #003366;
+    --navy-dark: #001a33;
+    --navy-mid: #00244d;
+    --gold: #FFC72C;
+    --white: #ffffff;
+    --off-white: #f5f5f5;
+    --gray-light: #e8e8e8;
+    --gray-mid: #aaaaaa;
+    --gray-dark: #444444;
+    --text: #1a1a2e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--navy-dark);
+    color: var(--white);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 60%, var(--cardinal-dark) 100%);
+    border-bottom: 3px solid var(--cardinal);
+    padding: 0 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+
+  .header-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 0.75rem 0;
+  }
+
+  .logo-mark {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .logo-text {
+    flex: 1;
+  }
+
+  .logo-text h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 3px;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .logo-text p {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gray-mid);
+    margin-top: 2px;
+  }
+
+  nav {
+    display: flex;
+    gap: 0.25rem;
+  }
+
+  nav a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray-mid);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 3px;
+    transition: all 0.2s;
+  }
+
+  nav a:hover, nav a.active {
+    color: var(--white);
+    background: rgba(204,0,51,0.2);
+    color: var(--cardinal-light);
+  }
+
+  nav a.active {
+    color: var(--gold);
+    border-bottom: 2px solid var(--gold);
+    border-radius: 3px 3px 0 0;
+  }
+
+  /* HERO STRIP */
+  .hero-strip {
+    background: var(--cardinal);
+    padding: 1.2rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .stat-chip {
+    text-align: center;
+  }
+
+  .stat-chip .num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem;
+    line-height: 1;
+    color: var(--white);
+  }
+
+  .stat-chip .label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+  }
+
+  /* MAIN CONTENT */
+  main {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  /* FILTERS */
+  .filters-bar {
+    background: var(--navy-mid);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .filter-group label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray-mid);
+  }
+
+  .filter-group input, .filter-group select {
+    background: var(--navy-dark);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 4px;
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.9rem;
+    padding: 0.45rem 0.75rem;
+    outline: none;
+    transition: border-color 0.2s;
+    min-width: 140px;
+  }
+
+  .filter-group input:focus, .filter-group select:focus {
+    border-color: var(--cardinal);
+  }
+
+  .filter-group select option { background: var(--navy-dark); }
+
+  .search-group { flex: 1; min-width: 200px; }
+
+  .search-group input {
+    width: 100%;
+    padding: 0.5rem 0.75rem 0.5rem 2.2rem;
+    font-size: 0.95rem;
+    min-width: unset;
+  }
+
+  .search-wrap {
+    position: relative;
+  }
+
+  .search-wrap svg {
+    position: absolute;
+    left: 0.6rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gray-mid);
+    pointer-events: none;
+  }
+
+  .toggle-filters {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .toggle-btn {
+    background: var(--navy-dark);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 4px;
+    color: var(--gray-mid);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 0.4rem 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .toggle-btn:hover { border-color: var(--cardinal); color: var(--white); }
+
+  .toggle-btn.active {
+    background: var(--cardinal);
+    border-color: var(--cardinal);
+    color: var(--white);
+  }
+
+  .clear-btn {
+    background: transparent;
+    border: 1px solid var(--gray-dark);
+    border-radius: 4px;
+    color: var(--gray-mid);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 0.4rem 0.9rem;
+    cursor: pointer;
+    margin-left: auto;
+    transition: all 0.2s;
+  }
+
+  .clear-btn:hover { color: var(--cardinal); border-color: var(--cardinal); }
+
+  /* RESULTS BAR */
+  .results-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .results-count {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    color: var(--gray-mid);
+  }
+
+  .sort-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    color: var(--gray-mid);
+  }
+
+  .sort-row select {
+    background: var(--navy-mid);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 4px;
+    color: var(--white);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    padding: 0.3rem 0.5rem;
+    outline: none;
+  }
+
+  /* TABLE */
+  .table-wrap {
+    background: var(--navy-mid);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    overflow: hidden;
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 900px;
+  }
+
+  thead {
+    background: var(--navy-dark);
+    border-bottom: 2px solid var(--cardinal);
+  }
+
+  th {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray-mid);
+    padding: 0.85rem 1rem;
+    text-align: left;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.15s;
+  }
+
+  th:hover { color: var(--white); }
+  th.sorted { color: var(--gold); }
+
+  th .sort-arrow { margin-left: 4px; opacity: 0.5; }
+  th.sorted .sort-arrow { opacity: 1; }
+
+  tbody tr {
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    transition: background 0.15s;
+    cursor: pointer;
+  }
+
+  tbody tr:hover { background: rgba(204,0,51,0.08); }
+
+  tbody tr:last-child { border-bottom: none; }
+
+  td {
+    font-size: 0.88rem;
+    padding: 0.75rem 1rem;
+    white-space: nowrap;
+    color: var(--off-white);
+  }
+
+  td.name-cell {
+    font-weight: 600;
+    color: var(--white);
+  }
+
+  td.name-cell .badges {
+    display: inline-flex;
+    gap: 3px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  .badge {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 1px 4px;
+    border-radius: 2px;
+  }
+
+  .badge-nba { background: var(--cardinal); color: var(--white); }
+  .badge-aa { background: var(--gold); color: var(--navy-dark); }
+  .badge-intl { background: var(--navy); color: var(--white); border: 1px solid rgba(255,255,255,0.3); }
+  .badge-mcd { background: #e25822; color: var(--white); }
+
+  td.pos-cell {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+    color: var(--gray-mid);
+  }
+
+  td.year-cell {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.82rem;
+    letter-spacing: 1px;
+    color: var(--gray-mid);
+  }
+
+  /* SUCCESS DOTS */
+  .success-display {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .success-dots {
+    display: flex;
+    gap: 3px;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+  }
+
+  .dot.filled { background: var(--cardinal); }
+  .dot.filled-5 { background: var(--gold); }
+
+  .success-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    color: var(--gray-mid);
+    line-height: 1;
+  }
+
+  .null-val { color: rgba(255,255,255,0.25); font-style: italic; font-size: 0.8rem; }
+
+  /* PPG coloring */
+  .ppg-high { color: #66ff99; }
+  .ppg-mid  { color: #99ccff; }
+  .ppg-low  { color: var(--gray-mid); }
+
+  /* COACH ERA PILL */
+  .era-pill {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 2px 7px;
+    border-radius: 10px;
+    text-transform: uppercase;
+  }
+
+  .era-Snowden { background: rgba(100,100,100,0.3); color: #aaa; }
+  .era-Olson   { background: rgba(204,0,51,0.2); color: #ff6688; }
+  .era-Interim { background: rgba(150,100,0,0.3); color: #ccaa44; }
+  .era-Miller  { background: rgba(0,51,102,0.5); color: #88aaff; }
+  .era-Lloyd   { background: rgba(0,120,60,0.3); color: #44cc88; }
+
+  /* TAGS */
+  .tag-wrap { display: flex; gap: 3px; flex-wrap: wrap; }
+
+  .tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.5px;
+    padding: 1px 5px;
+    border-radius: 3px;
+    text-transform: uppercase;
+  }
+
+  .tag-xin  { background: rgba(0,200,100,0.2); color: #44ffaa; border: 1px solid rgba(0,200,100,0.3); }
+  .tag-xout { background: rgba(255,100,0,0.2); color: #ff9966; border: 1px solid rgba(255,100,0,0.3); }
+  .tag-1done { background: rgba(255,200,0,0.2); color: #ffdd55; border: 1px solid rgba(255,200,0,0.3); }
+
+  /* VIEW TOGGLE */
+  .view-toggle { display: flex; gap: 4px; background: var(--navy-dark); border: 1px solid rgba(255,255,255,0.1); border-radius: 5px; padding: 3px; }
+  .view-btn { background: transparent; border: none; border-radius: 3px; color: var(--gray-mid); cursor: pointer; padding: 5px 8px; display: flex; align-items: center; transition: all 0.2s; }
+  .view-btn:hover { color: var(--white); }
+  .view-btn.active { background: var(--cardinal); color: var(--white); }
+
+  /* CARD GRID */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+
+  .player-card { background: var(--navy-mid); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 1.25rem; position: relative; overflow: hidden; transition: transform 0.15s, border-color 0.15s; }
+  .player-card:hover { transform: translateY(-2px); border-color: rgba(204,0,51,0.4); }
+
+  .era-stripe { position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .stripe-Snowden { background: rgba(150,150,150,0.6); }
+  .stripe-Olson   { background: var(--cardinal); }
+  .stripe-Interim { background: #ccaa44; }
+  .stripe-Miller  { background: #88aaff; }
+  .stripe-Lloyd   { background: #44cc88; }
+
+  .card-name { font-size: 0.95rem; font-weight: 700; color: var(--white); margin-bottom: 0.2rem; margin-top: 0.25rem; line-height: 1.2; }
+  .card-meta { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; letter-spacing: 1px; color: var(--gray-mid); margin-bottom: 0.85rem; }
+  .card-success { display: flex; align-items: center; gap: 6px; margin-bottom: 0.75rem; }
+  .card-stats-row { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .cstat { display: flex; flex-direction: column; align-items: center; }
+  .cstat-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; line-height: 1; color: var(--white); }
+  .cstat-lbl { font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem; letter-spacing: 1px; text-transform: uppercase; color: var(--gray-mid); }
+  .card-badges { display: flex; gap: 3px; flex-wrap: wrap; margin-top: 0.75rem; }
+  .card-year { position: absolute; top: 0.75rem; right: 0.85rem; font-family: 'Bebas Neue', sans-serif; font-size: 0.9rem; letter-spacing: 1px; color: rgba(255,255,255,0.25); }
+
+  /* AUTH BAR */
+  .auth-bar {
+    background: var(--navy-mid);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 0.5rem 2rem;
+  }
+  .auth-bar-inner {
+    max-width: 1400px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: flex-end; gap: 1rem;
+  }
+  .auth-bar-msg {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem; letter-spacing: 1px; color: var(--gray-mid);
+  }
+  .auth-bar-btn {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem;
+    font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    padding: 0.3rem 0.9rem; border-radius: 4px; cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.2); background: transparent;
+    color: var(--white); transition: all 0.2s;
+  }
+  .auth-bar-btn:hover { border-color: var(--cardinal); color: var(--cardinal-light); }
+  .auth-bar-btn.primary { background: var(--cardinal); border-color: var(--cardinal); }
+  .auth-bar-btn.primary:hover { background: var(--cardinal-dark); }
+
+  /* AUTH MODAL */
+  .auth-modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.75);
+    z-index: 1000; display: flex; align-items: center; justify-content: center;
+  }
+  .auth-modal {
+    background: var(--navy-mid); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px; padding: 2rem; width: 100%; max-width: 400px;
+  }
+  .auth-modal h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 3px; margin-bottom: 0.4rem; }
+  .auth-modal p { font-family: 'Barlow Condensed', sans-serif; font-size: 0.82rem; letter-spacing: 1px; color: var(--gray-mid); margin-bottom: 1.5rem; }
+  .auth-field { margin-bottom: 1rem; }
+  .auth-field label { display: block; font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gray-mid); margin-bottom: 0.35rem; }
+  .auth-field input { width: 100%; background: var(--navy-dark); border: 1px solid rgba(255,255,255,0.15); border-radius: 4px; color: var(--white); font-family: 'Barlow', sans-serif; font-size: 0.9rem; padding: 0.55rem 0.75rem; outline: none; }
+  .auth-field input:focus { border-color: var(--cardinal); }
+  .auth-submit { width: 100%; background: var(--cardinal); border: none; border-radius: 4px; color: var(--white); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 0.7rem; cursor: pointer; margin-top: 0.5rem; transition: background 0.2s; }
+  .auth-submit:hover { background: var(--cardinal-dark); }
+  .auth-toggle { text-align: center; margin-top: 1rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.82rem; color: var(--gray-mid); }
+  .auth-toggle a { color: var(--cardinal-light); cursor: pointer; text-decoration: none; }
+  .auth-toggle a:hover { text-decoration: underline; }
+  .auth-error { background: rgba(204,0,51,0.15); border: 1px solid rgba(204,0,51,0.3); border-radius: 4px; padding: 0.6rem 0.85rem; margin-top: 0.75rem; font-size: 0.85rem; color: #ff6688; display: none; }
+  .auth-close { float: right; background: none; border: none; color: var(--gray-mid); font-size: 1.2rem; cursor: pointer; margin-top: -0.25rem; }
+  .auth-close:hover { color: var(--white); }
+
+  /* STAR RATING */
+  .star-rating {
+    display: inline-flex; gap: 2px; align-items: center;
+    cursor: pointer;
+  }
+  .star {
+    font-size: 0.9rem; color: rgba(255,255,255,0.2);
+    transition: color 0.1s; line-height: 1;
+  }
+  .star.filled { color: var(--gold); }
+  .star.hover { color: var(--gold); opacity: 0.7; }
+  .star-rating:hover .star { color: rgba(255,199,44,0.4); }
+  .star-rating .star:hover ~ .star { color: rgba(255,255,255,0.2) !important; }
+
+  .community-score {
+    display: flex; align-items: center; gap: 6px;
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem;
+    color: var(--gray-mid);
+  }
+  .community-avg { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; color: var(--gold); }
+  .vote-prompt { font-size: 0.72rem; color: var(--gray-mid); font-style: italic; cursor: pointer; }
+  .vote-prompt:hover { color: var(--cardinal-light); }
+
+  /* ADMIN BAR */
+  .admin-bar {
+    background: rgba(255,199,44,0.1);
+    border-bottom: 2px solid var(--gold);
+    padding: 0.6rem 2rem;
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+  }
+  .admin-bar-inner { max-width: 1400px; margin: 0 auto; width: 100%; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+  .admin-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
+  .admin-btn {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase;
+    padding: 0.35rem 0.9rem; border-radius: 4px; cursor: pointer; transition: all 0.2s; border: none;
+  }
+  .admin-btn-primary { background: var(--cardinal); color: var(--white); }
+  .admin-btn-primary:hover { background: var(--cardinal-dark); }
+  .admin-btn-outline { background: transparent; border: 1px solid var(--gold); color: var(--gold); }
+  .admin-btn-outline:hover { background: var(--gold); color: var(--navy-dark); }
+  .admin-btn-ghost { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: var(--gray-mid); margin-left: auto; }
+  .admin-btn-ghost:hover { color: var(--white); border-color: rgba(255,255,255,0.4); }
+
+  /* MODAL */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.75);
+    z-index: 1000; display: flex; align-items: center; justify-content: center;
+    padding: 1rem;
+  }
+  .modal {
+    background: var(--navy-mid); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px; padding: 2rem; width: 100%; max-width: 640px;
+    max-height: 90vh; overflow-y: auto;
+  }
+  .modal h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 3px; margin-bottom: 1.5rem; }
+  .modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .modal-field { display: flex; flex-direction: column; gap: 0.3rem; }
+  .modal-field.full { grid-column: 1 / -1; }
+  .modal-field label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gray-mid); }
+  .modal-field input, .modal-field select {
+    background: var(--navy-dark); border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 4px; color: var(--white); font-family: 'Barlow', sans-serif;
+    font-size: 0.9rem; padding: 0.5rem 0.75rem; outline: none;
+  }
+  .modal-field input:focus, .modal-field select:focus { border-color: var(--cardinal); }
+  .modal-field select option { background: var(--navy-dark); }
+  .checkbox-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin-top: 0.25rem; }
+  .check-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; color: var(--off-white); cursor: pointer; }
+  .check-item input[type=checkbox] { accent-color: var(--cardinal); width: 14px; height: 14px; }
+  .modal-actions { display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.08); }
+  .modal-btn {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase; padding: 0.6rem 1.5rem;
+    border-radius: 4px; cursor: pointer; border: none; transition: all 0.2s;
+  }
+  .modal-btn-save { background: var(--cardinal); color: var(--white); }
+  .modal-btn-save:hover { background: var(--cardinal-dark); }
+  .modal-btn-cancel { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: var(--gray-mid); }
+  .modal-btn-cancel:hover { color: var(--white); }
+  .modal-btn-delete { background: transparent; border: 1px solid rgba(204,0,51,0.4); color: var(--cardinal-light); margin-right: auto; }
+  .modal-btn-delete:hover { background: rgba(204,0,51,0.2); }
+
+  .admin-edit-btn {
+    background: rgba(255,199,44,0.15); border: 1px solid rgba(255,199,44,0.3);
+    border-radius: 3px; color: var(--gold); font-size: 0.65rem;
+    font-family: 'Barlow Condensed', sans-serif; letter-spacing: 1px;
+    text-transform: uppercase; padding: 1px 5px; cursor: pointer;
+    margin-left: 6px; transition: all 0.2s; vertical-align: middle;
+  }
+  .admin-edit-btn:hover { background: rgba(255,199,44,0.3); }
+
+  /* EMPTY STATE */
+  .empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--gray-mid);
+  }
+
+  .empty-state h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+    margin-bottom: 0.5rem;
+    color: var(--gray-dark);
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    margin-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,0.25);
+  }
+
+  @media (max-width: 768px) {
+    .header-inner { flex-wrap: wrap; gap: 1rem; }
+    nav { flex-wrap: wrap; }
+    .hero-strip { gap: 1.5rem; }
+    main { padding: 1rem; }
+  }
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo-mark"><a href="/cbb-arizona-wildcats/index.html"><img src="/cbb-arizona-wildcats/logo.png" alt="Arizona Wildcats" style="height:60px;width:60px;object-fit:contain;display:block;"></a></div>
+    <div class="logo-text">
+      <h1>Arizona Wildcats Basketball</h1>
+      <p>Player History Database · 1981–Present</p>
+    </div>
+    <nav>
+      <a href="/cbb-arizona-wildcats/players.html" class="active">Players</a>
+      <a href="/cbb-arizona-wildcats/seasons.html">Seasons</a>
+      <a href="/cbb-arizona-wildcats/classes.html">Recruiting</a>
+      <a href="/cbb-arizona-wildcats/progression.html">Progression</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero-strip" id="heroStrip">
+  <div class="stat-chip"><div class="num" id="totalPlayers">—</div><div class="label">Total Players</div></div>
+  <div class="stat-chip"><div class="num" id="nbaCount">—</div><div class="label">NBA Players</div></div>
+  <div class="stat-chip"><div class="num" id="aaCount">—</div><div class="label">All-Americans</div></div>
+  <div class="stat-chip"><div class="num" id="mcdCount">—</div><div class="label">McDonald's AAs</div></div>
+  <div class="stat-chip"><div class="num" id="avgSuccess">—</div><div class="label">Avg Success Score</div></div>
+</div>
+
+<div id="authBar" class="auth-bar">
+  <div class="auth-bar-inner">
+    <span class="auth-bar-msg" id="authMsg">Sign in to rate players</span>
+    <button class="auth-bar-btn primary" id="authSignInBtn" style="display:none;">Sign In</button>
+    <button class="auth-bar-btn" id="authSignUpBtn" style="display:none;">Create Account</button>
+    <button class="auth-bar-btn" id="authSignOutBtn" style="display:none;">Sign Out</button>
+  </div>
+</div>
+
+<!-- Auth Modal -->
+<div class="auth-modal-overlay" id="authModal" style="display:none;">
+  <div class="auth-modal">
+    <button class="auth-close" id="authModalClose">✕</button>
+    <h3 id="authModalTitle">Sign In</h3>
+    <p id="authModalSubtitle">Sign in to rate players and join the community</p>
+    <div class="auth-field">
+      <label>Email</label>
+      <input type="email" id="authEmail" placeholder="your@email.com">
+    </div>
+    <div class="auth-field">
+      <label>Password</label>
+      <input type="password" id="authPassword" placeholder="••••••••">
+    </div>
+    <button class="auth-submit" id="authSubmitBtn">Sign In</button>
+    <div class="auth-error" id="authError"></div>
+    <div class="auth-toggle">
+      <span id="authToggleMsg">Don't have an account?</span>
+      <a id="authToggleLink">Sign up</a>
+    </div>
+  </div>
+</div>
+
+<div id="adminBar" class="admin-bar" style="display:none;">
+  <div class="admin-bar-inner">
+    <span class="admin-label">⚡ Admin Mode</span>
+    <button class="admin-btn admin-btn-primary" id="addPlayerBtn">+ Add Player</button>
+    <button class="admin-btn admin-btn-ghost" id="logoutBtn">Sign Out</button>
+  </div>
+</div>
+
+<!-- Player Edit/Add Modal -->
+<div class="modal-overlay" id="playerModal" style="display:none;">
+  <div class="modal">
+    <h3 id="modalTitle">Add Player</h3>
+    <input type="hidden" id="modalPlayerId">
+    <div class="modal-grid">
+      <div class="modal-field full"><label>Name</label><input type="text" id="fName"></div>
+      <div class="modal-field"><label>Class Year (recruited)</label><input type="number" id="fYear" placeholder="e.g. 2024"></div>
+      <div class="modal-field"><label>Coach Era</label>
+        <select id="fCoach"><option value="">—</option><option>Snowden</option><option>Olson</option><option>Interim</option><option>Miller</option><option>Lloyd</option></select>
+      </div>
+      <div class="modal-field"><label>Position</label>
+        <select id="fPosition"><option value="">—</option><option>Point Guard</option><option>Combo Guard</option><option>Shooting Guard</option><option>Wing</option><option>Small Forward</option><option>Combo Forward</option><option>Power Forward</option><option>Forward/Center</option><option>Center</option></select>
+      </div>
+      <div class="modal-field"><label>Years at Arizona</label><input type="number" id="fYears" min="1" max="6"></div>
+      <div class="modal-field"><label>Success Score (1–5)</label><input type="number" id="fSuccess" min="1" max="5"></div>
+      <div class="modal-field"><label>Career PPG</label><input type="number" id="fPpg" step="0.1"></div>
+      <div class="modal-field"><label>Career Points</label><input type="number" id="fPts"></div>
+      <div class="modal-field"><label>Career Games</label><input type="number" id="fG"></div>
+      <div class="modal-field"><label>247 Grade</label><input type="number" id="fGrade247" step="0.1"></div>
+      <div class="modal-field"><label>Recruiting Rank</label><input type="number" id="fRanking"></div>
+      <div class="modal-field full"><label>Flags</label>
+        <div class="checkbox-grid">
+          <label class="check-item"><input type="checkbox" id="fNba"> NBA</label>
+          <label class="check-item"><input type="checkbox" id="fEarlyNba"> Early NBA</label>
+          <label class="check-item"><input type="checkbox" id="fAllAmerican"> All-American</label>
+          <label class="check-item"><input type="checkbox" id="fMcdAa"> McDonald's AA</label>
+          <label class="check-item"><input type="checkbox" id="fXferIn"> Transfer In</label>
+          <label class="check-item"><input type="checkbox" id="fXferOut"> Transfer Out</label>
+          <label class="check-item"><input type="checkbox" id="fOneDone"> 1 & Done</label>
+          <label class="check-item"><input type="checkbox" id="fStarter"> Starter</label>
+          <label class="check-item"><input type="checkbox" id="fIntl"> International</label>
+          <label class="check-item"><input type="checkbox" id="fAllConf"> All-Conference</label>
+          <label class="check-item"><input type="checkbox" id="fMadness"> March Madness</label>
+        </div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-btn modal-btn-delete" id="deletePlayerBtn" style="display:none;">Delete Player</button>
+      <button class="modal-btn modal-btn-cancel" id="modalCancelBtn">Cancel</button>
+      <button class="modal-btn modal-btn-save" id="modalSaveBtn">Save Player</button>
+    </div>
+  </div>
+</div>
+
+<main>
+  <div class="filters-bar">
+    <div class="filter-group search-group">
+      <label>Search</label>
+      <div class="search-wrap">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="text" id="searchInput" placeholder="Player name…">
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <label>Coach Era</label>
+      <select id="filterCoach">
+        <option value="">All Eras</option>
+        <option>Snowden</option>
+        <option>Olson</option>
+        <option>Interim</option>
+        <option>Miller</option>
+        <option>Lloyd</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>Position</label>
+      <select id="filterPos">
+        <option value="">All Positions</option>
+        <option>Point Guard</option>
+        <option>Combo Guard</option>
+        <option>Shooting Guard</option>
+        <option>Wing</option>
+        <option>Small Forward</option>
+        <option>Combo Forward</option>
+        <option>Power Forward</option>
+        <option>Forward/Center</option>
+        <option>Center</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>Min Success</label>
+      <select id="filterSuccess">
+        <option value="">Any</option>
+        <option value="5">5 — Elite</option>
+        <option value="4">4+ — Good</option>
+        <option value="3">3+ — Productive</option>
+        <option value="2">2+</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>Year Range</label>
+      <select id="filterEra">
+        <option value="">All Years</option>
+        <option value="1981-1994">1981–1994</option>
+        <option value="1995-2007">1995–2007</option>
+        <option value="2008-2019">2008–2019</option>
+        <option value="2020-2027">2020–Present</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>Flags</label>
+      <div class="toggle-filters">
+        <button class="toggle-btn" data-flag="nba">NBA</button>
+        <button class="toggle-btn" data-flag="allAmerican">All-American</button>
+        <button class="toggle-btn" data-flag="mcdAA">McD AA</button>
+        <button class="toggle-btn" data-flag="xferIn">Xfer In</button>
+        <button class="toggle-btn" data-flag="xferOut">Xfer Out</button>
+        <button class="toggle-btn" data-flag="oneDone">1&Done</button>
+        <button class="toggle-btn" data-flag="intl">Int'l</button>
+      </div>
+    </div>
+
+    <button class="clear-btn" id="clearBtn">Clear All</button>
+  </div>
+
+  <div class="results-bar">
+    <div class="results-count" id="resultsCount">Showing all players</div>
+    <div class="sort-row">
+      Sort by:
+      <select id="sortSelect">
+        <option value="year-asc">Year (oldest first)</option>
+        <option value="year-desc">Year (newest first)</option>
+        <option value="name-asc">Name A–Z</option>
+        <option value="communityAvg-desc">Community Score ↓</option>
+        <option value="userVote-desc">My Rating ↓</option>
+        <option value="ppg-desc">PPG ↓</option>
+        <option value="pts-desc">Career Pts ↓</option>
+      </select>
+      <div class="view-toggle">
+        <button class="view-btn active" id="btnTable" title="Table view">
+          <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm2 0v3h12V2H2zm0 5v3h12V7H2zm0 5v2h12v-2H2z"/></svg>
+        </button>
+        <button class="view-btn" id="btnCards" title="Card view">
+          <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3z"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-wrap" id="tableWrap">
+    <table>
+      <thead>
+        <tr>
+          <th data-col="name">Player <span class="sort-arrow">↕</span></th>
+          <th data-col="year">Class <span class="sort-arrow">↕</span></th>
+          <th data-col="coach">Era</th>
+          <th data-col="position">Position</th>
+          <th data-col="years">Yrs <span class="sort-arrow">↕</span></th>
+          <th data-col="userVote">Your Rating <span class="sort-arrow">↕</span></th>
+          <th data-col="communityAvg">Community Score <span class="sort-arrow">↕</span></th>
+          <th data-col="ppg">PPG <span class="sort-arrow">↕</span></th>
+          <th data-col="pts">Career Pts <span class="sort-arrow">↕</span></th>
+          <th data-col="g">G <span class="sort-arrow">↕</span></th>
+          <th>Tags</th>
+          <th data-col="grade247">247 Grade <span class="sort-arrow">↕</span></th>
+        </tr>
+      </thead>
+      <tbody id="playerTable"></tbody>
+    </table>
+  </div>
+
+  <div class="card-grid" id="cardGrid" style="display:none;"></div>
+</main>
+
+<footer>
+  Arizona Wildcats Basketball Database · Built with ❤️ for Wildcat fans · <a href="/cbb-arizona-wildcats/about.html" style="color:rgba(255,255,255,0.4);text-decoration:none;">About</a> · Data compiled by cwillard35
+</footer>
+
+<script>
+const SUPABASE_URL = 'https://lzzkqbiawsatzzcisypf.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx6emtxYmlhd3NhdHp6Y2lzeXBmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwNTE2MjgsImV4cCI6MjA5NTYyNzYyOH0.le5NdvH-dvHax6s2poggH2fTTZd7P8yMyExl2T-6GJ4';
+const { createClient } = supabase;
+const db = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+let allPlayers = [];
+let filtered = [];
+let activeFlags = new Set();
+let sortCol = 'year';
+let sortDir = 'asc';
+let viewMode = 'table';
+let isAdmin = false;
+let currentUser = null;
+let userVotes = {};      // { player_id: score }
+let communityVotes = {}; // { player_id: { avg, count } }
+
+const successLabels = {1:'Limited',2:'Reserve',3:'Productive',4:'Starter/Impact',5:'Elite'};
+const RETIRED_NUMBERS = {
+  'mike bibby': 10, 'jason gardner': 22, 'steve kerr': 25,
+  'jason terry': 31, 'sean elliot': 32, 'miles simon': 34,
+};
+
+function jerseyBadge(name) {
+  const num = RETIRED_NUMBERS[name.toLowerCase()];
+  if (!num) return '';
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" viewBox="0 0 52 78" style="display:inline-block;vertical-align:middle;margin-left:4px;" title="Retired #${num}"><path d="M2,22 L0,10 L14,0 L20,10 Q26,17 32,10 L38,0 L52,10 L50,22 C48,25 46,28 46,32 L48,78 L4,78 C4,78 6,32 4,28 Z" fill="white" stroke="#CC0033" stroke-width="3"/><path d="M20,10 Q26,22 32,10" fill="none" stroke="#CC0033" stroke-width="2.5"/><text x="26" y="58" text-anchor="middle" font-family="Arial Narrow,sans-serif" font-weight="900" font-size="28" fill="#002244">${num}</text></svg>`;
+}
+
+
+// ── AUTH ──────────────────────────────────────────────────────────────
+let authMode = 'signin'; // 'signin' or 'signup'
+
+function showAuthModal(mode) {
+  authMode = mode || 'signin';
+  document.getElementById('authModal').style.display = 'flex';
+  document.getElementById('authError').style.display = 'none';
+  document.getElementById('authEmail').value = '';
+  document.getElementById('authPassword').value = '';
+  updateAuthModalUI();
+}
+
+function updateAuthModalUI() {
+  const isSignIn = authMode === 'signin';
+  document.getElementById('authModalTitle').textContent = isSignIn ? 'Sign In' : 'Create Account';
+  document.getElementById('authModalSubtitle').textContent = isSignIn
+    ? 'Sign in to rate players and join the community'
+    : 'Create a free account to rate players';
+  document.getElementById('authSubmitBtn').textContent = isSignIn ? 'Sign In' : 'Create Account';
+  document.getElementById('authToggleMsg').textContent = isSignIn ? "Don't have an account?" : 'Already have an account?';
+  document.getElementById('authToggleLink').textContent = isSignIn ? 'Sign up' : 'Sign in';
+}
+
+function updateAuthBar() {
+  const msg      = document.getElementById('authMsg');
+  const signIn   = document.getElementById('authSignInBtn');
+  const signUp   = document.getElementById('authSignUpBtn');
+  const signOut  = document.getElementById('authSignOutBtn');
+
+  if (currentUser) {
+    msg.textContent = `Signed in as ${currentUser.email}`;
+    signIn.style.display  = 'none';
+    signUp.style.display  = 'none';
+    signOut.style.display = 'inline-block';
+  } else {
+    msg.textContent = 'Sign in to rate players';
+    signIn.style.display  = 'inline-block';
+    signUp.style.display  = 'inline-block';
+    signOut.style.display = 'none';
+  }
+}
+
+function bindAuthEvents() {
+  document.getElementById('authSignInBtn').addEventListener('click', () => showAuthModal('signin'));
+  document.getElementById('authSignUpBtn').addEventListener('click', () => showAuthModal('signup'));
+  document.getElementById('authModalClose').addEventListener('click', () => {
+    document.getElementById('authModal').style.display = 'none';
+  });
+  document.getElementById('authToggleLink').addEventListener('click', () => {
+    authMode = authMode === 'signin' ? 'signup' : 'signin';
+    updateAuthModalUI();
+    document.getElementById('authError').style.display = 'none';
+  });
+  document.getElementById('authPassword').addEventListener('keydown', e => {
+    if (e.key === 'Enter') document.getElementById('authSubmitBtn').click();
+  });
+
+  document.getElementById('authSubmitBtn').addEventListener('click', async () => {
+    const email    = document.getElementById('authEmail').value.trim();
+    const password = document.getElementById('authPassword').value;
+    const errEl    = document.getElementById('authError');
+    errEl.style.display = 'none';
+
+    const btn = document.getElementById('authSubmitBtn');
+    btn.textContent = 'Please wait...';
+    btn.disabled = true;
+
+    let result;
+    if (authMode === 'signin') {
+      result = await db.auth.signInWithPassword({ email, password });
+    } else {
+      result = await db.auth.signUp({ email, password });
+    }
+
+    btn.textContent = authMode === 'signin' ? 'Sign In' : 'Create Account';
+    btn.disabled = false;
+
+    if (result.error) {
+      errEl.textContent = result.error.message;
+      errEl.style.display = 'block';
+      return;
+    }
+
+    if (authMode === 'signup' && !result.data.session) {
+      errEl.style.background = 'rgba(68,204,136,0.15)';
+      errEl.style.borderColor = 'rgba(68,204,136,0.3)';
+      errEl.style.color = '#44cc88';
+      errEl.textContent = 'Check your email to confirm your account, then sign in.';
+      errEl.style.display = 'block';
+      return;
+    }
+
+    currentUser = result.data.user;
+    document.getElementById('authModal').style.display = 'none';
+    updateAuthBar();
+    await loadUserVotes();
+    render();
+  });
+
+  document.getElementById('authSignOutBtn').addEventListener('click', async () => {
+    await db.auth.signOut();
+    currentUser = null;
+    userVotes = {};
+    updateAuthBar();
+    render();
+  });
+}
+
+// ── VOTES ─────────────────────────────────────────────────────────────
+async function loadCommunityVotes() {
+  const { data } = await db.from('votes').select('player_id, score');
+  if (!data) return;
+  const agg = {};
+  data.forEach(v => {
+    if (!agg[v.player_id]) agg[v.player_id] = { total: 0, count: 0 };
+    agg[v.player_id].total += v.score;
+    agg[v.player_id].count += 1;
+  });
+  communityVotes = {};
+  for (const [pid, val] of Object.entries(agg)) {
+    communityVotes[pid] = { avg: val.total / val.count, count: val.count };
+  }
+}
+
+async function loadUserVotes() {
+  if (!currentUser) return;
+  const { data } = await db.from('votes')
+    .select('player_id, score')
+    .eq('user_id', currentUser.id);
+  if (!data) return;
+  userVotes = {};
+  data.forEach(v => { userVotes[v.player_id] = v.score; });
+}
+
+async function submitVote(playerId, score) {
+  if (!currentUser) { showAuthModal('signin'); return; }
+
+  const existing = userVotes[playerId];
+  let result;
+
+  if (existing) {
+    result = await db.from('votes')
+      .update({ score, updated_at: new Date().toISOString() })
+      .eq('player_id', playerId)
+      .eq('user_id', currentUser.id);
+  } else {
+    result = await db.from('votes')
+      .insert({ player_id: playerId, user_id: currentUser.id, score });
+  }
+
+  if (result.error) { console.error('Vote error:', result.error); return; }
+
+  userVotes[playerId] = score;
+  await loadCommunityVotes();
+
+  // Re-merge community scores onto player objects
+  allPlayers.forEach(p => {
+    const cv = communityVotes[p.id];
+    p.communityAvg = cv ? cv.avg : null;
+    p.userVote = userVotes[p.id] || null;
+  });
+
+  render();
+}
+
+function starWidget(playerId, userScore) {
+  const stars = [1,2,3,4,5].map(i => {
+    const filled = userScore && i <= userScore ? 'filled' : '';
+    return `<span class="star ${filled}" data-score="${i}" data-pid="${playerId}">★</span>`;
+  }).join('');
+  return `<div class="star-rating" data-pid="${playerId}">${stars}</div>`;
+}
+
+function communityScoreDisplay(playerId) {
+  const cv = communityVotes[playerId];
+  if (!cv) return '<span class="null-val">—</span>';
+
+  const avg = cv.avg;
+  const count = cv.count;
+
+  // Build 5 bubbles with fractional fill
+  let dots = '';
+  for (let i = 1; i <= 5; i++) {
+    const fill = Math.min(1, Math.max(0, avg - (i - 1)));
+    if (fill >= 1) {
+      // Fully filled
+      const cls = avg >= 4.5 ? 'dot filled-5' : 'dot filled';
+      dots += `<div class="${cls}"></div>`;
+    } else if (fill > 0) {
+      // Partially filled — use a gradient
+      const pct = Math.round(fill * 100);
+      const color = avg >= 4.5 ? 'var(--gold)' : 'var(--cardinal)';
+      dots += `<div class="dot" style="background:linear-gradient(90deg,${color} ${pct}%,rgba(255,255,255,0.15) ${pct}%)"></div>`;
+    } else {
+      // Empty
+      dots += `<div class="dot"></div>`;
+    }
+  }
+
+  return `<div class="success-display">
+    <div class="success-dots">${dots}</div>
+    <span class="success-num">${avg.toFixed(1)}</span>
+    <span style="font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;color:var(--gray-mid);">(${count})</span>
+  </div>`;
+}
+
+// Convert Supabase row to site format
+function fromDB(p) {
+  return {
+    id:          p.id,
+    name:        p.name,
+    year:        p.year,
+    coach:       p.coach,
+    position:    p.position,
+    ranking:     p.ranking,
+    espn:        p.espn,
+    on3:         p.on3,
+    grade247:    p.grade247,
+    intl:        p.intl,
+    mcdAA:       p.mcd_aa,
+    xferIn:      p.xfer_in,
+    years:       p.years,
+    oneDone:     p.one_done,
+    starter:     p.starter,
+    xferOut:     p.xfer_out,
+    allConf:     p.all_conf,
+    allAmerican: p.all_american,
+    g:           p.g,
+    gs:          p.gs,
+    pts:         p.pts,
+    ppg:         p.ppg,
+    success:     p.success,
+    madness:     p.madness,
+    earlyNBA:    p.early_nba,
+    nba:         p.nba,
+  };
+}
+
+// Convert site format to Supabase row
+function toDB(f) {
+  return {
+    name:        f.name,
+    year:        f.year ? parseInt(f.year) : null,
+    coach:       f.coach || null,
+    position:    f.position || null,
+    ranking:     f.ranking ? parseInt(f.ranking) : null,
+    grade247:    f.grade247 ? parseFloat(f.grade247) : null,
+    years:       f.years ? parseInt(f.years) : null,
+    success:     f.success ? parseInt(f.success) : null,
+    ppg:         f.ppg ? parseFloat(f.ppg) : null,
+    pts:         f.pts ? parseInt(f.pts) : null,
+    g:           f.g ? parseInt(f.g) : null,
+    nba:         !!f.nba,
+    early_nba:   !!f.earlyNBA,
+    all_american:!!f.allAmerican,
+    mcd_aa:      !!f.mcdAA,
+    xfer_in:     !!f.xferIn,
+    xfer_out:    !!f.xferOut,
+    one_done:    !!f.oneDone,
+    starter:     !!f.starter,
+    intl:        !!f.intl,
+    all_conf:    !!f.allConf,
+    madness:     !!f.madness,
+  };
+}
+
+async function init() {
+  // Check session
+  const { data: { session } } = await db.auth.getSession();
+  if (session) {
+    currentUser = session.user;
+    if (currentUser.email === 'caseywillard@yahoo.com') {
+      isAdmin = true;
+      document.getElementById('adminBar').style.display = 'block';
+    }
+  }
+
+  updateAuthBar();
+  bindAuthEvents();
+
+  // Load players and votes in parallel
+  const [playersResult] = await Promise.all([
+    db.from('players').select('*').order('year', { ascending: true }),
+    loadCommunityVotes(),
+    currentUser ? loadUserVotes() : Promise.resolve(),
+  ]);
+
+  if (playersResult.error) {
+    console.error('Error loading players:', playersResult.error);
+    return;
+  }
+
+  allPlayers = playersResult.data.map(fromDB);
+
+  // Merge community scores and user votes onto player objects for sorting
+  allPlayers.forEach(p => {
+    const cv = communityVotes[p.id];
+    p.communityAvg = cv ? cv.avg : null;
+    p.userVote = userVotes[p.id] || null;
+  });
+
+  // Hero stats
+  const withSuccess = allPlayers.filter(p => p.success !== null);
+  document.getElementById('totalPlayers').textContent = allPlayers.length;
+  document.getElementById('nbaCount').textContent = allPlayers.filter(p => p.nba).length;
+  document.getElementById('aaCount').textContent = allPlayers.filter(p => p.allAmerican).length;
+  document.getElementById('mcdCount').textContent = allPlayers.filter(p => p.mcdAA).length;
+  const avg = withSuccess.reduce((a,p) => a + p.success, 0) / withSuccess.length;
+  document.getElementById('avgSuccess').textContent = avg.toFixed(2);
+
+  filtered = [...allPlayers];
+  render();
+  bindEvents();
+  bindAdminEvents();
+}
+
+// ── ADMIN MODAL ────────────────────────────────────────────────────────
+function openModal(player) {
+  const modal = document.getElementById('playerModal');
+  const isEdit = !!player;
+  document.getElementById('modalTitle').textContent = isEdit ? 'Edit Player' : 'Add Player';
+  document.getElementById('deletePlayerBtn').style.display = isEdit ? 'block' : 'none';
+  document.getElementById('modalPlayerId').value = isEdit ? player.id : '';
+
+  // Populate fields
+  document.getElementById('fName').value        = player?.name        || '';
+  document.getElementById('fYear').value        = player?.year        || '';
+  document.getElementById('fCoach').value       = player?.coach       || '';
+  document.getElementById('fPosition').value    = player?.position    || '';
+  document.getElementById('fYears').value       = player?.years       || '';
+  document.getElementById('fSuccess').value     = player?.success     || '';
+  document.getElementById('fPpg').value         = player?.ppg         || '';
+  document.getElementById('fPts').value         = player?.pts         || '';
+  document.getElementById('fG').value           = player?.g           || '';
+  document.getElementById('fGrade247').value    = player?.grade247    || '';
+  document.getElementById('fRanking').value     = player?.ranking     || '';
+  document.getElementById('fNba').checked       = !!player?.nba;
+  document.getElementById('fEarlyNba').checked  = !!player?.earlyNBA;
+  document.getElementById('fAllAmerican').checked = !!player?.allAmerican;
+  document.getElementById('fMcdAa').checked     = !!player?.mcdAA;
+  document.getElementById('fXferIn').checked    = !!player?.xferIn;
+  document.getElementById('fXferOut').checked   = !!player?.xferOut;
+  document.getElementById('fOneDone').checked   = !!player?.oneDone;
+  document.getElementById('fStarter').checked   = !!player?.starter;
+  document.getElementById('fIntl').checked      = !!player?.intl;
+  document.getElementById('fAllConf').checked   = !!player?.allConf;
+  document.getElementById('fMadness').checked   = !!player?.madness;
+
+  modal.style.display = 'flex';
+}
+
+function closeModal() {
+  document.getElementById('playerModal').style.display = 'none';
+}
+
+function getFormData() {
+  return toDB({
+    name:        document.getElementById('fName').value.trim(),
+    year:        document.getElementById('fYear').value,
+    coach:       document.getElementById('fCoach').value,
+    position:    document.getElementById('fPosition').value,
+    years:       document.getElementById('fYears').value,
+    success:     document.getElementById('fSuccess').value,
+    ppg:         document.getElementById('fPpg').value,
+    pts:         document.getElementById('fPts').value,
+    g:           document.getElementById('fG').value,
+    grade247:    document.getElementById('fGrade247').value,
+    ranking:     document.getElementById('fRanking').value,
+    nba:         document.getElementById('fNba').checked,
+    earlyNBA:    document.getElementById('fEarlyNba').checked,
+    allAmerican: document.getElementById('fAllAmerican').checked,
+    mcdAA:       document.getElementById('fMcdAa').checked,
+    xferIn:      document.getElementById('fXferIn').checked,
+    xferOut:     document.getElementById('fXferOut').checked,
+    oneDone:     document.getElementById('fOneDone').checked,
+    starter:     document.getElementById('fStarter').checked,
+    intl:        document.getElementById('fIntl').checked,
+    allConf:     document.getElementById('fAllConf').checked,
+    madness:     document.getElementById('fMadness').checked,
+  });
+}
+
+function bindAdminEvents() {
+  document.getElementById('addPlayerBtn').addEventListener('click', () => openModal(null));
+  document.getElementById('modalCancelBtn').addEventListener('click', closeModal);
+  document.getElementById('playerModal').addEventListener('click', e => {
+    if (e.target === document.getElementById('playerModal')) closeModal();
+  });
+
+  document.getElementById('logoutBtn').addEventListener('click', async () => {
+    await db.auth.signOut();
+    isAdmin = false;
+    document.getElementById('adminBar').style.display = 'none';
+    render();
+  });
+
+  document.getElementById('modalSaveBtn').addEventListener('click', async () => {
+    const id   = document.getElementById('modalPlayerId').value;
+    const data = getFormData();
+    if (!data.name) { alert('Name is required'); return; }
+
+    const btn = document.getElementById('modalSaveBtn');
+    btn.textContent = 'Saving...';
+    btn.disabled = true;
+
+    let result;
+    if (id) {
+      result = await db.from('players').update(data).eq('id', id).select().single();
+    } else {
+      result = await db.from('players').insert(data).select().single();
+    }
+
+    btn.textContent = 'Save Player';
+    btn.disabled = false;
+
+    if (result.error) {
+      alert('Error saving: ' + result.error.message);
+      return;
+    }
+
+    // Update local data
+    const updated = fromDB(result.data);
+    if (id) {
+      const idx = allPlayers.findIndex(p => p.id === id);
+      if (idx >= 0) allPlayers[idx] = updated;
+    } else {
+      allPlayers.push(updated);
+    }
+
+    closeModal();
+    applyFilters();
+  });
+
+  document.getElementById('deletePlayerBtn').addEventListener('click', async () => {
+    const id   = document.getElementById('modalPlayerId').value;
+    const name = document.getElementById('fName').value;
+    if (!confirm(`Delete ${name}? This cannot be undone.`)) return;
+
+    const { error } = await db.from('players').delete().eq('id', id);
+    if (error) { alert('Error deleting: ' + error.message); return; }
+
+    allPlayers = allPlayers.filter(p => p.id !== id);
+    closeModal();
+    applyFilters();
+  });
+}
+
+// ── FILTERS & SORT ────────────────────────────────────────────────────
+function applyFilters() {
+  const search     = document.getElementById('searchInput').value.toLowerCase().trim();
+  const coach      = document.getElementById('filterCoach').value;
+  const pos        = document.getElementById('filterPos').value;
+  const minSuccess = parseInt(document.getElementById('filterSuccess').value) || 0;
+  const era        = document.getElementById('filterEra').value;
+
+  filtered = allPlayers.filter(p => {
+    if (search && !p.name.toLowerCase().includes(search)) return false;
+    if (coach && p.coach !== coach) return false;
+    if (pos && p.position !== pos) return false;
+    if (minSuccess && (p.success === null || p.success < minSuccess)) return false;
+    if (era) {
+      const [y1, y2] = era.split('-').map(Number);
+      if (p.year < y1 || p.year > y2) return false;
+    }
+    for (const flag of activeFlags) {
+      if (!p[flag]) return false;
+    }
+    return true;
+  });
+
+  applySort();
+  render();
+}
+
+function applySort() {
+  const col = sortCol;
+  const dir = sortDir === 'asc' ? 1 : -1;
+  filtered.sort((a, b) => {
+    let av = a[col], bv = b[col];
+    if (av === null || av === undefined) av = dir === 1 ? Infinity : -Infinity;
+    if (bv === null || bv === undefined) bv = dir === 1 ? Infinity : -Infinity;
+    if (typeof av === 'string') return av.localeCompare(bv) * dir;
+    return (av - bv) * dir;
+  });
+}
+
+function successDots(score) {
+  if (score === null) return '<span class="null-val">—</span>';
+  let html = '<div class="success-display"><div class="success-dots">';
+  for (let i = 1; i <= 5; i++) {
+    const cls = i <= score ? (score === 5 ? 'dot filled-5' : 'dot filled') : 'dot';
+    html += `<div class="${cls}" title="${successLabels[score]}"></div>`;
+  }
+  html += `</div><span class="success-num">${score}</span></div>`;
+  return html;
+}
+
+function ppgClass(ppg) {
+  if (ppg === null) return 'null-val';
+  if (ppg >= 14) return 'ppg-high';
+  if (ppg >= 8) return 'ppg-mid';
+  return 'ppg-low';
+}
+
+function renderCards() {
+  const grid = document.getElementById('cardGrid');
+  if (filtered.length === 0) {
+    grid.innerHTML = `<div style="grid-column:1/-1"><div class="empty-state"><h3>No Players Found</h3><p>Try adjusting your filters</p></div></div>`;
+    return;
+  }
+  grid.innerHTML = filtered.map(p => {
+    const badges = [
+      p.allAmerican ? '<span class="badge badge-aa">AA</span>' : '',
+      p.nba         ? '<span class="badge badge-nba">NBA</span>' : '',
+      p.mcdAA       ? '<span class="badge badge-mcd">McD</span>' : '',
+      p.intl        ? '<span class="badge badge-intl">Int\'l</span>' : '',
+      p.xferIn      ? '<span class="badge" style="background:rgba(0,200,100,0.2);color:#44ffaa;border:1px solid rgba(0,200,100,0.3)">Xfer In</span>' : '',
+      p.xferOut     ? '<span class="badge" style="background:rgba(255,100,0,0.2);color:#ff9966;border:1px solid rgba(255,100,0,0.3)">Xfer Out</span>' : '',
+    ].filter(Boolean).join('');
+
+    let dots = '';
+    if (p.success !== null) {
+      for (let i = 1; i <= 5; i++) {
+        const cls = i <= p.success ? (p.success === 5 ? 'dot filled-5' : 'dot filled') : 'dot';
+        dots += `<div class="${cls}"></div>`;
+      }
+    }
+
+    const ppg     = p.ppg   !== null ? p.ppg.toFixed(1) : '—';
+    const yrs     = p.years !== null ? p.years : '—';
+    const pts     = p.pts   !== null ? p.pts   : '—';
+    const posShort = {'Point Guard':'PG','Combo Guard':'CG','Shooting Guard':'SG','Wing':'WG','Small Forward':'SF','Combo Forward':'CF','Power Forward':'PF','Forward/Center':'FC','Center':'C'}[p.position] || p.position || '—';
+
+    return `<div class="player-card">
+      <div class="era-stripe stripe-${p.coach}"></div>
+      <div class="card-year">${p.year}</div>
+      <div class="card-name">
+        <a href="/cbb-arizona-wildcats/player.html?name=${encodeURIComponent(p.name)}" style="color:var(--white);text-decoration:none;">${p.name}</a>${jerseyBadge(p.name)}
+        ${isAdmin ? `<button class="admin-edit-btn" onclick="openModal(allPlayers.find(x=>x.id==='${p.id}'))">edit</button>` : ''}
+      </div>
+      <div class="card-meta">${posShort} · <span class="era-pill era-${p.coach}" style="font-size:0.65rem;padding:1px 5px">${p.coach}</span></div>
+      ${p.success !== null ? `<div class="card-success"><div class="success-dots">${dots}</div><span class="success-num">${p.success}</span></div>` : ''}
+      <div class="card-stats-row">
+        <div class="cstat"><span class="cstat-val">${ppg}</span><span class="cstat-lbl">PPG</span></div>
+        <div class="cstat"><span class="cstat-val">${yrs}</span><span class="cstat-lbl">Yrs</span></div>
+        <div class="cstat"><span class="cstat-val">${pts}</span><span class="cstat-lbl">Pts</span></div>
+      </div>
+      ${badges ? `<div class="card-badges">${badges}</div>` : ''}
+    </div>`;
+  }).join('');
+}
+
+function render() {
+  const tbody = document.getElementById('playerTable');
+  const grid  = document.getElementById('cardGrid');
+  const count = document.getElementById('resultsCount');
+
+  count.textContent = filtered.length === allPlayers.length
+    ? `Showing all ${allPlayers.length} players`
+    : `Showing ${filtered.length} of ${allPlayers.length} players`;
+
+  if (viewMode === 'cards') {
+    document.getElementById('tableWrap').style.display = 'none';
+    grid.style.display = 'grid';
+    renderCards();
+    return;
+  }
+
+  document.getElementById('tableWrap').style.display = '';
+  grid.style.display = 'none';
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="10"><div class="empty-state"><h3>No Players Found</h3><p>Try adjusting your filters</p></div></td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = filtered.map(p => {
+    const badges = [
+      p.allAmerican ? '<span class="badge badge-aa">AA</span>' : '',
+      p.nba ? '<span class="badge badge-nba">NBA</span>' : '',
+      p.mcdAA ? '<span class="badge badge-mcd">McD</span>' : '',
+      p.intl ? '<span class="badge badge-intl">Int\'l</span>' : '',
+    ].filter(Boolean).join('');
+
+    const tags = [
+      p.xferIn  ? '<span class="tag tag-xin">Xfer In</span>'   : '',
+      p.xferOut ? '<span class="tag tag-xout">Xfer Out</span>' : '',
+      p.oneDone ? '<span class="tag tag-1done">1&Done</span>'  : '',
+    ].filter(Boolean).join('');
+
+    const ppgVal  = p.ppg  !== null ? `<span class="${ppgClass(p.ppg)}">${p.ppg.toFixed(1)}</span>` : '<span class="null-val">—</span>';
+    const ptsVal  = p.pts  !== null ? p.pts.toLocaleString() : '<span class="null-val">—</span>';
+    const gVal    = p.g    !== null ? p.g    : '<span class="null-val">—</span>';
+    const yrsVal  = p.years !== null ? p.years : '<span class="null-val">—</span>';
+    const gradeVal = p.grade247 !== null ? p.grade247.toFixed(0) : (p.on3 !== null ? `<span style="color:var(--gray-mid)">${p.on3.toFixed(0)}</span>` : '<span class="null-val">—</span>');
+    const editBtn  = isAdmin ? `<button class="admin-edit-btn" onclick="openModal(allPlayers.find(x=>x.id==='${p.id}'))">edit</button>` : '';
+
+    return `<tr>
+      <td class="name-cell"><a href="/cbb-arizona-wildcats/player.html?name=${encodeURIComponent(p.name)}" style="color:var(--white);text-decoration:none;">${p.name}</a>${jerseyBadge(p.name)}${editBtn}${badges ? `<span class="badges">${badges}</span>` : ''}</td>
+      <td class="year-cell">${p.year}</td>
+      <td><span class="era-pill era-${p.coach}">${p.coach}</span></td>
+      <td class="pos-cell">${p.position || '—'}</td>
+      <td style="text-align:center">${yrsVal}</td>
+      <td>${currentUser ? starWidget(p.id, userVotes[p.id]) : '<span class="vote-prompt" onclick="showAuthModal(\'signin\')">Sign in to rate</span>'}</td>
+      <td>${communityScoreDisplay(p.id)}</td>
+      <td style="text-align:right">${ppgVal}</td>
+      <td style="text-align:right">${ptsVal}</td>
+      <td style="text-align:center">${gVal}</td>
+      <td><div class="tag-wrap">${tags || '<span class="null-val">—</span>'}</div></td>
+      <td style="text-align:center">${gradeVal}</td>
+    </tr>`;
+  }).join('');
+}
+
+function bindEvents() {
+  document.getElementById('btnTable').addEventListener('click', () => {
+    viewMode = 'table';
+    document.getElementById('btnTable').classList.add('active');
+    document.getElementById('btnCards').classList.remove('active');
+    render();
+  });
+  document.getElementById('btnCards').addEventListener('click', () => {
+    viewMode = 'cards';
+    document.getElementById('btnCards').classList.add('active');
+    document.getElementById('btnTable').classList.remove('active');
+    render();
+  });
+  // Star rating clicks — delegated to table body
+  document.getElementById('playerTable').addEventListener('click', e => {
+    const star = e.target.closest('.star');
+    if (!star) return;
+    const score = parseInt(star.dataset.score);
+    const pid   = star.dataset.pid;
+    submitVote(pid, score);
+  });
+
+  document.getElementById('playerTable').addEventListener('mouseover', e => {
+    const star = e.target.closest('.star');
+    if (!star) return;
+    const rating = star.parentElement;
+    const score  = parseInt(star.dataset.score);
+    rating.querySelectorAll('.star').forEach(s => {
+      s.classList.toggle('filled', parseInt(s.dataset.score) <= score);
+    });
+  });
+
+  document.getElementById('playerTable').addEventListener('mouseleave', e => {
+    document.querySelectorAll('.star-rating').forEach(rating => {
+      const pid   = rating.dataset.pid;
+      const uScore = userVotes[pid] || 0;
+      rating.querySelectorAll('.star').forEach(s => {
+        s.classList.toggle('filled', parseInt(s.dataset.score) <= uScore);
+      });
+    });
+  });
+
+  document.getElementById('searchInput').addEventListener('input', applyFilters);
+  document.getElementById('filterCoach').addEventListener('change', applyFilters);
+  document.getElementById('filterPos').addEventListener('change', applyFilters);
+  document.getElementById('filterSuccess').addEventListener('change', applyFilters);
+  document.getElementById('filterEra').addEventListener('change', applyFilters);
+  document.querySelectorAll('.toggle-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const flag = btn.dataset.flag;
+      if (activeFlags.has(flag)) { activeFlags.delete(flag); btn.classList.remove('active'); }
+      else { activeFlags.add(flag); btn.classList.add('active'); }
+      applyFilters();
+    });
+  });
+  document.getElementById('clearBtn').addEventListener('click', () => {
+    document.getElementById('searchInput').value = '';
+    document.getElementById('filterCoach').value = '';
+    document.getElementById('filterPos').value = '';
+    document.getElementById('filterSuccess').value = '';
+    document.getElementById('filterEra').value = '';
+    activeFlags.clear();
+    document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+    applyFilters();
+  });
+  document.getElementById('sortSelect').addEventListener('change', e => {
+    const [col, dir] = e.target.value.split('-');
+    sortCol = col; sortDir = dir;
+    applySort(); render();
+  });
+  document.querySelectorAll('th[data-col]').forEach(th => {
+    th.addEventListener('click', () => {
+      const col = th.dataset.col;
+      if (sortCol === col) { sortDir = sortDir === 'asc' ? 'desc' : 'asc'; }
+      else { sortCol = col; sortDir = col === 'name' ? 'asc' : 'desc'; }
+      document.querySelectorAll('th').forEach(t => t.classList.remove('sorted'));
+      th.classList.add('sorted');
+      applySort(); render();
+    });
+  });
+}
+
+init();
+</script>
+</body>
+</html>

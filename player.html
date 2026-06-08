@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/x-icon" href="/cbb-arizona-wildcats/favicon.ico">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arizona Wildcats — Player</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root {
+    --cardinal: #CC0033;
+    --cardinal-dark: #990022;
+    --cardinal-light: #ff1a4d;
+    --navy: #003366;
+    --navy-dark: #001a33;
+    --navy-mid: #00244d;
+    --gold: #FFC72C;
+    --white: #ffffff;
+    --off-white: #f5f5f5;
+    --gray-mid: #aaaaaa;
+    --gray-dark: #444444;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Barlow', sans-serif; background: var(--navy-dark); color: var(--white); min-height: 100vh; }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 60%, var(--cardinal-dark) 100%);
+    border-bottom: 3px solid var(--cardinal);
+    padding: 0 2rem;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+  .header-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; gap: 2rem; padding: 0.75rem 0; }
+  .logo-mark { display: flex; align-items: center; flex-shrink: 0; }
+  .logo-text { flex: 1; }
+  .logo-text h1 { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 3px; color: var(--white); line-height: 1; }
+  .logo-text p { font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase; color: var(--gray-mid); margin-top: 2px; }
+  nav { display: flex; gap: 0.25rem; }
+  nav a { font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gray-mid); text-decoration: none; padding: 0.5rem 1rem; border-radius: 3px; transition: all 0.2s; }
+  nav a:hover { color: var(--cardinal-light); background: rgba(204,0,51,0.2); }
+
+  /* PLAYER HERO */
+  .player-hero {
+    background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy-mid) 100%);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding: 2.5rem 2rem;
+  }
+  .player-hero-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-start;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .player-silhouette {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: var(--navy-dark);
+    border: 3px solid var(--cardinal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  .player-silhouette svg { opacity: 0.3; }
+
+  .player-info { flex: 1; min-width: 200px; }
+
+  .player-info .back-link {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray-mid);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin-bottom: 0.75rem;
+    transition: color 0.2s;
+  }
+  .player-info .back-link:hover { color: var(--cardinal-light); }
+
+  .player-info h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    letter-spacing: 4px;
+    line-height: 1;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+
+  .player-info .player-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    color: var(--gray-mid);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .player-info .player-sub .sep { color: rgba(255,255,255,0.2); }
+
+  .hero-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1rem; }
+
+  .badge {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 3px;
+  }
+  .badge-nba  { background: var(--cardinal); color: var(--white); }
+  .badge-aa   { background: var(--gold); color: var(--navy-dark); }
+  .badge-intl { background: var(--navy); color: var(--white); border: 1px solid rgba(255,255,255,0.3); }
+  .badge-mcd  { background: #e25822; color: var(--white); }
+  .badge-xin  { background: rgba(0,200,100,0.2); color: #44ffaa; border: 1px solid rgba(0,200,100,0.3); }
+  .badge-xout { background: rgba(255,100,0,0.2); color: #ff9966; border: 1px solid rgba(255,100,0,0.3); }
+
+  /* SUCCESS */
+  .success-display { display: flex; align-items: center; gap: 8px; }
+  .success-dots { display: flex; gap: 4px; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.15); }
+  .dot.filled { background: var(--cardinal); }
+  .dot.filled-5 { background: var(--gold); }
+  .success-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; letter-spacing: 1px; color: var(--gray-mid); }
+
+  /* HERO STATS */
+  .hero-stats {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .hstat { text-align: center; }
+  .hstat .hval { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; line-height: 1; color: var(--white); }
+  .hstat .hlbl { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gray-mid); margin-top: 2px; }
+
+  /* ERA PILL */
+  .era-pill { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 1px; padding: 2px 8px; border-radius: 10px; text-transform: uppercase; }
+  .era-Snowden { background: rgba(100,100,100,0.3); color: #aaa; }
+  .era-Olson   { background: rgba(204,0,51,0.2); color: #ff6688; }
+  .era-Interim { background: rgba(150,100,0,0.3); color: #ccaa44; }
+  .era-Miller  { background: rgba(0,51,102,0.5); color: #88aaff; }
+  .era-Lloyd   { background: rgba(0,120,60,0.3); color: #44cc88; }
+
+  /* MAIN */
+  main { max-width: 1100px; margin: 0 auto; padding: 2rem; }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 3px;
+    color: var(--white);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  /* STATS TABLE */
+  .table-wrap { background: var(--navy-mid); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; overflow: hidden; overflow-x: auto; margin-bottom: 2rem; }
+  table { width: 100%; border-collapse: collapse; }
+  thead { background: var(--navy-dark); border-bottom: 2px solid var(--cardinal); }
+  th { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gray-mid); padding: 0.8rem 1rem; text-align: center; white-space: nowrap; }
+  th:first-child { text-align: left; }
+  tbody tr { border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.15s; }
+  tbody tr:hover { background: rgba(204,0,51,0.06); }
+  tbody tr.career-row { background: rgba(255,199,44,0.06); border-top: 2px solid rgba(255,199,44,0.2); }
+  tbody tr:last-child { border-bottom: none; }
+  td { font-size: 0.88rem; padding: 0.7rem 1rem; text-align: center; color: var(--off-white); white-space: nowrap; }
+  td:first-child { text-align: left; }
+
+  .class-chip {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: 3px;
+    display: inline-block;
+  }
+  .chip-Freshman  { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); }
+  .chip-Sophomore { background: rgba(204,0,51,0.2); color: #ff6688; }
+  .chip-Junior    { background: rgba(255,199,44,0.2); color: var(--gold); }
+  .chip-Senior    { background: rgba(68,204,136,0.2); color: #44cc88; }
+  .chip-Career    { background: rgba(255,199,44,0.15); color: var(--gold); font-style: italic; }
+
+  .val-best { color: var(--gold); font-weight: 600; }
+  .null-val { color: rgba(255,255,255,0.2); }
+
+  /* CHART */
+  .chart-card { background: var(--navy-mid); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem; }
+  .chart-card h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase; color: var(--gray-mid); margin-bottom: 1.25rem; }
+  .chart-card canvas { max-height: 200px; }
+
+  /* NOT FOUND */
+  .not-found { text-align: center; padding: 5rem 2rem; }
+  .not-found h2 { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 3px; color: var(--gray-dark); margin-bottom: 0.5rem; }
+  .not-found p { color: var(--gray-mid); margin-bottom: 1.5rem; }
+  .not-found a { color: var(--cardinal); text-decoration: none; }
+
+  footer { text-align: center; padding: 2rem; margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.05); font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; letter-spacing: 1px; color: rgba(255,255,255,0.25); }
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo-mark">
+      <a href="/cbb-arizona-wildcats/index.html"><img src="/cbb-arizona-wildcats/logo.png" alt="Arizona Wildcats" style="height:60px;width:60px;object-fit:contain;display:block;"></a>
+    </div>
+    <div class="logo-text">
+      <h1>Arizona Wildcats Basketball</h1>
+      <p>Player History Database · 1981–Present</p>
+    </div>
+    <nav>
+      <a href="/cbb-arizona-wildcats/players.html">Players</a>
+      <a href="/cbb-arizona-wildcats/seasons.html">Seasons</a>
+      <a href="/cbb-arizona-wildcats/classes.html">Recruiting</a>
+      <a href="/cbb-arizona-wildcats/progression.html">Progression</a>
+    </nav>
+  </div>
+</header>
+
+<div id="playerHero"></div>
+
+<main id="mainContent">
+  <div class="not-found">
+    <h2>Loading...</h2>
+    <p>Fetching player data</p>
+  </div>
+</main>
+
+<footer>
+  Arizona Wildcats Basketball Database · Built with ❤️ for Wildcat fans · <a href="/cbb-arizona-wildcats/about.html" style="color:rgba(255,255,255,0.4);text-decoration:none;">About</a> · Data compiled by cwillard35
+</footer>
+
+<script>
+const successLabels = {1:'Limited',2:'Reserve',3:'Productive',4:'Starter/Impact',5:'Elite'};
+const CLASS_ORDER   = ['Freshman','Sophomore','Junior','Senior'];
+
+function fmt(val, decimals=1) {
+  if (val === null || val === undefined) return '<span class="null-val">—</span>';
+  return Number(val).toFixed(decimals);
+}
+
+function fmtPct(val) {
+  if (val === null || val === undefined) return '<span class="null-val">—</span>';
+  return (val * 100).toFixed(1) + '%';
+}
+
+function successDots(score) {
+  if (score === null) return '';
+  let html = '<div class="success-display"><div class="success-dots">';
+  for (let i = 1; i <= 5; i++) {
+    const cls = i <= score ? (score === 5 ? 'dot filled-5' : 'dot filled') : 'dot';
+    html += `<div class="${cls}"></div>`;
+  }
+  html += `</div><span class="success-label">${successLabels[score] || ''}</span></div>`;
+  return html;
+}
+
+function getBest(seasons, getter) {
+  const vals = seasons.map(getter).filter(v => v !== null && v !== undefined);
+  return vals.length ? Math.max(...vals) : null;
+}
+
+const SUPABASE_URL = 'https://lzzkqbiawsatzzcisypf.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx6emtxYmlhd3NhdHp6Y2lzeXBmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwNTE2MjgsImV4cCI6MjA5NTYyNzYyOH0.le5NdvH-dvHax6s2poggH2fTTZd7P8yMyExl2T-6GJ4';
+const { createClient } = supabase;
+const db = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const RETIRED_NUMBERS = {
+  'mike bibby': 10, 'jason gardner': 22, 'steve kerr': 25,
+  'jason terry': 31, 'sean elliot': 32, 'miles simon': 34,
+};
+
+function jerseyBadge(name) {
+  const num = RETIRED_NUMBERS[name.toLowerCase()];
+  if (!num) return '';
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" viewBox="0 0 52 78" style="display:inline-block;vertical-align:middle;margin-left:5px;" title="Retired #${num}"><path d="M2,22 L0,10 L14,0 L20,10 Q26,17 32,10 L38,0 L52,10 L50,22 C48,25 46,28 46,32 L48,78 L4,78 C4,78 6,32 4,28 Z" fill="white" stroke="#CC0033" stroke-width="3"/><path d="M20,10 Q26,22 32,10" fill="none" stroke="#CC0033" stroke-width="2.5"/><text x="26" y="58" text-anchor="middle" font-family="Arial Narrow,sans-serif" font-weight="900" font-size="28" fill="#002244">${num}</text></svg>`;
+}
+
+function fromDB(p) {
+  return {
+    id:          p.id,
+    name:        p.name,
+    year:        p.year,
+    coach:       p.coach,
+    position:    p.position,
+    ranking:     p.ranking,
+    espn:        p.espn,
+    on3:         p.on3,
+    grade247:    p.grade247,
+    intl:        p.intl,
+    mcdAA:       p.mcd_aa,
+    xferIn:      p.xfer_in,
+    years:       p.years,
+    oneDone:     p.one_done,
+    starter:     p.starter,
+    xferOut:     p.xfer_out,
+    allConf:     p.all_conf,
+    allAmerican: p.all_american,
+    g:           p.g,
+    gs:          p.gs,
+    pts:         p.pts,
+    ppg:         p.ppg,
+    success:     p.success,
+    madness:     p.madness,
+    earlyNBA:    p.early_nba,
+    nba:         p.nba,
+  };
+}
+
+async function init() {
+  const params = new URLSearchParams(window.location.search);
+  const name   = params.get('name');
+
+  if (!name) {
+    showNotFound('No player specified.');
+    return;
+  }
+
+  document.title = `Arizona Wildcats — ${name}`;
+
+  // Load player from Supabase + progression.json + votes in parallel
+  const [playerResult, progressRes, votesResult] = await Promise.all([
+    db.from('players').select('*').ilike('name', name).single(),
+    fetch('/cbb-arizona-wildcats/progression.json'),
+    db.from('votes').select('score').eq('player_id',
+      // We'll get the ID after player loads — do a second fetch if needed
+      '00000000-0000-0000-0000-000000000000'
+    ),
+  ]);
+
+  // Load player
+  if (playerResult.error || !playerResult.data) {
+    showNotFound(`"${name}" was not found in the database.`);
+    return;
+  }
+  const player = fromDB(playerResult.data);
+
+  // Load community votes for this player
+  const { data: votesData } = await db
+    .from('votes')
+    .select('score')
+    .eq('player_id', player.id);
+
+  let communityAvg = null;
+  let voteCount = 0;
+  if (votesData && votesData.length > 0) {
+    voteCount = votesData.length;
+    communityAvg = votesData.reduce((a, v) => a + v.score, 0) / voteCount;
+  }
+  player.communityAvg = communityAvg;
+  player.voteCount    = voteCount;
+
+  // Load progression data
+  const progression = await progressRes.json();
+  const seasons = (progression.all_seasons || [])
+    .filter(s => s.name.toLowerCase() === name.toLowerCase())
+    .sort((a, b) => a.year - b.year);
+
+  renderHero(player, seasons);
+  renderMain(player, seasons);
+}
+
+function renderHero(player, seasons) {
+  const badges = [
+    player.allAmerican ? '<span class="badge badge-aa">All-American</span>' : '',
+    player.nba         ? `<span class="badge badge-nba">${player.earlyNBA ? 'Early NBA' : 'NBA'}</span>` : '',
+    player.mcdAA       ? '<span class="badge badge-mcd">McDonald\'s AA</span>' : '',
+    player.intl        ? '<span class="badge badge-intl">International</span>' : '',
+    player.xferIn      ? '<span class="badge badge-xin">Transfer In</span>' : '',
+    player.xferOut     ? '<span class="badge badge-xout">Transfer Out</span>' : '',
+    player.oneDone     ? '<span class="badge" style="background:rgba(255,200,0,0.2);color:#ffdd55;border:1px solid rgba(255,200,0,0.3)">1 & Done</span>' : '',
+  ].filter(Boolean).join('');
+
+  // Career stats — prefer progression data if available, fall back to players.json
+  const totalG   = seasons.reduce((a, s) => a + (s.totals?.g || 0), 0) || player.g;
+  const totalPts = seasons.reduce((a, s) => a + (s.totals?.pts || 0), 0) || player.pts;
+  const avgPpg   = totalG ? (totalPts / totalG).toFixed(1) : (player.ppg?.toFixed(1) || '—');
+  const totalTrb = seasons.reduce((a, s) => a + (s.totals?.trb || 0), 0);
+  const avgRpg   = totalG && totalTrb ? (totalTrb / totalG).toFixed(1) : '—';
+  const totalAst = seasons.reduce((a, s) => a + (s.totals?.ast || 0), 0);
+  const avgApg   = totalG && totalAst ? (totalAst / totalG).toFixed(1) : '—';
+  const avgFgPct = seasons.length
+    ? (seasons.reduce((a, s) => a + (s.pct?.fg_pct || 0), 0) / seasons.filter(s => s.pct?.fg_pct).length * 100).toFixed(1)
+    : null;
+
+  document.getElementById('playerHero').innerHTML = `
+    <div class="player-hero">
+      <div class="player-hero-inner">
+        <div class="player-silhouette">
+          <svg width="60" height="60" viewBox="0 0 24 24" fill="white">
+            <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+          </svg>
+        </div>
+
+        <div class="player-info">
+          <a href="/cbb-arizona-wildcats/players.html" class="back-link">← Back to Players</a>
+          <h2>${player.name}${jerseyBadge(player.name)}</h2>
+          <div class="player-sub">
+            <span>${player.position || '—'}</span>
+            <span class="sep">·</span>
+            <span class="era-pill era-${player.coach}">${player.coach} Era</span>
+            <span class="sep">·</span>
+            <span>Class of ${player.year}</span>
+            ${player.years ? `<span class="sep">·</span><span>${player.years} year${player.years > 1 ? 's' : ''} at Arizona</span>` : ''}
+          </div>
+          ${badges ? `<div class="hero-badges">${badges}</div>` : ''}
+          ${player.success !== null ? successDots(player.success) : ''}
+
+          <div class="hero-stats">
+            <div class="hstat"><div class="hval">${totalG || '—'}</div><div class="hlbl">Games</div></div>
+            <div class="hstat"><div class="hval">${avgPpg}</div><div class="hlbl">PPG</div></div>
+            ${avgRpg !== '—' ? `<div class="hstat"><div class="hval">${avgRpg}</div><div class="hlbl">RPG</div></div>` : ''}
+            ${avgApg !== '—' ? `<div class="hstat"><div class="hval">${avgApg}</div><div class="hlbl">APG</div></div>` : ''}
+            ${avgFgPct ? `<div class="hstat"><div class="hval">${avgFgPct}%</div><div class="hlbl">FG%</div></div>` : ''}
+            ${player.ranking ? `<div class="hstat"><div class="hval">#${player.ranking}</div><div class="hlbl">Recruit Rank</div></div>` : ''}
+            ${player.grade247 ? `<div class="hstat"><div class="hval">${player.grade247.toFixed(0)}</div><div class="hlbl">247 Grade</div></div>` : ''}
+            ${player.communityAvg !== null ? `<div class="hstat"><div class="hval" style="color:var(--gold)">${player.communityAvg.toFixed(1)}</div><div class="hlbl">Community Score (${player.voteCount})</div></div>` : ''}
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+
+function renderMain(player, seasons) {
+  const main = document.getElementById('mainContent');
+
+  if (seasons.length === 0) {
+    // No season data — show basic info only
+    main.innerHTML = `
+      <p style="color:var(--gray-mid);font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;margin-bottom:2rem;">
+        Detailed season stats are not yet available for this player.
+        Season data coverage begins with the 1984 season.
+      </p>`;
+    return;
+  }
+
+  // Build season stats table
+  const statCols = [
+    {key:'g',       label:'G',    src:'totals', fmt: v => v?.toFixed(0)},
+    {key:'gs',      label:'GS',   src:'totals', fmt: v => v?.toFixed(0)},
+    {key:'mp',      label:'MIN',  src:'per_game', fmt: v => v?.toFixed(1)},
+    {key:'pts',     label:'PPG',  src:'per_game', fmt: v => v?.toFixed(1)},
+    {key:'trb',     label:'RPG',  src:'per_game', fmt: v => v?.toFixed(1)},
+    {key:'ast',     label:'APG',  src:'per_game', fmt: v => v?.toFixed(1)},
+    {key:'stl',     label:'SPG',  src:'per_game', fmt: v => v?.toFixed(1)},
+    {key:'blk',     label:'BPG',  src:'per_game', fmt: v => v?.toFixed(1)},
+    {key:'tov',     label:'TOV',  src:'per_game', fmt: v => v?.toFixed(1)},
+    {key:'fg_pct',  label:'FG%',  src:'pct',    fmt: v => v !== null ? (v*100).toFixed(1)+'%' : null},
+    {key:'fg3_pct', label:'3P%',  src:'pct',    fmt: v => v !== null ? (v*100).toFixed(1)+'%' : null},
+    {key:'ft_pct',  label:'FT%',  src:'pct',    fmt: v => v !== null ? (v*100).toFixed(1)+'%' : null},
+  ];
+
+  // Find career bests for highlighting (per-game stats only)
+  const pgStats = ['pts','trb','ast','stl','blk'];
+  const bests = {};
+  pgStats.forEach(stat => {
+    const vals = seasons.map(s => s.per_game?.[stat]).filter(v => v !== null && v !== undefined);
+    if (vals.length) bests[stat] = Math.max(...vals);
+  });
+
+  // Career totals row
+  const careerG   = seasons.reduce((a,s) => a + (s.totals?.g   || 0), 0);
+  const careerPts = seasons.reduce((a,s) => a + (s.totals?.pts  || 0), 0);
+  const careerTrb = seasons.reduce((a,s) => a + (s.totals?.trb  || 0), 0);
+  const careerAst = seasons.reduce((a,s) => a + (s.totals?.ast  || 0), 0);
+  const careerStl = seasons.reduce((a,s) => a + (s.totals?.stl  || 0), 0);
+  const careerBlk = seasons.reduce((a,s) => a + (s.totals?.blk  || 0), 0);
+  const careerTov = seasons.reduce((a,s) => a + (s.totals?.tov  || 0), 0);
+  const careerFg  = seasons.reduce((a,s) => a + (s.totals?.fg   || 0), 0);
+  const careerFga = seasons.reduce((a,s) => a + (s.totals?.fga  || 0), 0);
+  const careerFg3 = seasons.reduce((a,s) => a + (s.totals?.fg3  || 0), 0);
+  const careerFg3a= seasons.reduce((a,s) => a + (s.totals?.fg3a || 0), 0);
+  const careerFt  = seasons.reduce((a,s) => a + (s.totals?.ft   || 0), 0);
+  const careerFta = seasons.reduce((a,s) => a + (s.totals?.fta  || 0), 0);
+  const careerGs  = seasons.reduce((a,s) => a + (s.totals?.gs   || 0), 0);
+  const careerMp  = seasons.reduce((a,s) => a + (s.totals?.mp   || 0), 0);
+
+  function careerCell(stat, src) {
+    if (src === 'totals') {
+      const map = {g:careerG, gs:careerGs, mp:null};
+      return map[stat] !== undefined ? (map[stat]?.toFixed(0) || '—') : '—';
+    }
+    if (src === 'per_game') {
+      const map = {
+        mp:  careerG ? (careerMp/careerG).toFixed(1) : null,
+        pts: careerG ? (careerPts/careerG).toFixed(1) : null,
+        trb: careerG ? (careerTrb/careerG).toFixed(1) : null,
+        ast: careerG ? (careerAst/careerG).toFixed(1) : null,
+        stl: careerG ? (careerStl/careerG).toFixed(1) : null,
+        blk: careerG ? (careerBlk/careerG).toFixed(1) : null,
+        tov: careerG ? (careerTov/careerG).toFixed(1) : null,
+      };
+      return map[stat] || '—';
+    }
+    if (src === 'pct') {
+      const map = {
+        fg_pct:  careerFga  ? ((careerFg/careerFga)*100).toFixed(1)+'%'   : null,
+        fg3_pct: careerFg3a ? ((careerFg3/careerFg3a)*100).toFixed(1)+'%' : null,
+        ft_pct:  careerFta  ? ((careerFt/careerFta)*100).toFixed(1)+'%'   : null,
+      };
+      return map[stat] || '—';
+    }
+    return '—';
+  }
+
+  const tableRows = seasons.map(s => {
+    const cells = statCols.map(col => {
+      const raw = s[col.src]?.[col.key];
+      const val = col.fmt(raw);
+      const display = val !== null && val !== undefined ? val : '<span class="null-val">—</span>';
+      const isBest  = col.src === 'per_game' && bests[col.key] !== undefined
+                      && raw !== null && Math.abs(raw - bests[col.key]) < 0.001;
+      return `<td class="${isBest ? 'val-best' : ''}">${display}</td>`;
+    }).join('');
+
+    return `<tr>
+      <td><span class="class-chip chip-${s.class}">${s.class}</span></td>
+      <td style="color:var(--gray-mid);font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;">${s.year}</td>
+      ${cells}
+    </tr>`;
+  }).join('');
+
+  const careerCells = statCols.map(col =>
+    `<td><strong>${careerCell(col.key, col.src)}</strong></td>`
+  ).join('');
+
+  // Scoring chart data
+  const chartLabels = seasons.map(s => s.class?.slice(0,2) || s.year);
+  const ptsData = seasons.map(s => s.per_game?.pts);
+  const trbData = seasons.map(s => s.per_game?.trb);
+  const astData = seasons.map(s => s.per_game?.ast);
+
+  main.innerHTML = `
+    <div class="section-title">Season Statistics</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Class</th>
+            <th>Year</th>
+            ${statCols.map(c => `<th>${c.label}</th>`).join('')}
+          </tr>
+        </thead>
+        <tbody>
+          ${tableRows}
+          ${seasons.length > 1 ? `
+          <tr class="career-row">
+            <td><span class="class-chip chip-Career">Career</span></td>
+            <td style="color:var(--gray-mid);font-family:'Barlow Condensed',sans-serif;">—</td>
+            ${careerCells}
+          </tr>` : ''}
+        </tbody>
+      </table>
+    </div>
+
+    ${seasons.length > 1 ? `
+    <div class="chart-card">
+      <h3>Season-by-Season Progression</h3>
+      <canvas id="progressChart"></canvas>
+    </div>` : ''}
+  `;
+
+  // Build chart if enough data
+  if (seasons.length > 1) {
+    new Chart(document.getElementById('progressChart').getContext('2d'), {
+      type: 'line',
+      data: {
+        labels: chartLabels,
+        datasets: [
+          {
+            label: 'PPG',
+            data: ptsData,
+            borderColor: 'rgb(204,0,51)',
+            backgroundColor: 'rgba(204,0,51,0.1)',
+            pointBackgroundColor: 'rgb(255,199,44)',
+            pointRadius: 6, tension: 0.3, fill: true,
+          },
+          {
+            label: 'RPG',
+            data: trbData,
+            borderColor: 'rgba(255,255,255,0.5)',
+            backgroundColor: 'rgba(255,255,255,0.05)',
+            pointBackgroundColor: 'rgba(255,255,255,0.8)',
+            pointRadius: 6, tension: 0.3,
+          },
+          {
+            label: 'APG',
+            data: astData,
+            borderColor: 'rgb(255,199,44)',
+            backgroundColor: 'rgba(255,199,44,0.05)',
+            pointBackgroundColor: 'rgb(255,199,44)',
+            pointRadius: 6, tension: 0.3,
+          },
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { labels: { color: '#aaa', font: { family: 'Barlow Condensed', size: 11 }, boxWidth: 12 } }
+        },
+        scales: {
+          x: { ticks: { color: '#aaa', font: { family: 'Barlow Condensed' } }, grid: { color: 'rgba(255,255,255,0.05)' } },
+          y: { ticks: { color: '#aaa', font: { family: 'Barlow Condensed' } }, grid: { color: 'rgba(255,255,255,0.05)' } }
+        }
+      }
+    });
+  }
+}
+
+function showNotFound(msg) {
+  document.getElementById('playerHero').innerHTML = '';
+  document.getElementById('mainContent').innerHTML = `
+    <div class="not-found">
+      <h2>Player Not Found</h2>
+      <p>${msg}</p>
+      <a href="/cbb-arizona-wildcats/players.html">← Return to Player Database</a>
+    </div>`;
+}
+
+init();
+</script>
+</body>
+</html>
