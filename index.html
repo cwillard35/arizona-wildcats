@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rate The Team</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy-dark: #001122;
+    --navy-mid: #00244d;
+    --white: #ffffff;
+    --gray-mid: #888899;
+    --gold: #FFC72C;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--navy-dark);
+    color: var(--white);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  .hero {
+    text-align: center;
+    max-width: 600px;
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 10vw, 6rem);
+    letter-spacing: 6px;
+    line-height: 1;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+
+  h1 span { color: var(--gold); }
+
+  .tagline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gray-mid);
+    margin-bottom: 3rem;
+  }
+
+  .desc {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.7;
+    margin-bottom: 3rem;
+  }
+
+  .teams-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gray-mid);
+    margin-bottom: 1rem;
+  }
+
+  .team-grid {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .team-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 1.5rem 2rem;
+    text-decoration: none;
+    color: var(--white);
+    transition: all 0.2s;
+    min-width: 160px;
+  }
+
+  .team-card:hover {
+    background: rgba(204,0,51,0.1);
+    border-color: rgba(204,0,51,0.3);
+    transform: translateY(-3px);
+  }
+
+  .team-card img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+  }
+
+  .team-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    color: var(--white);
+  }
+
+  .team-sport {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray-mid);
+  }
+
+  footer {
+    position: fixed;
+    bottom: 1.5rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,0.2);
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Rate <span>The</span> Team</h1>
+  <div class="tagline">Grade the programs. Argue the history.</div>
+  <p class="desc">
+    A community-driven archive for rating college sports programs —
+    players, rosters, seasons, and legacies. Built by fans, for fans.
+  </p>
+
+  <div class="teams-label">Available Now</div>
+  <div class="team-grid">
+    <a href="/cbb-arizona-wildcats/" class="team-card">
+      <img src="/cbb-arizona-wildcats/logo.png" alt="Arizona Wildcats">
+      <span class="team-name">Arizona Wildcats</span>
+      <span class="team-sport">Men's Basketball</span>
+    </a>
+  </div>
+</div>
+
+<footer>ratetheteam.com · More programs coming soon</footer>
+
+</body>
+</html>
