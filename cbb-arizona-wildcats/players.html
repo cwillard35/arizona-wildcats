@@ -1423,12 +1423,20 @@ function applySort() {
   const col = sortCol;
   const dir = sortDir === 'asc' ? 1 : -1;
   filtered.sort((a, b) => {
-    let av = a[col], bv = b[col];
-    if (av === null || av === undefined) av = dir === 1 ? Infinity : -Infinity;
-    if (bv === null || bv === undefined) bv = dir === 1 ? Infinity : -Infinity;
-    if (typeof av === 'string') return av.localeCompare(bv) * dir;
-    return (av - bv) * dir;
-  });
+  let av = a[col], bv = b[col];
+  if (av === null || av === undefined) av = dir === 1 ? Infinity : -Infinity;
+  if (bv === null || bv === undefined) bv = dir === 1 ? Infinity : -Infinity;
+  if (typeof av === 'string') return av.localeCompare(bv) * dir;
+  const primary = (av - bv) * dir;
+  if (primary !== 0) return primary;
+  // Tie-break by vote count when sorting by communityAvg
+  if (col === 'communityAvg') {
+    const ac = communityVotes[a.id]?.count || 0;
+    const bc = communityVotes[b.id]?.count || 0;
+    return (bc - ac);
+  }
+  return 0;
+});
 }
 
 function successDots(score) {
