@@ -345,7 +345,7 @@ async function init() {
 
   // Load player from Supabase + progression.json + votes in parallel
   const [playerResult, progressRes, votesResult] = await Promise.all([
-    db.from('players').select('*').ilike('name', name).single(),
+    db.from('players').select('*').ilike('name', name).eq('team_id','cbb-arizona-wildcats').single(),
     fetch('/cbb-arizona-wildcats/progression.json'),
     db.from('votes').select('score').eq('player_id',
       // We'll get the ID after player loads — do a second fetch if needed
