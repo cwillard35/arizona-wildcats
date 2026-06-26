@@ -2,22 +2,22 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<link rel="icon" type="image/x-icon" href="/cbb-byu-cougars/favicon.ico">
+<link rel="icon" type="image/x-icon" href="/cbb-arizona-wildcats/favicon.ico">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BYU Cougars Basketball — Player Database</title>
+<title>Arizona Wildcats Basketball — Player Database</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
   :root {
-    --cardinal: #003DA5;
-    --cardinal-dark: #002d7a;
-    --cardinal-light: #2a5fd0;
-    --navy: #001f4d;
-    --navy-dark: #000d1f;
-    --navy-mid: #001540;
-    --gold: #C5AF7D;
+    --cardinal: #CC0033;
+    --cardinal-dark: #990022;
+    --cardinal-light: #ff1a4d;
+    --navy: #003366;
+    --navy-dark: #001a33;
+    --navy-mid: #00244d;
+    --gold: #FFC72C;
     --white: #ffffff;
     --off-white: #f5f5f5;
     --gray-light: #e8e8e8;
@@ -102,7 +102,7 @@
 
   nav a:hover, nav a.active {
     color: var(--white);
-    background: rgba(0,61,165,0.2);
+    background: rgba(204,0,51,0.2);
     color: var(--cardinal-light);
   }
 
@@ -348,7 +348,7 @@
     cursor: pointer;
   }
 
-  tbody tr:hover { background: rgba(0,61,165,0.08); }
+  tbody tr:hover { background: rgba(204,0,51,0.08); }
 
   tbody tr:last-child { border-bottom: none; }
 
@@ -448,7 +448,7 @@
   }
 
   .era-Snowden { background: rgba(100,100,100,0.3); color: #aaa; }
-  .era-Olson   { background: rgba(0,61,165,0.2); color: #ff6688; }
+  .era-Olson   { background: rgba(204,0,51,0.2); color: #ff6688; }
   .era-Interim { background: rgba(150,100,0,0.3); color: #ccaa44; }
   .era-Miller  { background: rgba(0,51,102,0.5); color: #88aaff; }
   .era-Lloyd   { background: rgba(0,120,60,0.3); color: #44cc88; }
@@ -485,16 +485,14 @@
   .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
 
   .player-card { background: var(--navy-mid); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 1.25rem; position: relative; overflow: hidden; transition: transform 0.15s, border-color 0.15s; }
-  .player-card:hover { transform: translateY(-2px); border-color: rgba(0,61,165,0.4); }
+  .player-card:hover { transform: translateY(-2px); border-color: rgba(204,0,51,0.4); }
 
   .era-stripe { position: absolute; top: 0; left: 0; right: 0; height: 3px; }
-  .stripe-Arnold    { background: rgba(150,150,150,0.6); }
-  .stripe-Andersen  { background: var(--cardinal); }
-  .stripe-Reid      { background: #ccaa44; }
-  .stripe-Cleveland { background: #ddaa66; }
-  .stripe-Rose      { background: #44cc88; }
-  .stripe-Pope      { background: #C5AF7D; }
-  .stripe-Young     { background: #66bbff; }
+  .stripe-Snowden { background: rgba(150,150,150,0.6); }
+  .stripe-Olson   { background: var(--cardinal); }
+  .stripe-Interim { background: #ccaa44; }
+  .stripe-Miller  { background: #88aaff; }
+  .stripe-Lloyd   { background: #44cc88; }
 
   .card-name { font-size: 0.95rem; font-weight: 700; color: var(--white); margin-bottom: 0.2rem; margin-top: 0.25rem; line-height: 1.2; }
   .card-meta { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; letter-spacing: 1px; color: var(--gray-mid); margin-bottom: 0.85rem; }
@@ -551,7 +549,7 @@
   .auth-toggle { text-align: center; margin-top: 1rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.82rem; color: var(--gray-mid); }
   .auth-toggle a { color: var(--cardinal-light); cursor: pointer; text-decoration: none; }
   .auth-toggle a:hover { text-decoration: underline; }
-  .auth-error { background: rgba(0,61,165,0.15); border: 1px solid rgba(0,61,165,0.3); border-radius: 4px; padding: 0.6rem 0.85rem; margin-top: 0.75rem; font-size: 0.85rem; color: #ff6688; display: none; }
+  .auth-error { background: rgba(204,0,51,0.15); border: 1px solid rgba(204,0,51,0.3); border-radius: 4px; padding: 0.6rem 0.85rem; margin-top: 0.75rem; font-size: 0.85rem; color: #ff6688; display: none; }
   .auth-close { float: right; background: none; border: none; color: var(--gray-mid); font-size: 1.2rem; cursor: pointer; margin-top: -0.25rem; }
   .auth-close:hover { color: var(--white); }
 
@@ -635,8 +633,8 @@
   .modal-btn-save:hover { background: var(--cardinal-dark); }
   .modal-btn-cancel { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: var(--gray-mid); }
   .modal-btn-cancel:hover { color: var(--white); }
-  .modal-btn-delete { background: transparent; border: 1px solid rgba(0,61,165,0.4); color: var(--cardinal-light); margin-right: auto; }
-  .modal-btn-delete:hover { background: rgba(0,61,165,0.2); }
+  .modal-btn-delete { background: transparent; border: 1px solid rgba(204,0,51,0.4); color: var(--cardinal-light); margin-right: auto; }
+  .modal-btn-delete:hover { background: rgba(204,0,51,0.2); }
 
   .admin-edit-btn {
     background: rgba(255,199,44,0.15); border: 1px solid rgba(255,199,44,0.3);
@@ -687,16 +685,16 @@
 
 <header>
   <div class="header-inner">
-    <div class="logo-mark"><a href="/cbb-byu-cougars/index.html"><img src="/cbb-byu-cougars/logo.png" alt="BYU Cougars" style="height:60px;width:60px;object-fit:contain;display:block;"></a></div>
+    <div class="logo-mark"><a href="/cbb-arizona-wildcats/index.html"><img src="/cbb-arizona-wildcats/logo.png" alt="Arizona Wildcats" style="height:60px;width:60px;object-fit:contain;display:block;"></a></div>
     <div class="logo-text">
-      <h1>BYU Cougars Basketball</h1>
+      <h1>Arizona Wildcats Basketball</h1>
       <p>Player History Database · 1981–Present</p>
     </div>
     <nav>
-      <a href="/cbb-byu-cougars/players.html" class="active">Players</a>
-      <a href="/cbb-byu-cougars/seasons.html">Seasons</a>
-      <a href="/cbb-byu-cougars/classes.html">Recruiting</a>
-      <a href="/cbb-byu-cougars/progression.html">Progression</a>
+      <a href="/cbb-arizona-wildcats/players.html" class="active">Players</a>
+      <a href="/cbb-arizona-wildcats/seasons.html">Seasons</a>
+      <a href="/cbb-arizona-wildcats/classes.html">Recruiting</a>
+      <a href="/cbb-arizona-wildcats/progression.html">Progression</a>
     </nav>
   </div>
 </header>
@@ -756,18 +754,20 @@
     <input type="hidden" id="modalPlayerId">
     <div class="modal-grid">
       <div class="modal-field full"><label>Name</label><input type="text" id="fName"></div>
-      <div class="modal-field"><label>Class Year (recruited)</label><input type="number" id="fYear" placeholder="e.g. 2024"></div>
+      <div class="modal-field"><label>First Year at School</label><input type="number" id="fYear" placeholder="e.g. 2024"></div>
+      <div class="modal-field"><label>First Year of NCAA Eligibility</label><input type="number" id="fEligibilityYear" placeholder="e.g. 2022"></div>
       <div class="modal-field"><label>Coach Era</label>
-        <select id="fCoach"><option value="">—</option><option>Arnold</option><option>Andersen</option><option>Reid</option><option>Cleveland</option><option>Rose</option><option>Pope</option><option>Young</option></select>
+        <select id="fCoach"><option value="">—</option><option>Snowden</option><option>Olson</option><option>Interim</option><option>Miller</option><option>Lloyd</option></select>
       </div>
       <div class="modal-field"><label>Position</label>
         <select id="fPosition"><option value="">—</option><option>Point Guard</option><option>Combo Guard</option><option>Shooting Guard</option><option>Wing</option><option>Small Forward</option><option>Combo Forward</option><option>Power Forward</option><option>Forward/Center</option><option>Center</option></select>
       </div>
-      <div class="modal-field"><label>Years at BYU</label><input type="number" id="fYears" min="1" max="6"></div>
+      <div class="modal-field"><label>Years at Arizona</label><input type="number" id="fYears" min="1" max="6"></div>
       <div class="modal-field"><label>Success Score (1–5)</label><input type="number" id="fSuccess" min="1" max="5"></div>
       <div class="modal-field"><label>Career PPG</label><input type="number" id="fPpg" step="0.1"></div>
       <div class="modal-field"><label>Career Points</label><input type="number" id="fPts"></div>
       <div class="modal-field"><label>Career Games</label><input type="number" id="fG"></div>
+      <div class="modal-field"><label>247 Grade</label><input type="number" id="fGrade247" step="0.1"></div>
       <div class="modal-field"><label>Recruiting Rank</label><input type="number" id="fRanking"></div>
       <div class="modal-field full"><label>Flags</label>
         <div class="checkbox-grid">
@@ -778,8 +778,10 @@
           <label class="check-item"><input type="checkbox" id="fXferIn"> Transfer In</label>
           <label class="check-item"><input type="checkbox" id="fXferOut"> Transfer Out</label>
           <label class="check-item"><input type="checkbox" id="fOneDone"> 1 & Done</label>
+          <label class="check-item"><input type="checkbox" id="fStarter"> Starter</label>
           <label class="check-item"><input type="checkbox" id="fIntl"> International</label>
           <label class="check-item"><input type="checkbox" id="fAllConf"> All-Conference</label>
+          <label class="check-item"><input type="checkbox" id="fMadness"> March Madness</label>
         </div>
       </div>
     </div>
@@ -805,13 +807,11 @@
       <label>Coach Era</label>
       <select id="filterCoach">
         <option value="">All Eras</option>
-        <option>Arnold</option>
-        <option>Andersen</option>
-        <option>Reid</option>
-        <option>Cleveland</option>
-        <option>Rose</option>
-        <option>Pope</option>
-        <option>Young</option>
+        <option>Snowden</option>
+        <option>Olson</option>
+        <option>Interim</option>
+        <option>Miller</option>
+        <option>Lloyd</option>
       </select>
     </div>
 
@@ -918,7 +918,7 @@
 </main>
 
 <footer>
-  BYU Cougars Basketball Database · Built with ❤️ for Cougar fans · <a href="/cbb-byu-cougars/about.html" style="color:rgba(255,255,255,0.4);text-decoration:none;">About</a> · Data compiled by cwillard35
+  Arizona Wildcats Basketball Database · Built with ❤️ for Wildcat fans · <a href="/cbb-arizona-wildcats/about.html" style="color:rgba(255,255,255,0.4);text-decoration:none;">About</a> · Data compiled by cwillard35
 </footer>
 
 <script>
@@ -940,13 +940,14 @@ let communityVotes = {}; // { player_id: { avg, count } }
 
 const successLabels = {1:'Limited',2:'Reserve',3:'Productive',4:'Starter/Impact',5:'Elite'};
 const RETIRED_NUMBERS = {
-  // Add BYU retired numbers here if any
+  'mike bibby': 10, 'jason gardner': 22, 'steve kerr': 25,
+  'jason terry': 31, 'sean elliot': 32, 'miles simon': 34,
 };
 
 function jerseyBadge(name) {
   const num = RETIRED_NUMBERS[name.toLowerCase()];
   if (!num) return '';
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" viewBox="0 0 52 78" style="display:inline-block;vertical-align:middle;margin-left:4px;" title="Retired #${num}"><path d="M2,22 L0,10 L14,0 L20,10 Q26,17 32,10 L38,0 L52,10 L50,22 C48,25 46,28 46,32 L48,78 L4,78 C4,78 6,32 4,28 Z" fill="white" stroke="#003DA5" stroke-width="3"/><path d="M20,10 Q26,22 32,10" fill="none" stroke="#003DA5" stroke-width="2.5"/><text x="26" y="58" text-anchor="middle" font-family="Arial Narrow,sans-serif" font-weight="900" font-size="28" fill="#002244">${num}</text></svg>`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" viewBox="0 0 52 78" style="display:inline-block;vertical-align:middle;margin-left:4px;" title="Retired #${num}"><path d="M2,22 L0,10 L14,0 L20,10 Q26,17 32,10 L38,0 L52,10 L50,22 C48,25 46,28 46,32 L48,78 L4,78 C4,78 6,32 4,28 Z" fill="white" stroke="#CC0033" stroke-width="3"/><path d="M20,10 Q26,22 32,10" fill="none" stroke="#CC0033" stroke-width="2.5"/><text x="26" y="58" text-anchor="middle" font-family="Arial Narrow,sans-serif" font-weight="900" font-size="28" fill="#002244">${num}</text></svg>`;
 }
 
 
@@ -1162,6 +1163,7 @@ function fromDB(p) {
     id:          p.id,
     name:        p.name,
     year:        p.year,
+    eligibilityYear: p.eligibility_year,
     coach:       p.coach,
     position:    p.position,
     ranking:     p.ranking,
@@ -1192,7 +1194,8 @@ function fromDB(p) {
 function toDB(f) {
   return {
     name:        f.name,
-    year:        f.year ? parseInt(f.year) : null,
+    year:             f.year ? parseInt(f.year) : null,
+    eligibility_year: f.eligibilityYear ? parseInt(f.eligibilityYear) : null,
     coach:       f.coach || null,
     position:    f.position || null,
     ranking:     f.ranking ? parseInt(f.ranking) : null,
@@ -1232,7 +1235,7 @@ async function init() {
 
   // Load players and votes in parallel
   const [playersResult] = await Promise.all([
-    db.from('players').select('*').eq('team_id','cbb-byu-cougars').order('year', { ascending: true }),
+    db.from('players').select('*').eq('team_id','cbb-arizona-wildcats').order('year', { ascending: true }),
     loadCommunityVotes(),
     currentUser ? loadUserVotes() : Promise.resolve(),
   ]);
@@ -1276,7 +1279,8 @@ function openModal(player) {
 
   // Populate fields
   document.getElementById('fName').value        = player?.name        || '';
-  document.getElementById('fYear').value        = player?.year        || '';
+  document.getElementById('fYear').value             = player?.year             || '';
+  document.getElementById('fEligibilityYear').value = player?.eligibilityYear || '';
   document.getElementById('fCoach').value       = player?.coach       || '';
   document.getElementById('fPosition').value    = player?.position    || '';
   document.getElementById('fYears').value       = player?.years       || '';
@@ -1284,6 +1288,7 @@ function openModal(player) {
   document.getElementById('fPpg').value         = player?.ppg         || '';
   document.getElementById('fPts').value         = player?.pts         || '';
   document.getElementById('fG').value           = player?.g           || '';
+  document.getElementById('fGrade247').value    = player?.grade247    || '';
   document.getElementById('fRanking').value     = player?.ranking     || '';
   document.getElementById('fNba').checked       = !!player?.nba;
   document.getElementById('fEarlyNba').checked  = !!player?.earlyNBA;
@@ -1292,8 +1297,10 @@ function openModal(player) {
   document.getElementById('fXferIn').checked    = !!player?.xferIn;
   document.getElementById('fXferOut').checked   = !!player?.xferOut;
   document.getElementById('fOneDone').checked   = !!player?.oneDone;
+  document.getElementById('fStarter').checked   = !!player?.starter;
   document.getElementById('fIntl').checked      = !!player?.intl;
   document.getElementById('fAllConf').checked   = !!player?.allConf;
+  document.getElementById('fMadness').checked   = !!player?.madness;
 
   modal.style.display = 'flex';
 }
@@ -1305,7 +1312,8 @@ function closeModal() {
 function getFormData() {
   return toDB({
     name:        document.getElementById('fName').value.trim(),
-    year:        document.getElementById('fYear').value,
+    year:            document.getElementById('fYear').value,
+    eligibilityYear: document.getElementById('fEligibilityYear').value,
     coach:       document.getElementById('fCoach').value,
     position:    document.getElementById('fPosition').value,
     years:       document.getElementById('fYears').value,
@@ -1313,6 +1321,7 @@ function getFormData() {
     ppg:         document.getElementById('fPpg').value,
     pts:         document.getElementById('fPts').value,
     g:           document.getElementById('fG').value,
+    grade247:    document.getElementById('fGrade247').value,
     ranking:     document.getElementById('fRanking').value,
     nba:         document.getElementById('fNba').checked,
     earlyNBA:    document.getElementById('fEarlyNba').checked,
@@ -1321,8 +1330,10 @@ function getFormData() {
     xferIn:      document.getElementById('fXferIn').checked,
     xferOut:     document.getElementById('fXferOut').checked,
     oneDone:     document.getElementById('fOneDone').checked,
+    starter:     document.getElementById('fStarter').checked,
     intl:        document.getElementById('fIntl').checked,
     allConf:     document.getElementById('fAllConf').checked,
+    madness:     document.getElementById('fMadness').checked,
   });
 }
 
@@ -1474,7 +1485,7 @@ function renderCards() {
       <div class="era-stripe stripe-${p.coach}"></div>
       <div class="card-year">${p.year}</div>
       <div class="card-name">
-        <a href="/cbb-byu-cougars/player.html?name=${encodeURIComponent(p.name)}" style="color:var(--white);text-decoration:none;">${p.name}</a>${jerseyBadge(p.name)}
+        <a href="/cbb-arizona-wildcats/player.html?name=${encodeURIComponent(p.name)}" style="color:var(--white);text-decoration:none;">${p.name}</a>${jerseyBadge(p.name)}
         ${isAdmin ? `<button class="admin-edit-btn" onclick="openModal(allPlayers.find(x=>x.id==='${p.id}'))">edit</button>` : ''}
       </div>
       <div class="card-meta">${posShort} · <span class="era-pill era-${p.coach}" style="font-size:0.65rem;padding:1px 5px">${p.coach}</span></div>
@@ -1535,7 +1546,7 @@ function render() {
     const editBtn  = isAdmin ? `<button class="admin-edit-btn" onclick="openModal(allPlayers.find(x=>x.id==='${p.id}'))">edit</button>` : '';
 
     return `<tr>
-      <td class="name-cell"><a href="/cbb-byu-cougars/player.html?name=${encodeURIComponent(p.name)}" style="color:var(--white);text-decoration:none;">${p.name}</a>${jerseyBadge(p.name)}${editBtn}${badges ? `<span class="badges">${badges}</span>` : ''}</td>
+      <td class="name-cell"><a href="/cbb-arizona-wildcats/player.html?name=${encodeURIComponent(p.name)}" style="color:var(--white);text-decoration:none;">${p.name}</a>${jerseyBadge(p.name)}${editBtn}${badges ? `<span class="badges">${badges}</span>` : ''}</td>
       <td class="year-cell">${p.year}</td>
       <td><span class="era-pill era-${p.coach}">${p.coach}</span></td>
       <td class="pos-cell">${p.position || '—'}</td>
