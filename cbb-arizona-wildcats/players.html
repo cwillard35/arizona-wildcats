@@ -465,9 +465,15 @@
     text-transform: uppercase;
   }
 
-  .tag-xin  { background: rgba(0,200,100,0.2); color: #44ffaa; border: 1px solid rgba(0,200,100,0.3); }
-  .tag-xout { background: rgba(255,100,0,0.2); color: #ff9966; border: 1px solid rgba(255,100,0,0.3); }
-  .tag-1done { background: rgba(255,200,0,0.2); color: #ffdd55; border: 1px solid rgba(255,200,0,0.3); }
+  .tag-xin   { background: rgba(0,200,100,0.2);  color: #44ffaa; border: 1px solid rgba(0,200,100,0.3); }
+  .tag-xout  { background: rgba(255,100,0,0.2);  color: #ff9966; border: 1px solid rgba(255,100,0,0.3); }
+  .tag-1done { background: rgba(255,200,0,0.2);  color: #ffdd55; border: 1px solid rgba(255,200,0,0.3); }
+  .tag-nba   { background: var(--cardinal);       color: var(--white); }
+  .tag-aa    { background: var(--gold);           color: var(--navy-dark); }
+  .tag-mcd   { background: #e25822;              color: var(--white); }
+  .tag-conf  { background: rgba(100,160,255,0.2); color: #88aaff; border: 1px solid rgba(100,160,255,0.3); }
+  .tag-intl  { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.2); }
+  .tag-early { background: rgba(204,0,51,0.2);    color: #ff6688; border: 1px solid rgba(204,0,51,0.3); }
 
   /* VIEW TOGGLE */
   .view-toggle { display: flex; gap: 4px; background: var(--navy-dark); border: 1px solid rgba(255,255,255,0.1); border-radius: 5px; padding: 3px; }
@@ -901,7 +907,6 @@
           <th data-col="pts">Career Pts <span class="sort-arrow">↕</span></th>
           <th data-col="g">G <span class="sort-arrow">↕</span></th>
           <th>Tags</th>
-          <th data-col="grade247">247 Grade <span class="sort-arrow">↕</span></th>
         </tr>
       </thead>
       <tbody id="playerTable"></tbody>
@@ -1227,7 +1232,7 @@ async function init() {
 
   // Load players and votes in parallel
   const [playersResult] = await Promise.all([
-    db.from('players').select('*').eq('team_id','cbb-arizona-wildcats').order('year', { ascending: true }),
+    db.from('players').select('*').order('year', { ascending: true }),
     loadCommunityVotes(),
     currentUser ? loadUserVotes() : Promise.resolve(),
   ]);
@@ -1423,20 +1428,12 @@ function applySort() {
   const col = sortCol;
   const dir = sortDir === 'asc' ? 1 : -1;
   filtered.sort((a, b) => {
-  let av = a[col], bv = b[col];
-  if (av === null || av === undefined) av = dir === 1 ? Infinity : -Infinity;
-  if (bv === null || bv === undefined) bv = dir === 1 ? Infinity : -Infinity;
-  if (typeof av === 'string') return av.localeCompare(bv) * dir;
-  const primary = (av - bv) * dir;
-  if (primary !== 0) return primary;
-  // Tie-break by vote count when sorting by communityAvg
-  if (col === 'communityAvg') {
-    const ac = communityVotes[a.id]?.count || 0;
-    const bc = communityVotes[b.id]?.count || 0;
-    return (bc - ac);
-  }
-  return 0;
-});
+    let av = a[col], bv = b[col];
+    if (av === null || av === undefined) av = dir === 1 ? Infinity : -Infinity;
+    if (bv === null || bv === undefined) bv = dir === 1 ? Infinity : -Infinity;
+    if (typeof av === 'string') return av.localeCompare(bv) * dir;
+    return (av - bv) * dir;
+  });
 }
 
 function successDots(score) {
@@ -1464,14 +1461,7 @@ function renderCards() {
     return;
   }
   grid.innerHTML = filtered.map(p => {
-    const badges = [
-      p.allAmerican ? '<span class="badge badge-aa">AA</span>' : '',
-      p.nba         ? '<span class="badge badge-nba">NBA</span>' : '',
-      p.mcdAA       ? '<span class="badge badge-mcd">McD</span>' : '',
-      p.intl        ? '<span class="badge badge-intl">Int\'l</span>' : '',
-      p.xferIn      ? '<span class="badge" style="background:rgba(0,200,100,0.2);color:#44ffaa;border:1px solid rgba(0,200,100,0.3)">Xfer In</span>' : '',
-      p.xferOut     ? '<span class="badge" style="background:rgba(255,100,0,0.2);color:#ff9966;border:1px solid rgba(255,100,0,0.3)">Xfer Out</span>' : '',
-    ].filter(Boolean).join('');
+    const badges = [];  // badges moved to tags column
 
     let dots = '';
     if (p.success !== null) {
@@ -1530,24 +1520,24 @@ function render() {
   }
 
   tbody.innerHTML = filtered.map(p => {
-    const badges = [
-      p.allAmerican ? '<span class="badge badge-aa">AA</span>' : '',
-      p.nba ? '<span class="badge badge-nba">NBA</span>' : '',
-      p.mcdAA ? '<span class="badge badge-mcd">McD</span>' : '',
-      p.intl ? '<span class="badge badge-intl">Int\'l</span>' : '',
-    ].filter(Boolean).join('');
+    const badges = [];  // badges moved to tags column
 
     const tags = [
-      p.xferIn  ? '<span class="tag tag-xin">Xfer In</span>'   : '',
-      p.xferOut ? '<span class="tag tag-xout">Xfer Out</span>' : '',
-      p.oneDone ? '<span class="tag tag-1done">1&Done</span>'  : '',
+      p.nba         ? '<span class="tag tag-nba">NBA</span>'          : '',
+      p.earlyNBA    ? '<span class="tag tag-early">Early NBA</span>'  : '',
+      p.allAmerican ? '<span class="tag tag-aa">All-American</span>'  : '',
+      p.mcdAA       ? '<span class="tag tag-mcd">McD AA</span>'       : '',
+      p.allConf     ? '<span class="tag tag-conf">All-Conf</span>'    : '',
+      p.xferIn      ? '<span class="tag tag-xin">Xfer In</span>'      : '',
+      p.xferOut     ? '<span class="tag tag-xout">Xfer Out</span>'    : '',
+      p.oneDone     ? '<span class="tag tag-1done">1&Done</span>'     : '',
+      p.intl        ? `<span class="tag tag-intl">Int'l</span>`      : '',
     ].filter(Boolean).join('');
 
     const ppgVal  = p.ppg  !== null ? `<span class="${ppgClass(p.ppg)}">${p.ppg.toFixed(1)}</span>` : '<span class="null-val">—</span>';
     const ptsVal  = p.pts  !== null ? p.pts.toLocaleString() : '<span class="null-val">—</span>';
     const gVal    = p.g    !== null ? p.g    : '<span class="null-val">—</span>';
     const yrsVal  = p.years !== null ? p.years : '<span class="null-val">—</span>';
-    const gradeVal = p.grade247 !== null ? p.grade247.toFixed(0) : (p.on3 !== null ? `<span style="color:var(--gray-mid)">${p.on3.toFixed(0)}</span>` : '<span class="null-val">—</span>');
     const editBtn  = isAdmin ? `<button class="admin-edit-btn" onclick="openModal(allPlayers.find(x=>x.id==='${p.id}'))">edit</button>` : '';
 
     return `<tr>
@@ -1562,7 +1552,6 @@ function render() {
       <td style="text-align:right">${ptsVal}</td>
       <td style="text-align:center">${gVal}</td>
       <td><div class="tag-wrap">${tags || '<span class="null-val">—</span>'}</div></td>
-      <td style="text-align:center">${gradeVal}</td>
     </tr>`;
   }).join('');
 }
