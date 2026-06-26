@@ -1455,14 +1455,7 @@ function renderCards() {
     return;
   }
   grid.innerHTML = filtered.map(p => {
-    const badges = [
-      p.allAmerican ? '<span class="badge badge-aa">AA</span>' : '',
-      p.nba         ? '<span class="badge badge-nba">NBA</span>' : '',
-      p.mcdAA       ? '<span class="badge badge-mcd">McD</span>' : '',
-      p.intl        ? '<span class="badge badge-intl">Int\'l</span>' : '',
-      p.xferIn      ? '<span class="badge" style="background:rgba(0,200,100,0.2);color:#44ffaa;border:1px solid rgba(0,200,100,0.3)">Xfer In</span>' : '',
-      p.xferOut     ? '<span class="badge" style="background:rgba(255,100,0,0.2);color:#ff9966;border:1px solid rgba(255,100,0,0.3)">Xfer Out</span>' : '',
-    ].filter(Boolean).join('');
+    const badges = [];  // badges moved to tags column
 
     let dots = '';
     if (p.success !== null) {
@@ -1521,15 +1514,11 @@ function render() {
   }
 
   tbody.innerHTML = filtered.map(p => {
-    const badges = [
-      p.allAmerican ? '<span class="badge badge-aa">AA</span>' : '',
-      p.nba ? '<span class="badge badge-nba">NBA</span>' : '',
-      p.mcdAA ? '<span class="badge badge-mcd">McD</span>' : '',
-      p.intl ? '<span class="badge badge-intl">Int\'l</span>' : '',
-    ].filter(Boolean).join('');
+    const badges = [];  // badges moved to tags column
 
     const tags = [
       p.nba         ? '<span class="tag tag-nba">NBA</span>'          : '',
+      p.earlyNBA    ? '<span class="tag tag-early">Early NBA</span>'  : '',
       p.allAmerican ? '<span class="tag tag-aa">All-American</span>'  : '',
       p.mcdAA       ? '<span class="tag tag-mcd">McD AA</span>'       : '',
       p.allConf     ? '<span class="tag tag-conf">All-Conf</span>'    : '',
@@ -1537,7 +1526,6 @@ function render() {
       p.xferOut     ? '<span class="tag tag-xout">Xfer Out</span>'    : '',
       p.oneDone     ? '<span class="tag tag-1done">1&Done</span>'     : '',
       p.intl        ? `<span class="tag tag-intl">Int'l</span>`      : '',
-      p.earlyNBA    ? '<span class="tag tag-early">Early NBA</span>'  : '',
     ].filter(Boolean).join('');
 
     const ppgVal  = p.ppg  !== null ? `<span class="${ppgClass(p.ppg)}">${p.ppg.toFixed(1)}</span>` : '<span class="null-val">—</span>';
