@@ -104,18 +104,18 @@
       "bpm": null
     },
     "Senior": {
-      "n": 69,
-      "g": 26.87,
-      "mp": 21.18,
-      "pts": 9.139,
-      "trb": 3.705,
-      "ast": 1.679,
-      "stl": 0.685,
-      "blk": 0.365,
-      "tov": 1.348,
-      "fg_pct": 0.454,
-      "fg3_pct": 0.343,
-      "ft_pct": 0.729,
+      "n": 137,
+      "g": 27.81,
+      "mp": 22.039,
+      "pts": 9.188,
+      "trb": 3.729,
+      "ast": 1.802,
+      "stl": 0.721,
+      "blk": 0.32,
+      "tov": 1.42,
+      "fg_pct": 0.459,
+      "fg3_pct": 0.335,
+      "ft_pct": 0.724,
       "per": null,
       "ws": null,
       "bpm": null
@@ -2425,7 +2425,7 @@
     {
       "name": "Devin Durrant",
       "year": 1984,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 31.0,
         "gs": null,
@@ -3115,7 +3115,7 @@
     {
       "name": "Timo Saarelainen",
       "year": 1985,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 29.0,
         "gs": null,
@@ -3483,7 +3483,7 @@
     {
       "name": "Richie Webb",
       "year": 1985,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 25.0,
         "gs": null,
@@ -3759,7 +3759,7 @@
     {
       "name": "Bob Capener",
       "year": 1986,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 32.0,
         "gs": null,
@@ -3851,7 +3851,7 @@
     {
       "name": "Richie Webb",
       "year": 1986,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 31.0,
         "gs": null,
@@ -4449,7 +4449,7 @@
     {
       "name": "Bob Capener",
       "year": 1987,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 32.0,
         "gs": 32.0,
@@ -4541,7 +4541,7 @@
     {
       "name": "Brian Taylor",
       "year": 1987,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 32.0,
         "gs": 9.0,
@@ -4587,7 +4587,7 @@
     {
       "name": "Jim Usevitch",
       "year": 1987,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 32.0,
         "gs": 0.0,
@@ -4955,7 +4955,7 @@
     {
       "name": "Michael Smith",
       "year": 1988,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 32.0,
         "gs": 32.0,
@@ -5047,7 +5047,7 @@
     {
       "name": "Jim Usevitch",
       "year": 1988,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 32.0,
         "gs": 32.0,
@@ -5093,7 +5093,7 @@
     {
       "name": "Brian Taylor",
       "year": 1988,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 32.0,
         "gs": 10.0,
@@ -5507,7 +5507,7 @@
     {
       "name": "Alan Astle",
       "year": 1988,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 15.0,
         "gs": 0.0,
@@ -5599,7 +5599,7 @@
     {
       "name": "Michael Smith",
       "year": 1989,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 29.0,
         "gs": 29.0,
@@ -5691,7 +5691,7 @@
     {
       "name": "Andy Toolson",
       "year": 1989,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 26.0,
         "gs": 26.0,
@@ -5921,7 +5921,7 @@
     {
       "name": "Alan Astle",
       "year": 1989,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 26.0,
         "gs": 0.0,
@@ -6197,7 +6197,7 @@
     {
       "name": "Andy Toolson",
       "year": 1990,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 30.0,
         "gs": 30.0,
@@ -7071,7 +7071,7 @@
     {
       "name": "Nathan Call",
       "year": 1991,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 34.0,
         "gs": 34.0,
@@ -7439,7 +7439,7 @@
     {
       "name": "Gary Trost",
       "year": 1992,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 31.0,
         "gs": 31.0,
@@ -7669,7 +7669,7 @@
     {
       "name": "Nathan Call",
       "year": 1992,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 32.0,
         "gs": 32.0,
@@ -8175,7 +8175,7 @@
     {
       "name": "Gary Trost",
       "year": 1993,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 34.0,
         "gs": 34.0,
@@ -8681,7 +8681,7 @@
     {
       "name": "John Fish",
       "year": 1993,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 11.0,
         "gs": 0.0,
@@ -9049,7 +9049,7 @@
     {
       "name": "Mark Durrant",
       "year": 1994,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 32.0,
         "gs": 0.0,
@@ -9233,7 +9233,7 @@
     {
       "name": "John Fish",
       "year": 1994,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 15.0,
         "gs": 4.0,
@@ -9371,7 +9371,7 @@
     {
       "name": "Kenneth Roberts",
       "year": 1995,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 32.0,
         "gs": 31.0,
@@ -9555,7 +9555,7 @@
     {
       "name": "Mark Durrant",
       "year": 1995,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 32.0,
         "gs": 22.0,
@@ -9647,7 +9647,7 @@
     {
       "name": "Jeff Campbell",
       "year": 1995,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 30.0,
         "gs": 0.0,
@@ -9969,7 +9969,7 @@
     {
       "name": "Kenneth Roberts",
       "year": 1996,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 28.0,
         "gs": 28.0,
@@ -10107,7 +10107,7 @@
     {
       "name": "Jeff Campbell",
       "year": 1996,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 28.0,
         "gs": 27.0,
@@ -10153,7 +10153,7 @@
     {
       "name": "Justin Weidauer",
       "year": 1996,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 28.0,
         "gs": 26.0,
@@ -10475,7 +10475,7 @@
     {
       "name": "Matt Lohner",
       "year": 1996,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 3.0,
         "gs": 0.0,
@@ -10797,7 +10797,7 @@
     {
       "name": "Justin Weidauer",
       "year": 1997,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 19.0,
         "gs": 19.0,
@@ -12361,7 +12361,7 @@
     {
       "name": "Bret Jepsen",
       "year": 1999,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 24.0,
         "gs": 9.0,
@@ -12913,7 +12913,7 @@
     {
       "name": "Todd Christensen",
       "year": 2000,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 33.0,
         "gs": 7.0,
@@ -12959,7 +12959,7 @@
     {
       "name": "Nathan Cooper",
       "year": 2000,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 33.0,
         "gs": 7.0,
@@ -13557,7 +13557,7 @@
     {
       "name": "Eric Nielsen",
       "year": 2001,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 33.0,
         "gs": 27.0,
@@ -13603,7 +13603,7 @@
     {
       "name": "Nathan Cooper",
       "year": 2001,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 33.0,
         "gs": 20.0,
@@ -13787,7 +13787,7 @@
     {
       "name": "Matt Montague",
       "year": 2001,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 33.0,
         "gs": 12.0,
@@ -14155,7 +14155,7 @@
     {
       "name": "Eric Nielsen",
       "year": 2002,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 30.0,
         "gs": 29.0,
@@ -14293,7 +14293,7 @@
     {
       "name": "Matt Montague",
       "year": 2002,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 30.0,
         "gs": 30.0,
@@ -14477,7 +14477,7 @@
     {
       "name": "Bart Jepsen",
       "year": 2002,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 30.0,
         "gs": 0.0,
@@ -14707,7 +14707,7 @@
     {
       "name": "Mark Bigelow",
       "year": 2003,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 32.0,
         "gs": 31.0,
@@ -15213,7 +15213,7 @@
     {
       "name": "Bart Jepsen",
       "year": 2003,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 19.0,
         "gs": 0.0,
@@ -15305,7 +15305,7 @@
     {
       "name": "Mark Bigelow",
       "year": 2004,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 30.0,
         "gs": 30.0,
@@ -15765,7 +15765,7 @@
     {
       "name": "Marc Roberts",
       "year": 2004,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 5.0,
         "gs": 0.0,
@@ -16133,7 +16133,7 @@
     {
       "name": "Derek Dawes",
       "year": 2005,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 29.0,
         "gs": 13.0,
@@ -16731,7 +16731,7 @@
     {
       "name": "Jimmy Balderson",
       "year": 2006,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 29.0,
         "gs": 10.0,
@@ -17053,7 +17053,7 @@
     {
       "name": "Derek Dawes",
       "year": 2006,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 19.0,
         "gs": 0.0,
@@ -17329,7 +17329,7 @@
     {
       "name": "Jimmy Balderson",
       "year": 2007,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 34.0,
         "gs": 31.0,
@@ -18525,7 +18525,7 @@
     {
       "name": "Chris Miles",
       "year": 2009,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 33.0,
         "gs": 33.0,
@@ -18939,7 +18939,7 @@
     {
       "name": "Jackson Emery",
       "year": 2010,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 35.0,
         "gs": 35.0,
@@ -19261,7 +19261,7 @@
     {
       "name": "Chris Miles",
       "year": 2010,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 36.0,
         "gs": 35.0,
@@ -19537,7 +19537,7 @@
     {
       "name": "Jackson Emery",
       "year": 2011,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 37.0,
         "gs": 32.0,
@@ -20549,7 +20549,7 @@
     {
       "name": "Nick Martineau",
       "year": 2012,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 19.0,
         "gs": 0.0,
@@ -20595,7 +20595,7 @@
     {
       "name": "Chris Collinsworth",
       "year": 2012,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 2.0,
         "gs": 0.0,
@@ -21239,7 +21239,7 @@
     {
       "name": "Tyler Haws",
       "year": 2014,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 33.0,
         "gs": 33.0,
@@ -21791,7 +21791,7 @@
     {
       "name": "Tyler Haws",
       "year": 2015,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 35.0,
         "gs": 35.0,
@@ -21837,7 +21837,7 @@
     {
       "name": "Kyle Collinsworth",
       "year": 2015,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 33.0,
         "gs": 33.0,
@@ -22573,7 +22573,7 @@
     {
       "name": "Kyle Collinsworth",
       "year": 2016,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 37.0,
         "gs": 36.0,
@@ -22803,7 +22803,7 @@
     {
       "name": "Nate Austin",
       "year": 2016,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 37.0,
         "gs": 12.0,
@@ -24091,7 +24091,7 @@
     {
       "name": "Luke Worthington",
       "year": 2018,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 35.0,
         "gs": 29.0,
@@ -24827,7 +24827,7 @@
     {
       "name": "Luke Worthington",
       "year": 2019,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 32.0,
         "gs": 10.0,
@@ -24873,7 +24873,7 @@
     {
       "name": "Dalton Nixon",
       "year": 2019,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 25.0,
         "gs": 8.0,
@@ -25103,7 +25103,7 @@
     {
       "name": "Jake Toolson",
       "year": 2020,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 32.0,
         "gs": 32.0,
@@ -25287,7 +25287,7 @@
     {
       "name": "Dalton Nixon",
       "year": 2020,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 28.0,
         "gs": 16.0,
@@ -25333,7 +25333,7 @@
     {
       "name": "Zac Seljaas",
       "year": 2020,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 32.0,
         "gs": 0.0,
@@ -26483,7 +26483,7 @@
     {
       "name": "Alex Barcello",
       "year": 2022,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 35.0,
         "gs": 35.0,
@@ -27909,7 +27909,7 @@
     {
       "name": "Trevin Knell",
       "year": 2024,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 33.0,
         "gs": 28.0,
@@ -28599,7 +28599,7 @@
     {
       "name": "Trevin Knell",
       "year": 2025,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 36.0,
         "gs": 29.0,
