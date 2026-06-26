@@ -465,9 +465,15 @@
     text-transform: uppercase;
   }
 
-  .tag-xin  { background: rgba(0,200,100,0.2); color: #44ffaa; border: 1px solid rgba(0,200,100,0.3); }
-  .tag-xout { background: rgba(255,100,0,0.2); color: #ff9966; border: 1px solid rgba(255,100,0,0.3); }
-  .tag-1done { background: rgba(255,200,0,0.2); color: #ffdd55; border: 1px solid rgba(255,200,0,0.3); }
+  .tag-xin   { background: rgba(0,200,100,0.2);  color: #44ffaa; border: 1px solid rgba(0,200,100,0.3); }
+  .tag-xout  { background: rgba(255,100,0,0.2);  color: #ff9966; border: 1px solid rgba(255,100,0,0.3); }
+  .tag-1done { background: rgba(255,200,0,0.2);  color: #ffdd55; border: 1px solid rgba(255,200,0,0.3); }
+  .tag-nba   { background: var(--cardinal);       color: var(--white); }
+  .tag-aa    { background: var(--gold);           color: var(--navy-dark); }
+  .tag-mcd   { background: #e25822;              color: var(--white); }
+  .tag-conf  { background: rgba(100,160,255,0.2); color: #88aaff; border: 1px solid rgba(100,160,255,0.3); }
+  .tag-intl  { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.2); }
+  .tag-early { background: rgba(204,0,51,0.2);    color: #ff6688; border: 1px solid rgba(204,0,51,0.3); }
 
   /* VIEW TOGGLE */
   .view-toggle { display: flex; gap: 4px; background: var(--navy-dark); border: 1px solid rgba(255,255,255,0.1); border-radius: 5px; padding: 3px; }
@@ -762,7 +768,6 @@
       <div class="modal-field"><label>Career PPG</label><input type="number" id="fPpg" step="0.1"></div>
       <div class="modal-field"><label>Career Points</label><input type="number" id="fPts"></div>
       <div class="modal-field"><label>Career Games</label><input type="number" id="fG"></div>
-      <div class="modal-field"><label>247 Grade</label><input type="number" id="fGrade247" step="0.1"></div>
       <div class="modal-field"><label>Recruiting Rank</label><input type="number" id="fRanking"></div>
       <div class="modal-field full"><label>Flags</label>
         <div class="checkbox-grid">
@@ -773,10 +778,8 @@
           <label class="check-item"><input type="checkbox" id="fXferIn"> Transfer In</label>
           <label class="check-item"><input type="checkbox" id="fXferOut"> Transfer Out</label>
           <label class="check-item"><input type="checkbox" id="fOneDone"> 1 & Done</label>
-          <label class="check-item"><input type="checkbox" id="fStarter"> Starter</label>
           <label class="check-item"><input type="checkbox" id="fIntl"> International</label>
           <label class="check-item"><input type="checkbox" id="fAllConf"> All-Conference</label>
-          <label class="check-item"><input type="checkbox" id="fMadness"> March Madness</label>
         </div>
       </div>
     </div>
@@ -905,7 +908,6 @@
           <th data-col="pts">Career Pts <span class="sort-arrow">↕</span></th>
           <th data-col="g">G <span class="sort-arrow">↕</span></th>
           <th>Tags</th>
-          <th data-col="grade247">247 Grade <span class="sort-arrow">↕</span></th>
         </tr>
       </thead>
       <tbody id="playerTable"></tbody>
@@ -1282,7 +1284,6 @@ function openModal(player) {
   document.getElementById('fPpg').value         = player?.ppg         || '';
   document.getElementById('fPts').value         = player?.pts         || '';
   document.getElementById('fG').value           = player?.g           || '';
-  document.getElementById('fGrade247').value    = player?.grade247    || '';
   document.getElementById('fRanking').value     = player?.ranking     || '';
   document.getElementById('fNba').checked       = !!player?.nba;
   document.getElementById('fEarlyNba').checked  = !!player?.earlyNBA;
@@ -1291,10 +1292,8 @@ function openModal(player) {
   document.getElementById('fXferIn').checked    = !!player?.xferIn;
   document.getElementById('fXferOut').checked   = !!player?.xferOut;
   document.getElementById('fOneDone').checked   = !!player?.oneDone;
-  document.getElementById('fStarter').checked   = !!player?.starter;
   document.getElementById('fIntl').checked      = !!player?.intl;
   document.getElementById('fAllConf').checked   = !!player?.allConf;
-  document.getElementById('fMadness').checked   = !!player?.madness;
 
   modal.style.display = 'flex';
 }
@@ -1314,7 +1313,6 @@ function getFormData() {
     ppg:         document.getElementById('fPpg').value,
     pts:         document.getElementById('fPts').value,
     g:           document.getElementById('fG').value,
-    grade247:    document.getElementById('fGrade247').value,
     ranking:     document.getElementById('fRanking').value,
     nba:         document.getElementById('fNba').checked,
     earlyNBA:    document.getElementById('fEarlyNba').checked,
@@ -1323,10 +1321,8 @@ function getFormData() {
     xferIn:      document.getElementById('fXferIn').checked,
     xferOut:     document.getElementById('fXferOut').checked,
     oneDone:     document.getElementById('fOneDone').checked,
-    starter:     document.getElementById('fStarter').checked,
     intl:        document.getElementById('fIntl').checked,
     allConf:     document.getElementById('fAllConf').checked,
-    madness:     document.getElementById('fMadness').checked,
   });
 }
 
@@ -1533,16 +1529,21 @@ function render() {
     ].filter(Boolean).join('');
 
     const tags = [
-      p.xferIn  ? '<span class="tag tag-xin">Xfer In</span>'   : '',
-      p.xferOut ? '<span class="tag tag-xout">Xfer Out</span>' : '',
-      p.oneDone ? '<span class="tag tag-1done">1&Done</span>'  : '',
+      p.nba         ? '<span class="tag tag-nba">NBA</span>'          : '',
+      p.allAmerican ? '<span class="tag tag-aa">All-American</span>'  : '',
+      p.mcdAA       ? '<span class="tag tag-mcd">McD AA</span>'       : '',
+      p.allConf     ? '<span class="tag tag-conf">All-Conf</span>'    : '',
+      p.xferIn      ? '<span class="tag tag-xin">Xfer In</span>'      : '',
+      p.xferOut     ? '<span class="tag tag-xout">Xfer Out</span>'    : '',
+      p.oneDone     ? '<span class="tag tag-1done">1&Done</span>'     : '',
+      p.intl        ? `<span class="tag tag-intl">Int'l</span>`      : '',
+      p.earlyNBA    ? '<span class="tag tag-early">Early NBA</span>'  : '',
     ].filter(Boolean).join('');
 
     const ppgVal  = p.ppg  !== null ? `<span class="${ppgClass(p.ppg)}">${p.ppg.toFixed(1)}</span>` : '<span class="null-val">—</span>';
     const ptsVal  = p.pts  !== null ? p.pts.toLocaleString() : '<span class="null-val">—</span>';
     const gVal    = p.g    !== null ? p.g    : '<span class="null-val">—</span>';
     const yrsVal  = p.years !== null ? p.years : '<span class="null-val">—</span>';
-    const gradeVal = p.grade247 !== null ? p.grade247.toFixed(0) : (p.on3 !== null ? `<span style="color:var(--gray-mid)">${p.on3.toFixed(0)}</span>` : '<span class="null-val">—</span>');
     const editBtn  = isAdmin ? `<button class="admin-edit-btn" onclick="openModal(allPlayers.find(x=>x.id==='${p.id}'))">edit</button>` : '';
 
     return `<tr>
@@ -1557,7 +1558,6 @@ function render() {
       <td style="text-align:right">${ptsVal}</td>
       <td style="text-align:center">${gVal}</td>
       <td><div class="tag-wrap">${tags || '<span class="null-val">—</span>'}</div></td>
-      <td style="text-align:center">${gradeVal}</td>
     </tr>`;
   }).join('');
 }
