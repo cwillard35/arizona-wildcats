@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/x-icon" href="/cbb-byu-cougars/favicon.ico">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BYU Cougars — Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+  :root {
+    --cardinal: #003DA5; --cardinal-dark: #002d7a; --cardinal-light: #2a5fd0;
+    --navy: #001f4d; --navy-dark: #000d1f; --navy-mid: #001540;
+    --gold: #C5AF7D; --white: #ffffff; --off-white: #f5f5f5;
+    --gray-mid: #aaaaaa; --gray-dark: #444444;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Barlow', sans-serif; background: var(--navy-dark); color: var(--white); min-height: 100vh; }
+
+  header {
+    background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 60%, var(--cardinal-dark) 100%);
+    border-bottom: 3px solid var(--cardinal);
+    padding: 0 2rem; position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+  .header-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; gap: 2rem; padding: 0.75rem 0; }
+  .logo-mark { display: flex; align-items: center; flex-shrink: 0; }
+  .logo-text { flex: 1; }
+  .logo-text h1 { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 3px; color: var(--white); line-height: 1; }
+  .logo-text p { font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase; color: var(--gray-mid); margin-top: 2px; }
+  nav { display: flex; gap: 0.25rem; }
+  nav a { font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gray-mid); text-decoration: none; padding: 0.5rem 1rem; border-radius: 3px; transition: all 0.2s; }
+  nav a:hover { color: var(--cardinal-light); background: rgba(0,61,165,0.2); }
+
+  main { max-width: 600px; margin: 4rem auto; padding: 2rem; }
+
+  .login-card {
+    background: var(--navy-mid);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    padding: 2.5rem;
+  }
+
+  .login-card h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem; letter-spacing: 4px;
+    margin-bottom: 0.5rem;
+  }
+
+  .login-card p {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem; letter-spacing: 1px;
+    color: var(--gray-mid); margin-bottom: 2rem;
+  }
+
+  .form-group { margin-bottom: 1.25rem; }
+  .form-group label {
+    display: block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--gray-mid); margin-bottom: 0.4rem;
+  }
+  .form-group input {
+    width: 100%; background: var(--navy-dark);
+    border: 1px solid rgba(255,255,255,0.15); border-radius: 4px;
+    color: var(--white); font-family: 'Barlow', sans-serif; font-size: 0.95rem;
+    padding: 0.6rem 0.85rem; outline: none; transition: border-color 0.2s;
+  }
+  .form-group input:focus { border-color: var(--cardinal); }
+
+  .btn {
+    width: 100%; background: var(--cardinal); border: none; border-radius: 4px;
+    color: var(--white); font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    padding: 0.75rem; cursor: pointer; transition: background 0.2s; margin-top: 0.5rem;
+  }
+  .btn:hover { background: var(--cardinal-dark); }
+
+  .error-msg {
+    background: rgba(0,61,165,0.15); border: 1px solid rgba(0,61,165,0.3);
+    border-radius: 4px; padding: 0.75rem 1rem; margin-top: 1rem;
+    font-size: 0.9rem; color: #ff6688; display: none;
+  }
+
+  .success-msg {
+    background: rgba(68,204,136,0.15); border: 1px solid rgba(68,204,136,0.3);
+    border-radius: 4px; padding: 0.75rem 1rem; margin-top: 1rem;
+    font-size: 0.9rem; color: #44cc88; display: none;
+  }
+
+  .logged-in { text-align: center; }
+  .logged-in h2 { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 4px; margin-bottom: 1rem; }
+  .logged-in p { color: var(--gray-mid); margin-bottom: 2rem; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 1px; }
+  .btn-outline {
+    background: transparent; border: 1px solid var(--cardinal); border-radius: 4px;
+    color: var(--cardinal); font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    padding: 0.6rem 1.5rem; cursor: pointer; transition: all 0.2s; margin-top: 1rem;
+  }
+  .btn-outline:hover { background: var(--cardinal); color: var(--white); }
+
+  .nav-btns { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.5rem; }
+  .nav-btn {
+    display: block; background: var(--navy-dark);
+    border: 1px solid rgba(255,255,255,0.1); border-radius: 6px;
+    color: var(--white); text-decoration: none;
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem;
+    font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+    padding: 1rem 1.5rem; transition: all 0.2s; text-align: center;
+  }
+  .nav-btn:hover { border-color: var(--cardinal); color: var(--cardinal-light); }
+
+  footer { text-align: center; padding: 2rem; margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.05); font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; letter-spacing: 1px; color: rgba(255,255,255,0.25); }
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <div class="logo-mark"><a href="/cbb-byu-cougars/index.html"><img src="/cbb-byu-cougars/logo.png" alt="BYU Cougars" style="height:60px;width:60px;object-fit:contain;display:block;"></a></div>
+    <div class="logo-text">
+      <h1>BYU Cougars Basketball</h1>
+      <p>Player History Database · Admin</p>
+    </div>
+    <nav>
+      <a href="/cbb-byu-cougars/players.html">Players</a>
+      <a href="/cbb-byu-cougars/seasons.html">Seasons</a>
+      <a href="/cbb-byu-cougars/classes.html">Recruiting</a>
+      <a href="/cbb-byu-cougars/progression.html">Progression</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div id="loginSection" class="login-card" style="display:none;">
+    <h2>Admin Login</h2>
+    <p>Sign in to manage the player database</p>
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" id="loginEmail" placeholder="your@email.com">
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="loginPassword" placeholder="••••••••">
+    </div>
+    <button class="btn" id="loginBtn">Sign In</button>
+    <div class="error-msg" id="loginError"></div>
+  </div>
+
+  <div id="loggedInSection" class="login-card logged-in" style="display:none;">
+    <h2>Welcome Back</h2>
+    <p id="loggedInEmail"></p>
+    <div class="nav-btns">
+      <a href="/cbb-byu-cougars/players.html" class="nav-btn">← Go to Player Database</a>
+    </div>
+    <button class="btn-outline" id="logoutBtn">Sign Out</button>
+  </div>
+</main>
+
+<footer>
+  BYU Cougars Basketball Database · <a href="/cbb-byu-cougars/about.html" style="color:rgba(255,255,255,0.4);text-decoration:none;">About</a>
+</footer>
+
+<script>
+const SUPABASE_URL = 'https://lzzkqbiawsatzzcisypf.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx6emtxYmlhd3NhdHp6Y2lzeXBmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwNTE2MjgsImV4cCI6MjA5NTYyNzYyOH0.le5NdvH-dvHax6s2poggH2fTTZd7P8yMyExl2T-6GJ4';
+const { createClient } = supabase;
+const db = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+async function init() {
+  const { data: { session } } = await db.auth.getSession();
+  if (session) {
+    showLoggedIn(session.user.email);
+  } else {
+    document.getElementById('loginSection').style.display = 'block';
+  }
+}
+
+function showLoggedIn(email) {
+  document.getElementById('loginSection').style.display = 'none';
+  document.getElementById('loggedInSection').style.display = 'block';
+  document.getElementById('loggedInEmail').textContent = `Signed in as ${email}`;
+}
+
+document.getElementById('loginBtn').addEventListener('click', async () => {
+  const email    = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  const errEl    = document.getElementById('loginError');
+  errEl.style.display = 'none';
+
+  const { data, error } = await db.auth.signInWithPassword({ email, password });
+  if (error) {
+    errEl.textContent = error.message;
+    errEl.style.display = 'block';
+    return;
+  }
+  showLoggedIn(data.user.email);
+});
+
+document.getElementById('logoutBtn').addEventListener('click', async () => {
+  await db.auth.signOut();
+  document.getElementById('loggedInSection').style.display = 'none';
+  document.getElementById('loginSection').style.display = 'block';
+});
+
+// Allow Enter key on password field
+document.getElementById('loginPassword').addEventListener('keydown', e => {
+  if (e.key === 'Enter') document.getElementById('loginBtn').click();
+});
+
+init();
+</script>
+</body>
+</html>
