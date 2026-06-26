@@ -522,7 +522,7 @@ const ERA_LABEL = {
 async function init() {
   // Load everything in parallel
   const [playersResult, votesResult, totalVotesResult] = await Promise.all([
-    db.from('players').select('id,name,year,coach,position,years,nba,all_american'),
+    db.from('players').select('id,name,year,coach,position,years,nba,all_american').eq('team_id','cbb-arizona-wildcats'),
     db.from('votes').select('player_id,score'),
     db.from('votes').select('id', { count: 'exact', head: true }),
   ]);
