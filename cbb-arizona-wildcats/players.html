@@ -1232,7 +1232,7 @@ async function init() {
 
   // Load players and votes in parallel
   const [playersResult] = await Promise.all([
-    db.from('players').select('*').order('year', { ascending: true }),
+    db.from('players').select('*').eq('team_id','cbb-arizona-wildcats').order('year', { ascending: true }),
     loadCommunityVotes(),
     currentUser ? loadUserVotes() : Promise.resolve(),
   ]);
