@@ -1,2 +1,2 @@
-# arizona-wildcats
-An Arizona Wildcats Program Archive
+# rate-the-team
+Rating players and seasons
