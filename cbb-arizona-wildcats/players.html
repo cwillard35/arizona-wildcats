@@ -754,8 +754,7 @@
     <input type="hidden" id="modalPlayerId">
     <div class="modal-grid">
       <div class="modal-field full"><label>Name</label><input type="text" id="fName"></div>
-      <div class="modal-field"><label>First Year at School</label><input type="number" id="fYear" placeholder="e.g. 2024"></div>
-      <div class="modal-field"><label>First Year of NCAA Eligibility</label><input type="number" id="fEligibilityYear" placeholder="e.g. 2022"></div>
+      <div class="modal-field"><label>Class Year (recruited)</label><input type="number" id="fYear" placeholder="e.g. 2024"></div>
       <div class="modal-field"><label>Coach Era</label>
         <select id="fCoach"><option value="">—</option><option>Snowden</option><option>Olson</option><option>Interim</option><option>Miller</option><option>Lloyd</option></select>
       </div>
@@ -1163,7 +1162,6 @@ function fromDB(p) {
     id:          p.id,
     name:        p.name,
     year:        p.year,
-    eligibilityYear: p.eligibility_year,
     coach:       p.coach,
     position:    p.position,
     ranking:     p.ranking,
@@ -1194,8 +1192,7 @@ function fromDB(p) {
 function toDB(f) {
   return {
     name:        f.name,
-    year:             f.year ? parseInt(f.year) : null,
-    eligibility_year: f.eligibilityYear ? parseInt(f.eligibilityYear) : null,
+    year:        f.year ? parseInt(f.year) : null,
     coach:       f.coach || null,
     position:    f.position || null,
     ranking:     f.ranking ? parseInt(f.ranking) : null,
@@ -1235,7 +1232,7 @@ async function init() {
 
   // Load players and votes in parallel
   const [playersResult] = await Promise.all([
-    db.from('players').select('*').eq('team_id','cbb-arizona-wildcats').order('year', { ascending: true }),
+    db.from('players').select('*').order('year', { ascending: true }),
     loadCommunityVotes(),
     currentUser ? loadUserVotes() : Promise.resolve(),
   ]);
@@ -1255,13 +1252,13 @@ async function init() {
   });
 
   // Hero stats
-  const withSuccess = allPlayers.filter(p => p.success !== null);
+  const withSuccess = allPlayers.filter(p => p.success !== null && p.success > 0);
   document.getElementById('totalPlayers').textContent = allPlayers.length;
   document.getElementById('nbaCount').textContent = allPlayers.filter(p => p.nba).length;
   document.getElementById('aaCount').textContent = allPlayers.filter(p => p.allAmerican).length;
   document.getElementById('mcdCount').textContent = allPlayers.filter(p => p.mcdAA).length;
-  const avg = withSuccess.reduce((a,p) => a + p.success, 0) / withSuccess.length;
-  document.getElementById('avgSuccess').textContent = avg.toFixed(2);
+  const avg = withSuccess.length > 0 ? withSuccess.reduce((a,p) => a + p.success, 0) / withSuccess.length : 0;
+  document.getElementById('avgSuccess').textContent = withSuccess.length > 0 ? avg.toFixed(2) : '—';
 
   filtered = [...allPlayers];
   render();
@@ -1279,8 +1276,7 @@ function openModal(player) {
 
   // Populate fields
   document.getElementById('fName').value        = player?.name        || '';
-  document.getElementById('fYear').value             = player?.year             || '';
-  document.getElementById('fEligibilityYear').value = player?.eligibilityYear || '';
+  document.getElementById('fYear').value        = player?.year        || '';
   document.getElementById('fCoach').value       = player?.coach       || '';
   document.getElementById('fPosition').value    = player?.position    || '';
   document.getElementById('fYears').value       = player?.years       || '';
@@ -1312,8 +1308,7 @@ function closeModal() {
 function getFormData() {
   return toDB({
     name:        document.getElementById('fName').value.trim(),
-    year:            document.getElementById('fYear').value,
-    eligibilityYear: document.getElementById('fEligibilityYear').value,
+    year:        document.getElementById('fYear').value,
     coach:       document.getElementById('fCoach').value,
     position:    document.getElementById('fPosition').value,
     years:       document.getElementById('fYears').value,
