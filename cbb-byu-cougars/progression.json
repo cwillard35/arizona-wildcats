@@ -53,69 +53,69 @@
   },
   "by_class": {
     "Freshman": {
-      "n": 294,
-      "g": 20.769,
-      "mp": 12.003,
-      "pts": 4.006,
-      "trb": 1.976,
-      "ast": 0.918,
-      "stl": 0.379,
-      "blk": 0.2,
-      "tov": 0.861,
-      "fg_pct": 0.417,
-      "fg3_pct": 0.265,
-      "ft_pct": 0.639,
+      "n": 165,
+      "g": 20.291,
+      "mp": 10.8,
+      "pts": 3.483,
+      "trb": 1.842,
+      "ast": 0.788,
+      "stl": 0.339,
+      "blk": 0.219,
+      "tov": 0.799,
+      "fg_pct": 0.412,
+      "fg3_pct": 0.25,
+      "ft_pct": 0.641,
       "per": null,
       "ws": null,
       "bpm": null
     },
     "Sophomore": {
-      "n": 140,
-      "g": 25.436,
-      "mp": 17.227,
-      "pts": 6.144,
-      "trb": 2.812,
-      "ast": 1.277,
-      "stl": 0.549,
-      "blk": 0.271,
-      "tov": 1.135,
+      "n": 142,
+      "g": 24.458,
+      "mp": 15.71,
+      "pts": 5.459,
+      "trb": 2.736,
+      "ast": 1.122,
+      "stl": 0.463,
+      "blk": 0.291,
+      "tov": 1.004,
       "fg_pct": 0.459,
-      "fg3_pct": 0.328,
-      "ft_pct": 0.677,
+      "fg3_pct": 0.314,
+      "ft_pct": 0.67,
       "per": null,
       "ws": null,
       "bpm": null
     },
     "Junior": {
-      "n": 72,
-      "g": 28.042,
-      "mp": 20.403,
-      "pts": 8.069,
-      "trb": 3.594,
-      "ast": 1.502,
-      "stl": 0.614,
-      "blk": 0.372,
-      "tov": 1.298,
-      "fg_pct": 0.481,
-      "fg3_pct": 0.347,
-      "ft_pct": 0.682,
+      "n": 182,
+      "g": 25.319,
+      "mp": 17.443,
+      "pts": 6.642,
+      "trb": 2.941,
+      "ast": 1.334,
+      "stl": 0.572,
+      "blk": 0.253,
+      "tov": 1.186,
+      "fg_pct": 0.447,
+      "fg3_pct": 0.309,
+      "ft_pct": 0.665,
       "per": null,
       "ws": null,
       "bpm": null
     },
     "Senior": {
-      "n": 139,
-      "g": 27.892,
-      "mp": 21.971,
-      "pts": 9.122,
-      "trb": 3.74,
+      "n": 147,
+      "g": 27.265,
+      "mp": 22.008,
+      "pts": 8.975,
+      "trb": 3.577,
       "ast": 1.782,
-      "stl": 0.719,
-      "blk": 0.331,
-      "tov": 1.409,
-      "fg_pct": 0.46,
-      "fg3_pct": 0.335,
-      "ft_pct": 0.723,
+      "stl": 0.716,
+      "blk": 0.316,
+      "tov": 1.405,
+      "fg_pct": 0.466,
+      "fg3_pct": 0.339,
+      "ft_pct": 0.714,
       "per": null,
       "ws": null,
       "bpm": null
@@ -125,7 +125,7 @@
     {
       "name": "Danny Ainge",
       "year": 1980,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 29.0,
         "gs": null,
@@ -171,7 +171,7 @@
     {
       "name": "Devin Durrant",
       "year": 1980,
-      "class": "Freshman",
+      "class": "Sophomore",
       "totals": {
         "g": 29.0,
         "gs": null,
@@ -217,7 +217,7 @@
     {
       "name": "Fred Roberts",
       "year": 1980,
-      "class": "Freshman",
+      "class": "Sophomore",
       "totals": {
         "g": 29.0,
         "gs": null,
@@ -263,7 +263,7 @@
     {
       "name": "Alan Taylor",
       "year": 1980,
-      "class": "Freshman",
+      "class": "Senior",
       "totals": {
         "g": 29.0,
         "gs": null,
@@ -309,7 +309,7 @@
     {
       "name": "Scott Runia",
       "year": 1980,
-      "class": "Freshman",
+      "class": "Senior",
       "totals": {
         "g": 29.0,
         "gs": null,
@@ -355,7 +355,7 @@
     {
       "name": "Steve Craig",
       "year": 1980,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 27.0,
         "gs": null,
@@ -401,7 +401,7 @@
     {
       "name": "Steve Trumbo",
       "year": 1980,
-      "class": "Freshman",
+      "class": "Sophomore",
       "totals": {
         "g": 28.0,
         "gs": null,
@@ -447,7 +447,7 @@
     {
       "name": "Greg Ballif",
       "year": 1980,
-      "class": "Freshman",
+      "class": "Sophomore",
       "totals": {
         "g": 17.0,
         "gs": null,
@@ -585,7 +585,7 @@
     {
       "name": "Steve Anderson",
       "year": 1980,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 13.0,
         "gs": null,
@@ -631,7 +631,7 @@
     {
       "name": "Stan Cameron",
       "year": 1980,
-      "class": "Freshman",
+      "class": null,
       "totals": {
         "g": 9.0,
         "gs": null,
@@ -677,7 +677,7 @@
     {
       "name": "Danny Ainge",
       "year": 1981,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 32.0,
         "gs": null,
@@ -723,7 +723,7 @@
     {
       "name": "Fred Roberts",
       "year": 1981,
-      "class": "Sophomore",
+      "class": "Junior",
       "totals": {
         "g": 32.0,
         "gs": null,
@@ -769,7 +769,7 @@
     {
       "name": "Steve Trumbo",
       "year": 1981,
-      "class": "Sophomore",
+      "class": "Junior",
       "totals": {
         "g": 32.0,
         "gs": null,
@@ -861,7 +861,7 @@
     {
       "name": "Steve Craig",
       "year": 1981,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 32.0,
         "gs": null,
@@ -907,7 +907,7 @@
     {
       "name": "Greg Ballif",
       "year": 1981,
-      "class": "Sophomore",
+      "class": "Junior",
       "totals": {
         "g": 32.0,
         "gs": null,
@@ -999,7 +999,7 @@
     {
       "name": "Gary Furniss",
       "year": 1981,
-      "class": "Freshman",
+      "class": "Sophomore",
       "totals": {
         "g": 15.0,
         "gs": null,
@@ -1045,7 +1045,7 @@
     {
       "name": "Dave McGuire",
       "year": 1981,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 11.0,
         "gs": null,
@@ -1137,7 +1137,7 @@
     {
       "name": "Craig Christensen",
       "year": 1981,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 11.0,
         "gs": null,
@@ -1183,7 +1183,7 @@
     {
       "name": "John Bartholomew",
       "year": 1981,
-      "class": "Freshman",
+      "class": null,
       "totals": {
         "g": 3.0,
         "gs": null,
@@ -1229,7 +1229,7 @@
     {
       "name": "Fred Roberts",
       "year": 1982,
-      "class": "Junior",
+      "class": "Senior",
       "totals": {
         "g": 30.0,
         "gs": null,
@@ -1275,7 +1275,7 @@
     {
       "name": "Steve Trumbo",
       "year": 1982,
-      "class": "Junior",
+      "class": "Senior",
       "totals": {
         "g": 29.0,
         "gs": null,
@@ -1321,7 +1321,7 @@
     {
       "name": "Greg Ballif",
       "year": 1982,
-      "class": "Junior",
+      "class": "Senior",
       "totals": {
         "g": 29.0,
         "gs": null,
@@ -1459,7 +1459,7 @@
     {
       "name": "Gary Furniss",
       "year": 1982,
-      "class": "Sophomore",
+      "class": "Junior",
       "totals": {
         "g": 25.0,
         "gs": null,
@@ -1551,7 +1551,7 @@
     {
       "name": "Craig Christensen",
       "year": 1982,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 13.0,
         "gs": null,
@@ -1643,7 +1643,7 @@
     {
       "name": "Mike Maxwell",
       "year": 1982,
-      "class": "Junior",
+      "class": "Sophomore",
       "totals": {
         "g": 23.0,
         "gs": null,
@@ -1689,7 +1689,7 @@
     {
       "name": "Kevin Nielsen",
       "year": 1982,
-      "class": "Freshman",
+      "class": "Sophomore",
       "totals": {
         "g": 10.0,
         "gs": null,
@@ -1781,7 +1781,7 @@
     {
       "name": "Devin Durrant",
       "year": 1983,
-      "class": "Senior",
+      "class": "Junior",
       "totals": {
         "g": 29.0,
         "gs": null,
@@ -1827,7 +1827,7 @@
     {
       "name": "Brett Applegate",
       "year": 1983,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 29.0,
         "gs": null,
@@ -1965,7 +1965,7 @@
     {
       "name": "Gary Furniss",
       "year": 1983,
-      "class": "Junior",
+      "class": "Senior",
       "totals": {
         "g": 29.0,
         "gs": null,
@@ -2149,7 +2149,7 @@
     {
       "name": "Marty Perry",
       "year": 1983,
-      "class": "Freshman",
+      "class": "Sophomore",
       "totals": {
         "g": 27.0,
         "gs": null,
@@ -2287,7 +2287,7 @@
     {
       "name": "Kevin Nielsen",
       "year": 1983,
-      "class": "Sophomore",
+      "class": "Junior",
       "totals": {
         "g": 15.0,
         "gs": null,
@@ -2471,7 +2471,7 @@
     {
       "name": "Brett Applegate",
       "year": 1984,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 31.0,
         "gs": null,
@@ -2701,7 +2701,7 @@
     {
       "name": "Marty Perry",
       "year": 1984,
-      "class": "Sophomore",
+      "class": "Junior",
       "totals": {
         "g": 31.0,
         "gs": null,
@@ -2793,7 +2793,7 @@
     {
       "name": "Kevin Nielsen",
       "year": 1984,
-      "class": "Junior",
+      "class": "Senior",
       "totals": {
         "g": 13.0,
         "gs": null,
@@ -2885,7 +2885,7 @@
     {
       "name": "Richie Webb",
       "year": 1984,
-      "class": "Senior",
+      "class": "Sophomore",
       "totals": {
         "g": 10.0,
         "gs": null,
@@ -3023,7 +3023,7 @@
     {
       "name": "Clark Smith",
       "year": 1984,
-      "class": "Freshman",
+      "class": null,
       "totals": {
         "g": 2.0,
         "gs": null,
@@ -3069,7 +3069,7 @@
     {
       "name": "Dave Collins",
       "year": 1984,
-      "class": "Freshman",
+      "class": null,
       "totals": {
         "g": 2.0,
         "gs": null,
@@ -3345,7 +3345,7 @@
     {
       "name": "Tom Gneiting",
       "year": 1985,
-      "class": "Freshman",
+      "class": "Sophomore",
       "totals": {
         "g": 29.0,
         "gs": null,
@@ -3391,7 +3391,7 @@
     {
       "name": "Marty Perry",
       "year": 1985,
-      "class": "Junior",
+      "class": "Senior",
       "totals": {
         "g": 27.0,
         "gs": null,
@@ -3483,7 +3483,7 @@
     {
       "name": "Richie Webb",
       "year": 1985,
-      "class": "Senior",
+      "class": "Junior",
       "totals": {
         "g": 25.0,
         "gs": null,
@@ -3529,7 +3529,7 @@
     {
       "name": "Eric Kellogg",
       "year": 1985,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 16.0,
         "gs": null,
@@ -3575,7 +3575,7 @@
     {
       "name": "Bryan Fink",
       "year": 1985,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 14.0,
         "gs": null,
@@ -3621,7 +3621,7 @@
     {
       "name": "Bob Cochran",
       "year": 1985,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 8.0,
         "gs": null,
@@ -3759,7 +3759,7 @@
     {
       "name": "Bob Capener",
       "year": 1986,
-      "class": "Senior",
+      "class": "Junior",
       "totals": {
         "g": 32.0,
         "gs": null,
@@ -3805,7 +3805,7 @@
     {
       "name": "Tom Gneiting",
       "year": 1986,
-      "class": "Sophomore",
+      "class": "Junior",
       "totals": {
         "g": 31.0,
         "gs": null,
@@ -3897,7 +3897,7 @@
     {
       "name": "Brent Stephenson",
       "year": 1986,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 32.0,
         "gs": null,
@@ -3989,7 +3989,7 @@
     {
       "name": "Avenan Parrish",
       "year": 1986,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 18.0,
         "gs": null,
@@ -4035,7 +4035,7 @@
     {
       "name": "Greg Humphreys",
       "year": 1986,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 32.0,
         "gs": null,
@@ -4081,7 +4081,7 @@
     {
       "name": "Brent Wade",
       "year": 1986,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 21.0,
         "gs": null,
@@ -4127,7 +4127,7 @@
     {
       "name": "Bob Cochran",
       "year": 1986,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 10.0,
         "gs": null,
@@ -4173,7 +4173,7 @@
     {
       "name": "Bryan Fink",
       "year": 1986,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 11.0,
         "gs": null,
@@ -4311,7 +4311,7 @@
     {
       "name": "Eric Jackson",
       "year": 1986,
-      "class": "Freshman",
+      "class": null,
       "totals": {
         "g": 2.0,
         "gs": null,
@@ -4357,7 +4357,7 @@
     {
       "name": "Michael Smith",
       "year": 1987,
-      "class": "Senior",
+      "class": "Sophomore",
       "totals": {
         "g": 32.0,
         "gs": 24.0,
@@ -4495,7 +4495,7 @@
     {
       "name": "Tom Gneiting",
       "year": 1987,
-      "class": "Junior",
+      "class": "Senior",
       "totals": {
         "g": 32.0,
         "gs": 32.0,
@@ -4541,7 +4541,7 @@
     {
       "name": "Brian Taylor",
       "year": 1987,
-      "class": "Senior",
+      "class": "Junior",
       "totals": {
         "g": 32.0,
         "gs": 9.0,
@@ -4587,7 +4587,7 @@
     {
       "name": "Jim Usevitch",
       "year": 1987,
-      "class": "Senior",
+      "class": "Junior",
       "totals": {
         "g": 32.0,
         "gs": 0.0,
@@ -4633,7 +4633,7 @@
     {
       "name": "Brent Stephenson",
       "year": 1987,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 32.0,
         "gs": 8.0,
@@ -4771,7 +4771,7 @@
     {
       "name": "Greg Humphreys",
       "year": 1987,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 27.0,
         "gs": 0.0,
@@ -4817,7 +4817,7 @@
     {
       "name": "Brent Wade",
       "year": 1987,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 9.0,
         "gs": 0.0,
@@ -4863,7 +4863,7 @@
     {
       "name": "Alan Astle",
       "year": 1987,
-      "class": "Senior",
+      "class": "Sophomore",
       "totals": {
         "g": 5.0,
         "gs": 0.0,
@@ -4955,7 +4955,7 @@
     {
       "name": "Michael Smith",
       "year": 1988,
-      "class": "Senior",
+      "class": "Junior",
       "totals": {
         "g": 32.0,
         "gs": 32.0,
@@ -5185,7 +5185,7 @@
     {
       "name": "Andy Toolson",
       "year": 1988,
-      "class": "Senior",
+      "class": "Sophomore",
       "totals": {
         "g": 32.0,
         "gs": 22.0,
@@ -5507,7 +5507,7 @@
     {
       "name": "Alan Astle",
       "year": 1988,
-      "class": "Senior",
+      "class": "Junior",
       "totals": {
         "g": 15.0,
         "gs": 0.0,
@@ -5691,7 +5691,7 @@
     {
       "name": "Andy Toolson",
       "year": 1989,
-      "class": "Senior",
+      "class": "Junior",
       "totals": {
         "g": 26.0,
         "gs": 26.0,
@@ -5737,7 +5737,7 @@
     {
       "name": "Steve Schreiner",
       "year": 1989,
-      "class": "Freshman",
+      "class": "Sophomore",
       "totals": {
         "g": 29.0,
         "gs": 25.0,
@@ -5783,7 +5783,7 @@
     {
       "name": "Kevin Santiago",
       "year": 1989,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 29.0,
         "gs": 29.0,
@@ -6059,7 +6059,7 @@
     {
       "name": "Steve Andrus",
       "year": 1989,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 11.0,
         "gs": 0.0,
@@ -6105,7 +6105,7 @@
     {
       "name": "Paul Briggs",
       "year": 1989,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 6.0,
         "gs": 0.0,
@@ -6243,7 +6243,7 @@
     {
       "name": "Steve Schreiner",
       "year": 1990,
-      "class": "Sophomore",
+      "class": "Junior",
       "totals": {
         "g": 30.0,
         "gs": 30.0,
@@ -6289,7 +6289,7 @@
     {
       "name": "Kevin Santiago",
       "year": 1990,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 30.0,
         "gs": 30.0,
@@ -6335,7 +6335,7 @@
     {
       "name": "Todd Crow",
       "year": 1990,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 29.0,
         "gs": 13.0,
@@ -6473,7 +6473,7 @@
     {
       "name": "Scott Moon",
       "year": 1990,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 20.0,
         "gs": 0.0,
@@ -6611,7 +6611,7 @@
     {
       "name": "Steve Andrus",
       "year": 1990,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 14.0,
         "gs": 0.0,
@@ -6657,7 +6657,7 @@
     {
       "name": "Paul Briggs",
       "year": 1990,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 6.0,
         "gs": 0.0,
@@ -6887,7 +6887,7 @@
     {
       "name": "Steve Schreiner",
       "year": 1991,
-      "class": "Junior",
+      "class": "Senior",
       "totals": {
         "g": 34.0,
         "gs": 32.0,
@@ -6933,7 +6933,7 @@
     {
       "name": "Scott Moon",
       "year": 1991,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 33.0,
         "gs": 22.0,
@@ -7025,7 +7025,7 @@
     {
       "name": "Gary Trost",
       "year": 1991,
-      "class": "Senior",
+      "class": "Sophomore",
       "totals": {
         "g": 33.0,
         "gs": 0.0,
@@ -7071,7 +7071,7 @@
     {
       "name": "Nathan Call",
       "year": 1991,
-      "class": "Senior",
+      "class": "Junior",
       "totals": {
         "g": 34.0,
         "gs": 34.0,
@@ -7163,7 +7163,7 @@
     {
       "name": "Jared Miller",
       "year": 1991,
-      "class": "Freshman",
+      "class": "Sophomore",
       "totals": {
         "g": 26.0,
         "gs": 2.0,
@@ -7209,7 +7209,7 @@
     {
       "name": "Mark Santiago",
       "year": 1991,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 27.0,
         "gs": 0.0,
@@ -7301,7 +7301,7 @@
     {
       "name": "Robert Jones",
       "year": 1991,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 6.0,
         "gs": 0.0,
@@ -7393,7 +7393,7 @@
     {
       "name": "Keegan Kane",
       "year": 1991,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 7.0,
         "gs": 0.0,
@@ -7439,7 +7439,7 @@
     {
       "name": "Gary Trost",
       "year": 1992,
-      "class": "Senior",
+      "class": "Junior",
       "totals": {
         "g": 31.0,
         "gs": 31.0,
@@ -7485,7 +7485,7 @@
     {
       "name": "Kevin Nixon",
       "year": 1992,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 32.0,
         "gs": 27.0,
@@ -7531,7 +7531,7 @@
     {
       "name": "Nick Sanderson",
       "year": 1992,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 31.0,
         "gs": 0.0,
@@ -7715,7 +7715,7 @@
     {
       "name": "Jared Miller",
       "year": 1992,
-      "class": "Sophomore",
+      "class": "Junior",
       "totals": {
         "g": 28.0,
         "gs": 22.0,
@@ -7761,7 +7761,7 @@
     {
       "name": "John Fish",
       "year": 1992,
-      "class": "Senior",
+      "class": "Sophomore",
       "totals": {
         "g": 27.0,
         "gs": 9.0,
@@ -7853,7 +7853,7 @@
     {
       "name": "Mark Santiago",
       "year": 1992,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 31.0,
         "gs": 1.0,
@@ -7899,7 +7899,7 @@
     {
       "name": "Robert Jones",
       "year": 1992,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 9.0,
         "gs": 1.0,
@@ -7945,7 +7945,7 @@
     {
       "name": "Kurt Christensen",
       "year": 1992,
-      "class": "Freshman",
+      "class": "Sophomore",
       "totals": {
         "g": 8.0,
         "gs": 0.0,
@@ -8083,7 +8083,7 @@
     {
       "name": "Steve Waldrip",
       "year": 1992,
-      "class": "Freshman",
+      "class": "Sophomore",
       "totals": {
         "g": 1.0,
         "gs": 0.0,
@@ -8221,7 +8221,7 @@
     {
       "name": "Nick Sanderson",
       "year": 1993,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 34.0,
         "gs": 34.0,
@@ -8267,7 +8267,7 @@
     {
       "name": "Jared Miller",
       "year": 1993,
-      "class": "Junior",
+      "class": "Senior",
       "totals": {
         "g": 34.0,
         "gs": 15.0,
@@ -8405,7 +8405,7 @@
     {
       "name": "Kevin Nixon",
       "year": 1993,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 26.0,
         "gs": 6.0,
@@ -8451,7 +8451,7 @@
     {
       "name": "Mark Durrant",
       "year": 1993,
-      "class": "Senior",
+      "class": "Sophomore",
       "totals": {
         "g": 34.0,
         "gs": 14.0,
@@ -8589,7 +8589,7 @@
     {
       "name": "Kurt Christensen",
       "year": 1993,
-      "class": "Sophomore",
+      "class": "Junior",
       "totals": {
         "g": 29.0,
         "gs": 0.0,
@@ -8681,7 +8681,7 @@
     {
       "name": "John Fish",
       "year": 1993,
-      "class": "Senior",
+      "class": "Junior",
       "totals": {
         "g": 11.0,
         "gs": 0.0,
@@ -8773,7 +8773,7 @@
     {
       "name": "Shawn Lindquist",
       "year": 1993,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 7.0,
         "gs": 0.0,
@@ -8865,7 +8865,7 @@
     {
       "name": "Kenneth Roberts",
       "year": 1994,
-      "class": "Senior",
+      "class": "Sophomore",
       "totals": {
         "g": 32.0,
         "gs": 28.0,
@@ -9049,7 +9049,7 @@
     {
       "name": "Mark Durrant",
       "year": 1994,
-      "class": "Senior",
+      "class": "Junior",
       "totals": {
         "g": 32.0,
         "gs": 0.0,
@@ -9095,7 +9095,7 @@
     {
       "name": "Craig Wilcox",
       "year": 1994,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 32.0,
         "gs": 0.0,
@@ -9141,7 +9141,7 @@
     {
       "name": "Kurt Christensen",
       "year": 1994,
-      "class": "Junior",
+      "class": "Senior",
       "totals": {
         "g": 30.0,
         "gs": 30.0,
@@ -9187,7 +9187,7 @@
     {
       "name": "Jay Thompson",
       "year": 1994,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 30.0,
         "gs": 0.0,
@@ -9279,7 +9279,7 @@
     {
       "name": "Shawn Lindquist",
       "year": 1994,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 15.0,
         "gs": 0.0,
@@ -9371,7 +9371,7 @@
     {
       "name": "Kenneth Roberts",
       "year": 1995,
-      "class": "Senior",
+      "class": "Junior",
       "totals": {
         "g": 32.0,
         "gs": 31.0,
@@ -9601,7 +9601,7 @@
     {
       "name": "Craig Wilcox",
       "year": 1995,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 32.0,
         "gs": 2.0,
@@ -9647,7 +9647,7 @@
     {
       "name": "Jeff Campbell",
       "year": 1995,
-      "class": "Senior",
+      "class": "Sophomore",
       "totals": {
         "g": 30.0,
         "gs": 0.0,
@@ -9693,7 +9693,7 @@
     {
       "name": "Corey Reader",
       "year": 1995,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 24.0,
         "gs": 0.0,
@@ -9831,7 +9831,7 @@
     {
       "name": "Bryan Hofheins",
       "year": 1995,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 7.0,
         "gs": 0.0,
@@ -9877,7 +9877,7 @@
     {
       "name": "Matt Lohner",
       "year": 1995,
-      "class": "Senior",
+      "class": "Sophomore",
       "totals": {
         "g": 6.0,
         "gs": 0.0,
@@ -10015,7 +10015,7 @@
     {
       "name": "Bryon Ruffner",
       "year": 1996,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 28.0,
         "gs": 28.0,
@@ -10107,7 +10107,7 @@
     {
       "name": "Jeff Campbell",
       "year": 1996,
-      "class": "Senior",
+      "class": "Junior",
       "totals": {
         "g": 28.0,
         "gs": 27.0,
@@ -10153,7 +10153,7 @@
     {
       "name": "Justin Weidauer",
       "year": 1996,
-      "class": "Senior",
+      "class": "Sophomore",
       "totals": {
         "g": 28.0,
         "gs": 26.0,
@@ -10337,7 +10337,7 @@
     {
       "name": "Jermaine Thompson",
       "year": 1996,
-      "class": "Freshman",
+      "class": "Senior",
       "totals": {
         "g": 19.0,
         "gs": 1.0,
@@ -10383,7 +10383,7 @@
     {
       "name": "Jarkko Ahlbom",
       "year": 1996,
-      "class": "Freshman",
+      "class": "Sophomore",
       "totals": {
         "g": 17.0,
         "gs": 0.0,
@@ -10475,7 +10475,7 @@
     {
       "name": "Matt Lohner",
       "year": 1996,
-      "class": "Senior",
+      "class": "Junior",
       "totals": {
         "g": 3.0,
         "gs": 0.0,
@@ -10521,7 +10521,7 @@
     {
       "name": "Bryan Hofheins",
       "year": 1996,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 6.0,
         "gs": 0.0,
@@ -10567,7 +10567,7 @@
     {
       "name": "Chris Stock",
       "year": 1996,
-      "class": "Freshman",
+      "class": "Sophomore",
       "totals": {
         "g": 2.0,
         "gs": 0.0,
@@ -10613,7 +10613,7 @@
     {
       "name": "Chad Fister",
       "year": 1996,
-      "class": "Freshman",
+      "class": "Sophomore",
       "totals": {
         "g": 2.0,
         "gs": 0.0,
@@ -10659,7 +10659,7 @@
     {
       "name": "Jeff Campbell",
       "year": 1997,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 25.0,
         "gs": 24.0,
@@ -10797,7 +10797,7 @@
     {
       "name": "Justin Weidauer",
       "year": 1997,
-      "class": "Senior",
+      "class": "Junior",
       "totals": {
         "g": 19.0,
         "gs": 19.0,
@@ -11257,7 +11257,7 @@
     {
       "name": "Jarkko Ahlbom",
       "year": 1997,
-      "class": "Sophomore",
+      "class": "Junior",
       "totals": {
         "g": 1.0,
         "gs": 1.0,
@@ -11303,7 +11303,7 @@
     {
       "name": "Nick Taggart",
       "year": 1997,
-      "class": "Freshman",
+      "class": "Sophomore",
       "totals": {
         "g": 12.0,
         "gs": 0.0,
@@ -11395,7 +11395,7 @@
     {
       "name": "Ron Selleaze",
       "year": 1998,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 21.0,
         "gs": 20.0,
@@ -11441,7 +11441,7 @@
     {
       "name": "Danny Bower",
       "year": 1998,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 30.0,
         "gs": 19.0,
@@ -11487,7 +11487,7 @@
     {
       "name": "Justin Weidauer",
       "year": 1998,
-      "class": null,
+      "class": "Senior",
       "totals": {
         "g": 30.0,
         "gs": 24.0,
@@ -11533,7 +11533,7 @@
     {
       "name": "Brian Hamilton",
       "year": 1998,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 30.0,
         "gs": 16.0,
@@ -11579,7 +11579,7 @@
     {
       "name": "Brian Dignan",
       "year": 1998,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 27.0,
         "gs": 19.0,
@@ -11625,7 +11625,7 @@
     {
       "name": "Bret Jepsen",
       "year": 1998,
-      "class": "Senior",
+      "class": "Sophomore",
       "totals": {
         "g": 27.0,
         "gs": 11.0,
@@ -11809,7 +11809,7 @@
     {
       "name": "Jared Peterson",
       "year": 1998,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 17.0,
         "gs": 1.0,
@@ -12131,7 +12131,7 @@
     {
       "name": "Michael Vranes",
       "year": 1999,
-      "class": "Junior",
+      "class": "Freshman",
       "totals": {
         "g": 28.0,
         "gs": 25.0,
@@ -12177,7 +12177,7 @@
     {
       "name": "Silester Rivers",
       "year": 1999,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 27.0,
         "gs": 22.0,
@@ -12223,7 +12223,7 @@
     {
       "name": "Nathan Cooper",
       "year": 1999,
-      "class": "Senior",
+      "class": "Sophomore",
       "totals": {
         "g": 28.0,
         "gs": 23.0,
@@ -12315,7 +12315,7 @@
     {
       "name": "Todd Christensen",
       "year": 1999,
-      "class": "Senior",
+      "class": "Sophomore",
       "totals": {
         "g": 27.0,
         "gs": 11.0,
@@ -12361,7 +12361,7 @@
     {
       "name": "Bret Jepsen",
       "year": 1999,
-      "class": "Senior",
+      "class": "Junior",
       "totals": {
         "g": 24.0,
         "gs": 9.0,
@@ -12407,7 +12407,7 @@
     {
       "name": "Brian Dignan",
       "year": 1999,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 28.0,
         "gs": 4.0,
@@ -12453,7 +12453,7 @@
     {
       "name": "Mark Michaelis",
       "year": 1999,
-      "class": "Freshman",
+      "class": "Sophomore",
       "totals": {
         "g": 28.0,
         "gs": 2.0,
@@ -12499,7 +12499,7 @@
     {
       "name": "Danny Bower",
       "year": 1999,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 20.0,
         "gs": 0.0,
@@ -12545,7 +12545,7 @@
     {
       "name": "Jacob Hawkins",
       "year": 1999,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 24.0,
         "gs": 0.0,
@@ -12637,7 +12637,7 @@
     {
       "name": "Nate Chappell",
       "year": 1999,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 13.0,
         "gs": 0.0,
@@ -12729,7 +12729,7 @@
     {
       "name": "Terrell Lyday",
       "year": 2000,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 33.0,
         "gs": 33.0,
@@ -12821,7 +12821,7 @@
     {
       "name": "Michael Vranes",
       "year": 2000,
-      "class": "Senior",
+      "class": "Sophomore",
       "totals": {
         "g": 33.0,
         "gs": 33.0,
@@ -12867,7 +12867,7 @@
     {
       "name": "Eric Nielsen",
       "year": 2000,
-      "class": "Senior",
+      "class": "Sophomore",
       "totals": {
         "g": 33.0,
         "gs": 28.0,
@@ -12913,7 +12913,7 @@
     {
       "name": "Todd Christensen",
       "year": 2000,
-      "class": "Senior",
+      "class": "Junior",
       "totals": {
         "g": 33.0,
         "gs": 7.0,
@@ -12959,7 +12959,7 @@
     {
       "name": "Nathan Cooper",
       "year": 2000,
-      "class": "Senior",
+      "class": "Junior",
       "totals": {
         "g": 33.0,
         "gs": 7.0,
@@ -13005,7 +13005,7 @@
     {
       "name": "Silester Rivers",
       "year": 2000,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 25.0,
         "gs": 4.0,
@@ -13051,7 +13051,7 @@
     {
       "name": "Matt Montague",
       "year": 2000,
-      "class": "Senior",
+      "class": "Sophomore",
       "totals": {
         "g": 33.0,
         "gs": 19.0,
@@ -13327,7 +13327,7 @@
     {
       "name": "Joe Ellsworth",
       "year": 2000,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 8.0,
         "gs": 0.0,
@@ -13373,7 +13373,7 @@
     {
       "name": "Nick Taggart",
       "year": 2000,
-      "class": "Senior",
+      "class": "Junior",
       "totals": {
         "g": 10.0,
         "gs": 0.0,
@@ -13465,7 +13465,7 @@
     {
       "name": "Terrell Lyday",
       "year": 2001,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 33.0,
         "gs": 33.0,
@@ -13511,7 +13511,7 @@
     {
       "name": "Trent Whiting",
       "year": 2001,
-      "class": "Freshman",
+      "class": "Senior",
       "totals": {
         "g": 26.0,
         "gs": 25.0,
@@ -13557,7 +13557,7 @@
     {
       "name": "Eric Nielsen",
       "year": 2001,
-      "class": "Senior",
+      "class": "Junior",
       "totals": {
         "g": 33.0,
         "gs": 27.0,
@@ -13649,7 +13649,7 @@
     {
       "name": "Travis Hansen",
       "year": 2001,
-      "class": "Freshman",
+      "class": "Sophomore",
       "totals": {
         "g": 24.0,
         "gs": 9.0,
@@ -13787,7 +13787,7 @@
     {
       "name": "Matt Montague",
       "year": 2001,
-      "class": "Senior",
+      "class": "Junior",
       "totals": {
         "g": 33.0,
         "gs": 12.0,
@@ -13833,7 +13833,7 @@
     {
       "name": "Nate Knight",
       "year": 2001,
-      "class": "Freshman",
+      "class": "Senior",
       "totals": {
         "g": 26.0,
         "gs": 5.0,
@@ -13925,7 +13925,7 @@
     {
       "name": "Dan Howard",
       "year": 2001,
-      "class": "Sophomore",
+      "class": "Freshman",
       "totals": {
         "g": 14.0,
         "gs": 0.0,
@@ -13971,7 +13971,7 @@
     {
       "name": "Ty Shippen",
       "year": 2001,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 11.0,
         "gs": 0.0,
@@ -14063,7 +14063,7 @@
     {
       "name": "Travis Hansen",
       "year": 2002,
-      "class": "Sophomore",
+      "class": "Junior",
       "totals": {
         "g": 30.0,
         "gs": 30.0,
@@ -14109,7 +14109,7 @@
     {
       "name": "Mark Bigelow",
       "year": 2002,
-      "class": "Senior",
+      "class": "Sophomore",
       "totals": {
         "g": 30.0,
         "gs": 30.0,
@@ -14385,7 +14385,7 @@
     {
       "name": "Jon Carlisle",
       "year": 2002,
-      "class": "Freshman",
+      "class": "Sophomore",
       "totals": {
         "g": 24.0,
         "gs": 1.0,
@@ -14431,7 +14431,7 @@
     {
       "name": "Dan Howard",
       "year": 2002,
-      "class": "Junior",
+      "class": "Sophomore",
       "totals": {
         "g": 21.0,
         "gs": 4.0,
@@ -14477,7 +14477,7 @@
     {
       "name": "Bart Jepsen",
       "year": 2002,
-      "class": "Senior",
+      "class": "Sophomore",
       "totals": {
         "g": 30.0,
         "gs": 0.0,
@@ -14661,7 +14661,7 @@
     {
       "name": "Travis Hansen",
       "year": 2003,
-      "class": "Junior",
+      "class": "Senior",
       "totals": {
         "g": 32.0,
         "gs": 32.0,
@@ -14707,7 +14707,7 @@
     {
       "name": "Mark Bigelow",
       "year": 2003,
-      "class": "Senior",
+      "class": "Junior",
       "totals": {
         "g": 32.0,
         "gs": 31.0,
@@ -14753,7 +14753,7 @@
     {
       "name": "Rafael Araujo",
       "year": 2003,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 32.0,
         "gs": 32.0,
@@ -14845,7 +14845,7 @@
     {
       "name": "Kevin Woodberry",
       "year": 2003,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 32.0,
         "gs": 26.0,
@@ -14891,7 +14891,7 @@
     {
       "name": "Ricky Bower",
       "year": 2003,
-      "class": "Freshman",
+      "class": "Senior",
       "totals": {
         "g": 32.0,
         "gs": 6.0,
@@ -14937,7 +14937,7 @@
     {
       "name": "Jake Shoff",
       "year": 2003,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 30.0,
         "gs": 2.0,
@@ -15029,7 +15029,7 @@
     {
       "name": "John Allen",
       "year": 2003,
-      "class": "Senior",
+      "class": "Sophomore",
       "totals": {
         "g": 25.0,
         "gs": 0.0,
@@ -15075,7 +15075,7 @@
     {
       "name": "Luiz Lemes",
       "year": 2003,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 27.0,
         "gs": 0.0,
@@ -15121,7 +15121,7 @@
     {
       "name": "Dan Howard",
       "year": 2003,
-      "class": "Senior",
+      "class": "Junior",
       "totals": {
         "g": 24.0,
         "gs": 0.0,
@@ -15167,7 +15167,7 @@
     {
       "name": "Marc Roberts",
       "year": 2003,
-      "class": "Senior",
+      "class": "Sophomore",
       "totals": {
         "g": 12.0,
         "gs": 0.0,
@@ -15213,7 +15213,7 @@
     {
       "name": "Bart Jepsen",
       "year": 2003,
-      "class": "Senior",
+      "class": "Junior",
       "totals": {
         "g": 19.0,
         "gs": 0.0,
@@ -15259,7 +15259,7 @@
     {
       "name": "Rafael Araujo",
       "year": 2004,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 30.0,
         "gs": 30.0,
@@ -15351,7 +15351,7 @@
     {
       "name": "Michael Hall",
       "year": 2004,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 30.0,
         "gs": 28.0,
@@ -15397,7 +15397,7 @@
     {
       "name": "Luiz Lemes",
       "year": 2004,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 30.0,
         "gs": 30.0,
@@ -15443,7 +15443,7 @@
     {
       "name": "Kevin Woodberry",
       "year": 2004,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 30.0,
         "gs": 5.0,
@@ -15627,7 +15627,7 @@
     {
       "name": "Jake Shoff",
       "year": 2004,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 27.0,
         "gs": 0.0,
@@ -15765,7 +15765,7 @@
     {
       "name": "Marc Roberts",
       "year": 2004,
-      "class": "Senior",
+      "class": "Junior",
       "totals": {
         "g": 5.0,
         "gs": 0.0,
@@ -15857,7 +15857,7 @@
     {
       "name": "Michael Hall",
       "year": 2005,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 30.0,
         "gs": 30.0,
@@ -16041,7 +16041,7 @@
     {
       "name": "Keena Young",
       "year": 2005,
-      "class": "Freshman",
+      "class": "Sophomore",
       "totals": {
         "g": 25.0,
         "gs": 15.0,
@@ -16087,7 +16087,7 @@
     {
       "name": "Jimmy Balderson",
       "year": 2005,
-      "class": "Senior",
+      "class": "Sophomore",
       "totals": {
         "g": 25.0,
         "gs": 16.0,
@@ -16133,7 +16133,7 @@
     {
       "name": "Derek Dawes",
       "year": 2005,
-      "class": "Senior",
+      "class": "Sophomore",
       "totals": {
         "g": 29.0,
         "gs": 13.0,
@@ -16271,7 +16271,7 @@
     {
       "name": "Sam Burgess",
       "year": 2005,
-      "class": "Freshman",
+      "class": "Sophomore",
       "totals": {
         "g": 27.0,
         "gs": 1.0,
@@ -16363,7 +16363,7 @@
     {
       "name": "Brock Reichner",
       "year": 2005,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 13.0,
         "gs": 2.0,
@@ -16409,7 +16409,7 @@
     {
       "name": "Joshua Burgess",
       "year": 2005,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 5.0,
         "gs": 0.0,
@@ -16501,7 +16501,7 @@
     {
       "name": "Josh Reisman",
       "year": 2005,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 1.0,
         "gs": 0.0,
@@ -16593,7 +16593,7 @@
     {
       "name": "Trent Plaisted",
       "year": 2006,
-      "class": "Sophomore",
+      "class": "Freshman",
       "totals": {
         "g": 29.0,
         "gs": 29.0,
@@ -16639,7 +16639,7 @@
     {
       "name": "Brock Reichner",
       "year": 2006,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 29.0,
         "gs": 27.0,
@@ -16685,7 +16685,7 @@
     {
       "name": "Keena Young",
       "year": 2006,
-      "class": "Sophomore",
+      "class": "Junior",
       "totals": {
         "g": 29.0,
         "gs": 14.0,
@@ -16731,7 +16731,7 @@
     {
       "name": "Jimmy Balderson",
       "year": 2006,
-      "class": "Senior",
+      "class": "Junior",
       "totals": {
         "g": 29.0,
         "gs": 10.0,
@@ -16777,7 +16777,7 @@
     {
       "name": "Rashaun Broadus",
       "year": 2006,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 28.0,
         "gs": 26.0,
@@ -16823,7 +16823,7 @@
     {
       "name": "Fernando Malaman",
       "year": 2006,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 29.0,
         "gs": 15.0,
@@ -17053,7 +17053,7 @@
     {
       "name": "Derek Dawes",
       "year": 2006,
-      "class": "Senior",
+      "class": "Junior",
       "totals": {
         "g": 19.0,
         "gs": 0.0,
@@ -17099,7 +17099,7 @@
     {
       "name": "David Burgess",
       "year": 2006,
-      "class": "Sophomore",
+      "class": "Freshman",
       "totals": {
         "g": 3.0,
         "gs": 0.0,
@@ -17191,7 +17191,7 @@
     {
       "name": "Keena Young",
       "year": 2007,
-      "class": "Junior",
+      "class": "Senior",
       "totals": {
         "g": 34.0,
         "gs": 34.0,
@@ -17237,7 +17237,7 @@
     {
       "name": "Trent Plaisted",
       "year": 2007,
-      "class": "Junior",
+      "class": "Sophomore",
       "totals": {
         "g": 34.0,
         "gs": 33.0,
@@ -17559,7 +17559,7 @@
     {
       "name": "Rashaun Broadus",
       "year": 2007,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 15.0,
         "gs": 11.0,
@@ -17605,7 +17605,7 @@
     {
       "name": "Fernando Malaman",
       "year": 2007,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 25.0,
         "gs": 0.0,
@@ -17651,7 +17651,7 @@
     {
       "name": "Vuk Ivanovic",
       "year": 2007,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 24.0,
         "gs": 1.0,
@@ -17697,7 +17697,7 @@
     {
       "name": "Ben Murdock",
       "year": 2007,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 31.0,
         "gs": 0.0,
@@ -17743,7 +17743,7 @@
     {
       "name": "Gavin MacGregor",
       "year": 2007,
-      "class": "Freshman",
+      "class": "Sophomore",
       "totals": {
         "g": 11.0,
         "gs": 0.0,
@@ -17835,7 +17835,7 @@
     {
       "name": "Trent Plaisted",
       "year": 2008,
-      "class": "Senior",
+      "class": "Junior",
       "totals": {
         "g": 35.0,
         "gs": 35.0,
@@ -18019,7 +18019,7 @@
     {
       "name": "Ben Murdock",
       "year": 2008,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 35.0,
         "gs": 35.0,
@@ -18111,7 +18111,7 @@
     {
       "name": "Chris Miles",
       "year": 2008,
-      "class": "Senior",
+      "class": "Sophomore",
       "totals": {
         "g": 34.0,
         "gs": 0.0,
@@ -18157,7 +18157,7 @@
     {
       "name": "Michael Loyd Jr.",
       "year": 2008,
-      "class": "Freshman",
+      "class": null,
       "totals": {
         "g": 32.0,
         "gs": 0.0,
@@ -18203,7 +18203,7 @@
     {
       "name": "Vuk Ivanovic",
       "year": 2008,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 15.0,
         "gs": 0.0,
@@ -18249,7 +18249,7 @@
     {
       "name": "Archie Rose",
       "year": 2008,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 20.0,
         "gs": 0.0,
@@ -18479,7 +18479,7 @@
     {
       "name": "Jackson Emery",
       "year": 2009,
-      "class": "Senior",
+      "class": "Sophomore",
       "totals": {
         "g": 33.0,
         "gs": 32.0,
@@ -18525,7 +18525,7 @@
     {
       "name": "Chris Miles",
       "year": 2009,
-      "class": "Senior",
+      "class": "Junior",
       "totals": {
         "g": 33.0,
         "gs": 33.0,
@@ -18571,7 +18571,7 @@
     {
       "name": "Lamont Morgan Jr.",
       "year": 2009,
-      "class": "Freshman",
+      "class": null,
       "totals": {
         "g": 33.0,
         "gs": 1.0,
@@ -18755,7 +18755,7 @@
     {
       "name": "Gavin MacGregor",
       "year": 2009,
-      "class": "Junior",
+      "class": "Senior",
       "totals": {
         "g": 19.0,
         "gs": 0.0,
@@ -18801,7 +18801,7 @@
     {
       "name": "Archie Rose",
       "year": 2009,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 17.0,
         "gs": 0.0,
@@ -18939,7 +18939,7 @@
     {
       "name": "Jackson Emery",
       "year": 2010,
-      "class": "Senior",
+      "class": "Junior",
       "totals": {
         "g": 35.0,
         "gs": 35.0,
@@ -19169,7 +19169,7 @@
     {
       "name": "Michael Loyd Jr.",
       "year": 2010,
-      "class": "Junior",
+      "class": null,
       "totals": {
         "g": 36.0,
         "gs": 2.0,
@@ -19307,7 +19307,7 @@
     {
       "name": "Lamont Morgan Jr.",
       "year": 2010,
-      "class": "Sophomore",
+      "class": null,
       "totals": {
         "g": 26.0,
         "gs": 2.0,
@@ -19445,7 +19445,7 @@
     {
       "name": "Logan Magnusson",
       "year": 2010,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 23.0,
         "gs": 0.0,
@@ -19767,7 +19767,7 @@
     {
       "name": "Stephen Rogers",
       "year": 2011,
-      "class": "Freshman",
+      "class": "Sophomore",
       "totals": {
         "g": 36.0,
         "gs": 0.0,
@@ -19813,7 +19813,7 @@
     {
       "name": "Logan Magnusson",
       "year": 2011,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 35.0,
         "gs": 0.0,
@@ -19859,7 +19859,7 @@
     {
       "name": "Chris Collinsworth",
       "year": 2011,
-      "class": "Senior",
+      "class": "Sophomore",
       "totals": {
         "g": 9.0,
         "gs": 4.0,
@@ -19997,7 +19997,7 @@
     {
       "name": "Nick Martineau",
       "year": 2011,
-      "class": "Senior",
+      "class": "Sophomore",
       "totals": {
         "g": 25.0,
         "gs": 0.0,
@@ -20365,7 +20365,7 @@
     {
       "name": "Craig Cusick",
       "year": 2012,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 35.0,
         "gs": 3.0,
@@ -20411,7 +20411,7 @@
     {
       "name": "Stephen Rogers",
       "year": 2012,
-      "class": "Sophomore",
+      "class": "Junior",
       "totals": {
         "g": 18.0,
         "gs": 2.0,
@@ -20549,7 +20549,7 @@
     {
       "name": "Nick Martineau",
       "year": 2012,
-      "class": "Senior",
+      "class": "Junior",
       "totals": {
         "g": 19.0,
         "gs": 0.0,
@@ -20595,7 +20595,7 @@
     {
       "name": "Chris Collinsworth",
       "year": 2012,
-      "class": "Senior",
+      "class": "Sophomore",
       "totals": {
         "g": 2.0,
         "gs": 0.0,
@@ -20641,7 +20641,7 @@
     {
       "name": "Tyler Haws",
       "year": 2013,
-      "class": "Senior",
+      "class": "Sophomore",
       "totals": {
         "g": 36.0,
         "gs": 36.0,
@@ -20871,7 +20871,7 @@
     {
       "name": "Craig Cusick",
       "year": 2013,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 36.0,
         "gs": 12.0,
@@ -21009,7 +21009,7 @@
     {
       "name": "Agustin Ambrosino",
       "year": 2013,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 31.0,
         "gs": 1.0,
@@ -21101,7 +21101,7 @@
     {
       "name": "Raul Delgado",
       "year": 2013,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 26.0,
         "gs": 0.0,
@@ -21239,7 +21239,7 @@
     {
       "name": "Tyler Haws",
       "year": 2014,
-      "class": "Senior",
+      "class": "Junior",
       "totals": {
         "g": 33.0,
         "gs": 33.0,
@@ -21331,7 +21331,7 @@
     {
       "name": "Kyle Collinsworth",
       "year": 2014,
-      "class": "Senior",
+      "class": "Sophomore",
       "totals": {
         "g": 34.0,
         "gs": 33.0,
@@ -21423,7 +21423,7 @@
     {
       "name": "Skyler Halford",
       "year": 2014,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 35.0,
         "gs": 13.0,
@@ -21699,7 +21699,7 @@
     {
       "name": "Andrew Johnston",
       "year": 2014,
-      "class": "Freshman",
+      "class": "Sophomore",
       "totals": {
         "g": 9.0,
         "gs": 0.0,
@@ -21837,7 +21837,7 @@
     {
       "name": "Kyle Collinsworth",
       "year": 2015,
-      "class": "Senior",
+      "class": "Junior",
       "totals": {
         "g": 33.0,
         "gs": 33.0,
@@ -21883,7 +21883,7 @@
     {
       "name": "Chase Fischer",
       "year": 2015,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 34.0,
         "gs": 33.0,
@@ -21975,7 +21975,7 @@
     {
       "name": "Skyler Halford",
       "year": 2015,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 34.0,
         "gs": 4.0,
@@ -22435,7 +22435,7 @@
     {
       "name": "Jordan Ellis",
       "year": 2015,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 16.0,
         "gs": 1.0,
@@ -22481,7 +22481,7 @@
     {
       "name": "Chase Fischer",
       "year": 2016,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 37.0,
         "gs": 37.0,
@@ -22619,7 +22619,7 @@
     {
       "name": "Kyle Davis",
       "year": 2016,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 37.0,
         "gs": 37.0,
@@ -22849,7 +22849,7 @@
     {
       "name": "Jamal Aytes",
       "year": 2016,
-      "class": "Freshman",
+      "class": "Sophomore",
       "totals": {
         "g": 22.0,
         "gs": 0.0,
@@ -22987,7 +22987,7 @@
     {
       "name": "Davin Guinn",
       "year": 2016,
-      "class": "Freshman",
+      "class": "Sophomore",
       "totals": {
         "g": 8.0,
         "gs": 0.0,
@@ -23079,7 +23079,7 @@
     {
       "name": "Cory Calvert",
       "year": 2016,
-      "class": "Senior",
+      "class": "Sophomore",
       "totals": {
         "g": 5.0,
         "gs": 0.0,
@@ -23171,7 +23171,7 @@
     {
       "name": "Eric Mika",
       "year": 2017,
-      "class": "Senior",
+      "class": "Sophomore",
       "totals": {
         "g": 34.0,
         "gs": 34.0,
@@ -23355,7 +23355,7 @@
     {
       "name": "Elijah Bryant",
       "year": 2017,
-      "class": "Freshman",
+      "class": "Sophomore",
       "totals": {
         "g": 23.0,
         "gs": 9.0,
@@ -23401,7 +23401,7 @@
     {
       "name": "L.J. Rose",
       "year": 2017,
-      "class": "Freshman",
+      "class": "Senior",
       "totals": {
         "g": 25.0,
         "gs": 25.0,
@@ -23447,7 +23447,7 @@
     {
       "name": "Kyle Davis",
       "year": 2017,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 11.0,
         "gs": 6.0,
@@ -23493,7 +23493,7 @@
     {
       "name": "Davin Guinn",
       "year": 2017,
-      "class": "Sophomore",
+      "class": "Junior",
       "totals": {
         "g": 33.0,
         "gs": 1.0,
@@ -23585,7 +23585,7 @@
     {
       "name": "Jamal Aytes",
       "year": 2017,
-      "class": "Sophomore",
+      "class": "Junior",
       "totals": {
         "g": 27.0,
         "gs": 0.0,
@@ -23861,7 +23861,7 @@
     {
       "name": "Elijah Bryant",
       "year": 2018,
-      "class": "Sophomore",
+      "class": "Junior",
       "totals": {
         "g": 35.0,
         "gs": 34.0,
@@ -23999,7 +23999,7 @@
     {
       "name": "Jashire Hardnett",
       "year": 2018,
-      "class": "Freshman",
+      "class": "Sophomore",
       "totals": {
         "g": 35.0,
         "gs": 32.0,
@@ -24045,7 +24045,7 @@
     {
       "name": "Zac Seljaas",
       "year": 2018,
-      "class": "Junior",
+      "class": "Sophomore",
       "totals": {
         "g": 35.0,
         "gs": 11.0,
@@ -24091,7 +24091,7 @@
     {
       "name": "Luke Worthington",
       "year": 2018,
-      "class": "Senior",
+      "class": "Junior",
       "totals": {
         "g": 35.0,
         "gs": 29.0,
@@ -24137,7 +24137,7 @@
     {
       "name": "Dalton Nixon",
       "year": 2018,
-      "class": "Senior",
+      "class": "Sophomore",
       "totals": {
         "g": 23.0,
         "gs": 0.0,
@@ -24229,7 +24229,7 @@
     {
       "name": "McKay Cannon",
       "year": 2018,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 29.0,
         "gs": 0.0,
@@ -24321,7 +24321,7 @@
     {
       "name": "Kajon Brown",
       "year": 2018,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 9.0,
         "gs": 0.0,
@@ -24367,7 +24367,7 @@
     {
       "name": "Evan Troy",
       "year": 2018,
-      "class": "Freshman",
+      "class": "Sophomore",
       "totals": {
         "g": 12.0,
         "gs": 0.0,
@@ -24551,7 +24551,7 @@
     {
       "name": "Zac Seljaas",
       "year": 2019,
-      "class": "Senior",
+      "class": "Junior",
       "totals": {
         "g": 32.0,
         "gs": 14.0,
@@ -24643,7 +24643,7 @@
     {
       "name": "Jashire Hardnett",
       "year": 2019,
-      "class": "Sophomore",
+      "class": "Junior",
       "totals": {
         "g": 20.0,
         "gs": 15.0,
@@ -24689,7 +24689,7 @@
     {
       "name": "Nick Emery",
       "year": 2019,
-      "class": "Senior",
+      "class": "Junior",
       "totals": {
         "g": 23.0,
         "gs": 8.0,
@@ -24781,7 +24781,7 @@
     {
       "name": "McKay Cannon",
       "year": 2019,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 32.0,
         "gs": 18.0,
@@ -24873,7 +24873,7 @@
     {
       "name": "Dalton Nixon",
       "year": 2019,
-      "class": "Senior",
+      "class": "Junior",
       "totals": {
         "g": 25.0,
         "gs": 8.0,
@@ -25011,7 +25011,7 @@
     {
       "name": "Evan Troy",
       "year": 2019,
-      "class": "Sophomore",
+      "class": "Junior",
       "totals": {
         "g": 12.0,
         "gs": 0.0,
@@ -25057,7 +25057,7 @@
     {
       "name": "Taylor Maughan",
       "year": 2019,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 14.0,
         "gs": 0.0,
@@ -25517,7 +25517,7 @@
     {
       "name": "Blaze Nield",
       "year": 2020,
-      "class": "Freshman",
+      "class": "Sophomore",
       "totals": {
         "g": 18.0,
         "gs": 0.0,
@@ -25563,7 +25563,7 @@
     {
       "name": "Evan Troy",
       "year": 2020,
-      "class": "Junior",
+      "class": "Senior",
       "totals": {
         "g": 22.0,
         "gs": 0.0,
@@ -25655,7 +25655,7 @@
     {
       "name": "Taylor Maughan",
       "year": 2020,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 17.0,
         "gs": 0.0,
@@ -25793,7 +25793,7 @@
     {
       "name": "Brandon Averette",
       "year": 2021,
-      "class": "Freshman",
+      "class": "Senior",
       "totals": {
         "g": 27.0,
         "gs": 27.0,
@@ -25839,7 +25839,7 @@
     {
       "name": "Matt Haarms",
       "year": 2021,
-      "class": "Freshman",
+      "class": "Senior",
       "totals": {
         "g": 25.0,
         "gs": 24.0,
@@ -25977,7 +25977,7 @@
     {
       "name": "Richard Harward",
       "year": 2021,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 27.0,
         "gs": 0.0,
@@ -26023,7 +26023,7 @@
     {
       "name": "Gideon George",
       "year": 2021,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 27.0,
         "gs": 9.0,
@@ -26115,7 +26115,7 @@
     {
       "name": "Spencer Johnson",
       "year": 2021,
-      "class": "Freshman",
+      "class": "Sophomore",
       "totals": {
         "g": 27.0,
         "gs": 0.0,
@@ -26207,7 +26207,7 @@
     {
       "name": "Wyatt Lowell",
       "year": 2021,
-      "class": "Freshman",
+      "class": "Sophomore",
       "totals": {
         "g": 7.0,
         "gs": 0.0,
@@ -26299,7 +26299,7 @@
     {
       "name": "Jesse Wade",
       "year": 2021,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 9.0,
         "gs": 0.0,
@@ -26391,7 +26391,7 @@
     {
       "name": "Brandon Warr",
       "year": 2021,
-      "class": "Freshman",
+      "class": "Senior",
       "totals": {
         "g": 3.0,
         "gs": 0.0,
@@ -26529,7 +26529,7 @@
     {
       "name": "Te'Jon Lucas",
       "year": 2022,
-      "class": "Freshman",
+      "class": "Senior",
       "totals": {
         "g": 34.0,
         "gs": 34.0,
@@ -26621,7 +26621,7 @@
     {
       "name": "Gideon George",
       "year": 2022,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 33.0,
         "gs": 18.0,
@@ -26759,7 +26759,7 @@
     {
       "name": "Seneca Knight",
       "year": 2022,
-      "class": "Freshman",
+      "class": "Senior",
       "totals": {
         "g": 27.0,
         "gs": 8.0,
@@ -26805,7 +26805,7 @@
     {
       "name": "Spencer Johnson",
       "year": 2022,
-      "class": "Sophomore",
+      "class": "Junior",
       "totals": {
         "g": 34.0,
         "gs": 0.0,
@@ -27127,7 +27127,7 @@
     {
       "name": "Richard Harward",
       "year": 2022,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 1.0,
         "gs": 0.0,
@@ -27173,7 +27173,7 @@
     {
       "name": "Rudi Williams",
       "year": 2023,
-      "class": "Freshman",
+      "class": "Senior",
       "totals": {
         "g": 34.0,
         "gs": 13.0,
@@ -27265,7 +27265,7 @@
     {
       "name": "Gideon George",
       "year": 2023,
-      "class": "Junior",
+      "class": "Senior",
       "totals": {
         "g": 34.0,
         "gs": 34.0,
@@ -27311,7 +27311,7 @@
     {
       "name": "Jaxson Robinson",
       "year": 2023,
-      "class": "Freshman",
+      "class": "Sophomore",
       "totals": {
         "g": 33.0,
         "gs": 30.0,
@@ -27357,7 +27357,7 @@
     {
       "name": "Spencer Johnson",
       "year": 2023,
-      "class": "Junior",
+      "class": "Senior",
       "totals": {
         "g": 25.0,
         "gs": 22.0,
@@ -27495,7 +27495,7 @@
     {
       "name": "Noah Waterman",
       "year": 2023,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 33.0,
         "gs": 14.0,
@@ -27679,7 +27679,7 @@
     {
       "name": "Tredyn Christensen",
       "year": 2023,
-      "class": "Freshman",
+      "class": "Senior",
       "totals": {
         "g": 9.0,
         "gs": 0.0,
@@ -27817,7 +27817,7 @@
     {
       "name": "Jaxson Robinson",
       "year": 2024,
-      "class": "Sophomore",
+      "class": "Junior",
       "totals": {
         "g": 33.0,
         "gs": 6.0,
@@ -28001,7 +28001,7 @@
     {
       "name": "Noah Waterman",
       "year": 2024,
-      "class": "Sophomore",
+      "class": "Senior",
       "totals": {
         "g": 33.0,
         "gs": 33.0,
@@ -28139,7 +28139,7 @@
     {
       "name": "Aly Khalifa",
       "year": 2024,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 29.0,
         "gs": 26.0,
@@ -28323,7 +28323,7 @@
     {
       "name": "Dawson Baker",
       "year": 2024,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 4.0,
         "gs": 0.0,
@@ -28415,7 +28415,7 @@
     {
       "name": "Marcus Adams Jr.",
       "year": 2024,
-      "class": "Freshman",
+      "class": null,
       "totals": {
         "g": 1.0,
         "gs": 0.0,
@@ -28461,7 +28461,7 @@
     {
       "name": "Tanner Hayhurst",
       "year": 2024,
-      "class": "Freshman",
+      "class": "Sophomore",
       "totals": {
         "g": 11.0,
         "gs": 0.0,
@@ -28691,7 +28691,7 @@
     {
       "name": "Dawson Baker",
       "year": 2025,
-      "class": "Sophomore",
+      "class": "Junior",
       "totals": {
         "g": 36.0,
         "gs": 0.0,
@@ -28875,7 +28875,7 @@
     {
       "name": "Mawot Mag",
       "year": 2025,
-      "class": "Freshman",
+      "class": "Senior",
       "totals": {
         "g": 34.0,
         "gs": 22.0,
@@ -29151,7 +29151,7 @@
     {
       "name": "Max Triplett",
       "year": 2025,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 8.0,
         "gs": 0.0,
@@ -29289,7 +29289,7 @@
     {
       "name": "Robert Wright III",
       "year": 2026,
-      "class": "Freshman",
+      "class": null,
       "totals": {
         "g": 35.0,
         "gs": 35.0,
@@ -29381,7 +29381,7 @@
     {
       "name": "Kennard Davis",
       "year": 2026,
-      "class": "Freshman",
+      "class": "Junior",
       "totals": {
         "g": 32.0,
         "gs": 32.0,
@@ -29519,7 +29519,7 @@
     {
       "name": "Mihailo Boskovic",
       "year": 2026,
-      "class": "Senior",
+      "class": "Junior",
       "totals": {
         "g": 34.0,
         "gs": 5.0,
@@ -29565,7 +29565,7 @@
     {
       "name": "Khadim Mboup",
       "year": 2026,
-      "class": "Freshman",
+      "class": "Sophomore",
       "totals": {
         "g": 34.0,
         "gs": 2.0,
@@ -29611,7 +29611,7 @@
     {
       "name": "Tyler Mrus",
       "year": 2026,
-      "class": "Freshman",
+      "class": "Senior",
       "totals": {
         "g": 27.0,
         "gs": 0.0,
@@ -29657,7 +29657,7 @@
     {
       "name": "Dominique Diomande",
       "year": 2026,
-      "class": "Freshman",
+      "class": "Sophomore",
       "totals": {
         "g": 24.0,
         "gs": 0.0,
@@ -29703,7 +29703,7 @@
     {
       "name": "Dawson Baker",
       "year": 2026,
-      "class": "Junior",
+      "class": "Senior",
       "totals": {
         "g": 6.0,
         "gs": 2.0,
