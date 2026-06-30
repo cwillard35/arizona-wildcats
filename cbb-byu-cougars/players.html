@@ -706,7 +706,7 @@
   <div class="stat-chip"><div class="num" id="nbaCount">—</div><div class="label">NBA Players</div></div>
   <div class="stat-chip"><div class="num" id="aaCount">—</div><div class="label">All-Americans</div></div>
   <div class="stat-chip"><div class="num" id="mcdCount">—</div><div class="label">McDonald's AAs</div></div>
-  <div class="stat-chip"><div class="num" id="avgSuccess">—</div><div class="label">Avg Success Score</div></div>
+  <div class="stat-chip"><div class="num" id="avgSuccess">—</div><div class="label">Avg Community Score</div></div>
 </div>
 
 <div id="authBar" class="auth-bar">
@@ -1254,15 +1254,17 @@ async function init() {
     p.userVote = userVotes[p.id] || null;
   });
 
-  // Hero stats
-  const withSuccess = allPlayers.filter(p => p.success !== null && p.success > 0);
+// Hero stats
   document.getElementById('totalPlayers').textContent = allPlayers.length;
   document.getElementById('nbaCount').textContent = allPlayers.filter(p => p.nba).length;
   document.getElementById('aaCount').textContent = allPlayers.filter(p => p.allAmerican).length;
   document.getElementById('mcdCount').textContent = allPlayers.filter(p => p.mcdAA).length;
-  const avg = withSuccess.length > 0 ? withSuccess.reduce((a,p) => a + p.success, 0) / withSuccess.length : 0;
-  document.getElementById('avgSuccess').textContent = withSuccess.length > 0 ? avg.toFixed(2) : '—';
-
+  const playersWithVotes = allPlayers.filter(p => p.communityAvg !== null);
+  const avgOfAvgs = playersWithVotes.length > 0
+    ? playersWithVotes.reduce((a,p) => a + p.communityAvg, 0) / playersWithVotes.length
+    : 0;
+  document.getElementById('avgSuccess').textContent = playersWithVotes.length > 0 ? avgOfAvgs.toFixed(2) : '—';
+  
   filtered = [...allPlayers];
   render();
   bindEvents();
