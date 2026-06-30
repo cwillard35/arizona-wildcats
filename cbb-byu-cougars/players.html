@@ -1255,13 +1255,13 @@ async function init() {
   });
 
   // Hero stats
-  const withSuccess = allPlayers.filter(p => p.success !== null);
+  const withSuccess = allPlayers.filter(p => p.success !== null && p.success > 0);
   document.getElementById('totalPlayers').textContent = allPlayers.length;
   document.getElementById('nbaCount').textContent = allPlayers.filter(p => p.nba).length;
   document.getElementById('aaCount').textContent = allPlayers.filter(p => p.allAmerican).length;
   document.getElementById('mcdCount').textContent = allPlayers.filter(p => p.mcdAA).length;
-  const avg = withSuccess.reduce((a,p) => a + p.success, 0) / withSuccess.length;
-  document.getElementById('avgSuccess').textContent = avg.toFixed(2);
+  const avg = withSuccess.length > 0 ? withSuccess.reduce((a,p) => a + p.success, 0) / withSuccess.length : 0;
+  document.getElementById('avgSuccess').textContent = withSuccess.length > 0 ? avg.toFixed(2) : '—';
 
   filtered = [...allPlayers];
   render();
